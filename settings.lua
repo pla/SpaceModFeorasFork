@@ -1,29 +1,29 @@
 data:extend({
 	-- {
-		-- type = "string-setting",
-		-- name = "SpaceX-game-mode",
-		-- setting_type = "startup",
-		-- default_value = "Classic",
-		-- allowed_values = {"Classic","SpaceX Plus","SpaceX Extreme","Custom"},
-		-- admin = true,
-		-- description = "SpaceX-game-mode_des",
+	-- type = "string-setting",
+	-- name = "SpaceX-game-mode",
+	-- setting_type = "startup",
+	-- default_value = "Classic",
+	-- allowed_values = {"Classic","SpaceX Plus","SpaceX Extreme","Custom"},
+	-- admin = true,
+	-- description = "SpaceX-game-mode_des",
 	-- },
 	{
 		type = "int-setting",
 		name = "SpaceX-research",
 		setting_type = "startup",
 		default_value = 1,
-		allowed_values = {1,2,4,8,16},
+		allowed_values = { 1, 2, 4, 8, 16 },
 		admin = true,
 		description = "SpaceX-research-cost",
 		order = "1",
 	},
-	{	
+	{
 		type = "int-setting",
 		name = "SpaceX-production",
 		setting_type = "startup",
 		default_value = 1,
-		allowed_values = {1,2,4,8,16},
+		allowed_values = { 1, 2, 4, 8, 16 },
 		admin = true,
 		description = "SpaceX-production-cost",
 		order = "2",
@@ -33,7 +33,7 @@ data:extend({
 		name = "SpaceX-launch-profile",
 		setting_type = "startup",
 		default_value = "Classic",
-		allowed_values = {"Classic","Launch Mania(x5)","Launch Meglo-mania(x25)"},
+		allowed_values = { "Classic", "Launch Mania(x5)", "Launch Meglo-mania(x25)" },
 		admin = true,
 		description = "SpaceX-launch-profile",
 		order = "3",
@@ -46,7 +46,7 @@ data:extend({
 		admin = true,
 		description = "SpaceX-ignore-tech-multiplier",
 		order = "4",
-	},	
+	},
 	{
 		type = "bool-setting",
 		name = "SpaceX-no-space-sci",
@@ -55,7 +55,7 @@ data:extend({
 		admin = true,
 		description = "SpaceX-no-space-sci",
 		order = "5",
-	},	
+	},
 	{
 		type = "bool-setting",
 		name = "SpaceX-cheaper-fusion-reactor",
@@ -64,8 +64,8 @@ data:extend({
 		admin = true,
 		description = "SpaceX-cheaper-fusion-reactor",
 		order = "6",
-	},		
-		{
+	},
+	{
 		type = "bool-setting",
 		name = "SpaceX-no-bob",
 		setting_type = "startup",
@@ -74,7 +74,7 @@ data:extend({
 		description = "SpaceX-no-bob",
 		order = "7",
 	},
-	{	
+	{
 		type = "bool-setting",
 		name = "SpaceX-split-combinator",
 		setting_type = "startup",
@@ -100,5 +100,5 @@ data:extend({
 		admin = true,
 		description = "SpaceX-auto-continue",
 		order = "2",
-	},	
+	},
 })
