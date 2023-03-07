@@ -105,13 +105,14 @@ function gui_open_frame(player)
 		local launch =
 			frame.add({ type = "table", name = "launch_info", column_count = 2, style = "SpaceMod_item_table_style" })
 		launch.add({ type = "label", caption = ltext, style = "caption_label" })
-		launch.add({
+		local log_button = launch.add({
 			type = "button",
 			name = "launch_log",
 			style = mod_gui.button_style,
 			caption = { "spacex-log-caption" },
 			tooltip = { "spacex-log-tooltip" },
 		})
+		log_button.style.height = 30
 	end
 	-- TODO make a proper stage variable so that this does not have to be checked everywhere
 
