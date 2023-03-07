@@ -101,4 +101,12 @@ data:extend({
 		description = "SpaceX-auto-continue",
 		order = "2",
 	},
+	{
+		type = "bool-setting",
+		name = "SpaceX-log-days",
+		setting_type = "runtime-per-user",
+		default_value = "false",
+		description = "SpaceX-log-days",
+		order = "1",
+	},
 })

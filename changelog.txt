@@ -3,15 +3,18 @@ Version: 1.2.0
 Date: 01.04.2023
   Features:
     - Added a popup window after the first completion to give a hint about the auto-continue and disable popup option
-    - Added option to split combinator signal output. If enabled:
+    - Added startup option to split combinator signal output. If enabled:
       - Exisiting combinator will output the required item for the current
 	  stage only
       - New combinator will output the current stage as special signal S only
     - Added more strings to translation config file
+    - Added player option to display days or hours in the log
   Changes:
     - Changed GUI to only display the required items for the current stage
     - Changed GUI to display the stage number
     - Various GUI overhauls to look more aesthetic
+      - Main GUI
+      - Log GUI
   Bugfixes:
     - Fixed a bug that caused the GUI button to not be added when a mod change occures
     - Fixed the "/resetSpaceX" command to properly reset the launch progress

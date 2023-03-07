@@ -166,7 +166,8 @@ function gui_open_frame(player)
 	-- Stage 3 - Spaceship construction
 	else
 		local ship_title = frame.add({ type = "label", caption = { "ship-progress-stage" }, style = "caption_label" })
-		local gui_ship = frame.add({ type = "table", name = "ship", column_count = 2, style = "SpaceMod_item_table_style" })
+		local gui_ship =
+			frame.add({ type = "table", name = "ship", column_count = 2, style = "SpaceMod_item_table_style" })
 		gui_ship.style.column_alignments[2] = "center"
 		gui_ship.draw_horizontal_lines = true
 		gui_ship.draw_vertical_lines = true
@@ -371,46 +372,41 @@ local function gui_open_spacex_launch_gui(player)
 	end
 end
 
-local function get_launch_log()
-	global.launch_log = global.launch_log or {}
-	local seconds = 60
-	local minutes = 60 * seconds
-	local hours = 60 * minutes
-	local days = 24 * hours
+local function format_launch_log(ticks, player)
+	local seconds = math.floor(ticks / 60)
+	local minutes = math.floor(seconds / 60)
+	local hours = math.floor(minutes / 60)
 
-	local log_tick = game.tick
-	local log_days = (log_tick - (log_tick % days)) / days
-	log_tick = log_tick - (log_days * days)
-	local log_hours = (log_tick - (log_tick % hours)) / hours
-	log_tick = log_tick - (log_hours * hours)
-	local log_minutes = (log_tick - (log_tick % minutes)) / minutes
-	log_tick = log_tick - (log_minutes * minutes)
-	local log_seconds = (log_tick - (log_tick % seconds)) / seconds
-	log_entry = log_days
-		.. " Days: "
-		.. log_hours
-		.. " Hours: "
-		.. log_minutes
-		.. " Minutes: "
-		.. log_seconds
-		.. " Seconds"
-	return log_entry
+	local show_days = settings.get_player_settings(player)["SpaceX-log-days"].value
+	if show_days then
+		local days = math.floor(hours / 24)
+		return string.format("%dd %02dh %02dm %02ds", days, hours % 24, minutes % 60, seconds % 60)
+	else
+		return string.format("%dh %02dm %02ds", hours, minutes % 60, seconds % 60)
+	end
 end
 
 local function gui_log_open(player)
+	global.launch_log = global.launch_log or {}
 	local gui = mod_gui.get_frame_flow(player)
 	local llog = gui.spacex_log
 	local scroll = llog.add({ type = "scroll-pane", name = "scroll" })
-	scroll.style.maximal_height = 800
+	scroll.style.maximal_height = 600
 	local logtable =
-		scroll.add({ type = "table", name = "spacex_log_table", column_count = 2, style = "SpaceMod_table_style" })
-	for i, launch in pairs(global.launch_log) do
-		logtable.add({ type = "label", caption = "#" .. i .. "- " .. launch.log, style = "Launch_label_style" })
-		if player.admin then
-			logtable.add({ type = "textfield", name = "logdetail" .. i, enabled = true, text = launch.detail })
-		else
-			logtable.add({ type = "textfield", name = "logdetail" .. i, enabled = false, text = launch.detail })
-		end
+		scroll.add({ type = "table", name = "spacex_log_table", column_count = 3, style = "SpaceMod_table_style" })
+	logtable.style.column_alignments[1] = "center"
+	logtable.style.column_alignments[2] = "center"
+	logtable.draw_horizontal_lines = true
+	logtable.draw_vertical_lines = true
+	logtable.draw_horizontal_line_after_headers = true
+	logtable.add({ type = "label", caption = { "spacex-log-launch" }, style = "caption_label" })
+	logtable.add({ type = "label", caption = { "spacex-log-time" }, style = "caption_label" })
+	logtable.add({ type = "label", caption = { "spacex-log-notes" }, style = "caption_label" })
+	for i = #global.launch_log, 1, -1 do
+		local launch = global.launch_log[i]
+		logtable.add({ type = "label", caption = launch.number, style = "Launch_label_style" })
+		logtable.add({ type = "label", caption = format_launch_log(launch.log, player), style = "Launch_label_style" })
+		logtable.add({ type = "textfield", name = "logdetail" .. i, enabled = player.admin, text = launch.detail })
 	end
 end
 
@@ -711,7 +707,7 @@ local function spacex_continue(surface)
 	end
 	global.spacex = global.spacex + 1
 	global.launch_log = global.launch_log or {}
-	local launch_log = { log = get_launch_log(), detail = "?" }
+	local launch_log = { log = game.ticks_played, detail = "", number = global.spacex }
 	-- launch_log.detail = "?"
 	table.insert(global.launch_log, launch_log)
 
