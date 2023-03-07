@@ -188,10 +188,9 @@ function gui_open_frame(player)
 end
 
 script.on_configuration_changed( function(event) 
-  local changed = event.mod_changes and event.mod_changes["SpaceMod"]
-
+  local changed = event.mod_changes
   if changed then
-	debugp("Processing mod change")
+    debugp("Processing mod change")
 	global.spacex_com = global.spacex_com or {}
 	for _,surface in pairs(game.surfaces) do
 		debugp("Surface found")
@@ -214,7 +213,7 @@ script.on_configuration_changed( function(event)
 					end
 					gui_init(player, player.force.technologies["rocket-silo"].researched)
 
-					player.print("Mod version changed processed")
+					debugp("Mod version changed processed")
 				end
 			end
 			for _, force in pairs(game.forces) do
@@ -223,7 +222,7 @@ script.on_configuration_changed( function(event)
 				end
 			end		
 		end)
-	end
+  end
 end)
 
 -- local function on_gui_click(event)

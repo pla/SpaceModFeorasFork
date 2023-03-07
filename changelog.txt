@@ -1,3 +1,7 @@
+v1.2.0
+- Fixed a bug that caused the GUI button to not be added when a mod change
+occures
+
 v1.1.0
 - Minor corrections to the technology pre-requisites when using Bobs mods courtesy of KiwiHawk.
 
