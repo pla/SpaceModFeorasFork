@@ -994,6 +994,9 @@ end)
 
 commands.add_command("resetSpaceX", {"resetSpaceX_help"}, function(event)
 	global.finished = false
+	global.launches = nil
+	glob_init()
+    updateSpacexCombinators(game.player.surface)
 end)
 
 commands.add_command("modlist", {"modlist_help"}, function(event)
