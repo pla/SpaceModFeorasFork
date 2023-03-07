@@ -1052,7 +1052,7 @@ end)
 
 commands.add_command("spacex_settings", {"x_settings_help"}, function(event)
 	game.player.print("research" .. settings.startup["SpaceX-research"].value)
-
+    -- TODO
 end)
 
 commands.add_command("Get_log_file", {"get log file help"}, function(event)
