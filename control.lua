@@ -103,7 +103,7 @@ function gui_open_frame(player)
 	elseif global.spacex > 0 then
 		local ltext = "Interstellar Launches: " .. global.spacex
 		local launch =
-			frame.add({ type = "table", name = "launch_info", column_count = 2, style = "SpaceMod_table_style" })
+			frame.add({ type = "table", name = "launch_info", column_count = 2, style = "SpaceMod_item_table_style" })
 		launch.add({ type = "label", caption = ltext, style = "caption_label" })
 		launch.add({
 			type = "button",
@@ -119,16 +119,19 @@ function gui_open_frame(player)
 	if global.launches.satellite < global.requirements.satellite then
 		local sat_title =
 			frame.add({ type = "label", caption = { "satellite-network-progress-stage" }, style = "caption_label" })
-		local sat_title =
-			frame.add({ type = "label", caption = { "satellite-network-progress-title" }, style = "caption_label" })
 		local satellite =
-			frame.add({ type = "table", name = "satellite", column_count = 2, style = "SpaceMod_table_style" })
-		satellite.style.column_alignments[2] = "right"
+			frame.add({ type = "table", name = "satellite", column_count = 2, style = "SpaceMod_item_table_style" })
+		satellite.style.column_alignments[2] = "center"
+		satellite.draw_horizontal_lines = true
+		satellite.draw_vertical_lines = true
+		satellite.draw_horizontal_line_after_headers = true
+		satellite.add({ type = "label", caption = { "satellite-network-progress-title" }, style = "caption_label" })
+		satellite.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
 		--   satellite.add{type = "label", caption = "-Satellites launched : "}
 		satellite.add({ type = "label", caption = { "SpaceX-Progress.satellites" } })
 		satellite.add({
 			type = "label",
-			caption = " : " .. global.launches.satellite .. "/" .. global.requirements.satellite,
+			caption = global.launches.satellite .. "/" .. global.requirements.satellite,
 		})
 
 	-- Stage 2 - Drydock construction
@@ -139,89 +142,96 @@ function gui_open_frame(player)
 		--  drydock_frame_title(drydock)
 		local drydock_title =
 			frame.add({ type = "label", caption = { "drydock-progress-stage" }, style = "caption_label" })
-		local drydock_title =
-			frame.add({ type = "label", caption = { "drydock-progress-title" }, style = "caption_label" })
 		local drydock =
 			frame.add({ type = "table", name = "drydock", column_count = 2, style = "SpaceMod_table_style" })
-		drydock.style.column_alignments[2] = "right"
+		drydock.style.column_alignments[2] = "center"
+		drydock.draw_horizontal_lines = true
+		drydock.draw_vertical_lines = true
+		drydock.draw_horizontal_line_after_headers = true
+		drydock.add({ type = "label", caption = { "drydock-progress-title" }, style = "caption_label" })
+		drydock.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
 		--	drydock.add{type = "label", caption = "-Drydock Structure Component : "}
 		drydock.add({ type = "label", caption = { "SpaceX-Progress.dsc" } })
 		drydock.add({
 			type = "label",
-			caption = " : " .. global.launches.drydockstructure .. "/" .. global.requirements.drydockstructure,
+			caption = global.launches.drydockstructure .. "/" .. global.requirements.drydockstructure,
 		})
 		--	drydock.add{type = "label", caption = "-Drydock Assembly Component : "}
 		drydock.add({ type = "label", caption = { "SpaceX-Progress.dac" } })
 		drydock.add({
 			type = "label",
-			caption = " : " .. global.launches.drydockcommand .. "/" .. global.requirements.drydockcommand,
+			caption = global.launches.drydockcommand .. "/" .. global.requirements.drydockcommand,
 		})
 
 	-- Stage 3 - Spaceship construction
 	else
 		local ship_title = frame.add({ type = "label", caption = { "ship-progress-stage" }, style = "caption_label" })
-		local ship_title = frame.add({ type = "label", caption = { "ship-progress-title" }, style = "caption_label" })
-		local gui_ship = frame.add({ type = "table", name = "ship", column_count = 2, style = "SpaceMod_table_style" })
-		gui_ship.style.column_alignments[2] = "right"
+		local gui_ship = frame.add({ type = "table", name = "ship", column_count = 2, style = "SpaceMod_item_table_style" })
+		gui_ship.style.column_alignments[2] = "center"
+		gui_ship.draw_horizontal_lines = true
+		gui_ship.draw_vertical_lines = true
+		gui_ship.draw_horizontal_line_after_headers = true
+		gui_ship.add({ type = "label", caption = { "ship-progress-title" }, style = "caption_label" })
+		gui_ship.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
 		--	gui_ship.add{type = "label", caption = "-Protection Field...... : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.protection" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shiptprotectionfield .. "/" .. global.requirements.shiptprotectionfield,
+			caption = global.launches.shiptprotectionfield .. "/" .. global.requirements.shiptprotectionfield,
 		})
 		--	gui_ship.add{type = "label", caption = "-Fusion Reactor........ : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.fusion" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipfusionreactor .. "/" .. global.requirements.shipfusionreactor,
+			caption = global.launches.shipfusionreactor .. "/" .. global.requirements.shipfusionreactor,
 		})
 		--	gui_ship.add{type = "label", caption = "-Habitation............... : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.habitation" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shiphabitation .. "/" .. global.requirements.shiphabitation,
+			caption = global.launches.shiphabitation .. "/" .. global.requirements.shiphabitation,
 		})
 		--	gui_ship.add{type = "label", caption = "-Life Support........... : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.life" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shiplifesupport .. "/" .. global.requirements.shiplifesupport,
+			caption = global.launches.shiplifesupport .. "/" .. global.requirements.shiplifesupport,
 		})
 		--	gui_ship.add{type = "label", caption = "-Astrometrics.......... : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.astro" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipastrometrics .. "/" .. global.requirements.shipastrometrics,
+			caption = global.launches.shipastrometrics .. "/" .. global.requirements.shipastrometrics,
 		})
 		--	gui_ship.add{type = "label", caption = "-Command................ : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.command" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipcommand .. "/" .. global.requirements.shipcommand,
+			caption = global.launches.shipcommand .. "/" .. global.requirements.shipcommand,
 		})
 		--	gui_ship.add{type = "label", caption = "-Fuel Cells............... : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.fuel" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipfuelcells .. "/" .. global.requirements.shipfuelcells,
+			caption = global.launches.shipfuelcells .. "/" .. global.requirements.shipfuelcells,
 		})
 		--	gui_ship.add{type = "label", caption = "-Thrusters.............. : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.thrusters" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipthrusters .. "/" .. global.requirements.shipthrusters,
+			caption = global.launches.shipthrusters .. "/" .. global.requirements.shipthrusters,
 		})
 		--	gui_ship.add{type = "label", caption = "-Hull components.. : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.hull" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipcasings .. "/" .. global.requirements.shipcasings,
+			caption = global.launches.shipcasings .. "/" .. global.requirements.shipcasings,
 		})
 		--	gui_ship.add{type = "label", caption = "-FTL drive............. : "}
 		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.ftl" } })
 		gui_ship.add({
 			type = "label",
-			caption = " : " .. global.launches.shipftldrive .. "/" .. global.requirements.shipftldrive,
+			caption = global.launches.shipftldrive .. "/" .. global.requirements.shipftldrive,
 		})
 	end
 end

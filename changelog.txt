@@ -11,6 +11,7 @@ Date: 01.04.2023
   Changes:
     - Changed GUI to only display the required items for the current stage
     - Changed GUI to display the stage number
+    - Various GUI overhauls to look more aesthetic
   Bugfixes:
     - Fixed a bug that caused the GUI button to not be added when a mod change occures
     - Fixed the "/resetSpaceX" command to properly reset the launch progress
