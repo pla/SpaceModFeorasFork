@@ -120,71 +120,70 @@ function gui_open_frame(player)
 			tooltip = {"spacex-log-tooltip"}
         }
 	end
-	
-	local sat_title = frame.add{type = "label", caption = {"satellite-network-progress-title"}, style = "caption_label"}
-	local satellite = frame.add{type = "table", name = "satellite", column_count = 2, style = "SpaceMod_table_style"}
-	satellite.style.column_alignments[2] = "right"	
- --   satellite.add{type = "label", caption = "-Satellites launched : "}
-	satellite.add{type = "label", caption = {"SpaceX-Progress.satellites"} }
-	satellite.add{type = "label", caption = " : " .. global.launches.satellite .. "/" .. global.requirements.satellite}
-	
-
-	-- Test for satellite network established condition
+    -- TODO make a proper stage variable so that this does not have to be checked everywhere
+    
+    -- Stage 1 - Satellite network
 	if global.launches.satellite < global.requirements.satellite then
-	  return
-	end
+        local sat_title = frame.add{type = "label", caption = {"satellite-network-progress-stage"}, style = "caption_label"}
+        local sat_title = frame.add{type = "label", caption = {"satellite-network-progress-title"}, style = "caption_label"}
+        local satellite = frame.add{type = "table", name = "satellite", column_count = 2, style = "SpaceMod_table_style"}
+        satellite.style.column_alignments[2] = "right"	
+     --   satellite.add{type = "label", caption = "-Satellites launched : "}
+        satellite.add{type = "label", caption = {"SpaceX-Progress.satellites"} }
+        satellite.add{type = "label", caption = " : " .. global.launches.satellite .. "/" .. global.requirements.satellite}
 
---    drydock_frame_title(drydock)	
-	local drydock_title = frame.add{type = "label", caption = {"drydock-progress-title"}, style = "caption_label"}
-	local drydock = frame.add{type = "table", name = "drydock", column_count = 2, style = "SpaceMod_table_style"}
-	drydock.style.column_alignments[2] = "right"
---	drydock.add{type = "label", caption = "-Drydock Structure Component : "}
-	drydock.add{type = "label", caption = {"SpaceX-Progress.dsc"} }	
-	drydock.add{type = "label", caption = " : " .. global.launches.drydockstructure .. "/" .. global.requirements.drydockstructure}
---	drydock.add{type = "label", caption = "-Drydock Assembly Component : "}
-	drydock.add{type = "label", caption = {"SpaceX-Progress.dac"} }
-	drydock.add{type = "label", caption = " : " .. global.launches.drydockcommand .. "/" .. global.requirements.drydockcommand}
-	
-	-- Test for drydock built condition
-	if (global.launches.drydockstructure < global.requirements.drydockstructure or 
+    -- Stage 2 - Drydock construction
+    elseif (global.launches.drydockstructure < global.requirements.drydockstructure or
 		global.launches.drydockcommand < global.requirements.drydockcommand) then
-		return
-	end
-	
-	local ship_title = frame.add{type = "label", caption = {"ship-progress-title"}, style = "caption_label"}
-	local gui_ship = frame.add{type = "table", name = "ship", column_count = 2, style = "SpaceMod_table_style"}
-	gui_ship.style.column_alignments[2] = "right"
---	gui_ship.add{type = "label", caption = "-Protection Field...... : "}
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.protection"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shiptprotectionfield .. "/" .. global.requirements.shiptprotectionfield}
---	gui_ship.add{type = "label", caption = "-Fusion Reactor........ : "}
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.fusion"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipfusionreactor .. "/" .. global.requirements.shipfusionreactor }
---	gui_ship.add{type = "label", caption = "-Habitation............... : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.habitation"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shiphabitation .. "/" .. global.requirements.shiphabitation}
---	gui_ship.add{type = "label", caption = "-Life Support........... : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.life"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shiplifesupport .. "/" .. global.requirements.shiplifesupport}
---	gui_ship.add{type = "label", caption = "-Astrometrics.......... : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.astro"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipastrometrics .. "/" .. global.requirements.shipastrometrics}
---	gui_ship.add{type = "label", caption = "-Command................ : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.command"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipcommand .. "/" .. global.requirements.shipcommand}
---	gui_ship.add{type = "label", caption = "-Fuel Cells............... : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.fuel"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipfuelcells .. "/" .. global.requirements.shipfuelcells}
---	gui_ship.add{type = "label", caption = "-Thrusters.............. : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.thrusters"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipthrusters .. "/" .. global.requirements.shipthrusters}
---	gui_ship.add{type = "label", caption = "-Hull components.. : "}	
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.hull"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipcasings .. "/" .. global.requirements.shipcasings}
---	gui_ship.add{type = "label", caption = "-FTL drive............. : "}
-	gui_ship.add{type = "label", caption = {"SpaceX-Progress.ftl"} }
-	gui_ship.add{type = "label", caption = " : " .. global.launches.shipftldrive .. "/" .. global.requirements.shipftldrive}
-	
+    --  drydock_frame_title(drydock)
+        local drydock_title = frame.add{type = "label", caption = {"drydock-progress-stage"}, style = "caption_label"}
+        local drydock_title = frame.add{type = "label", caption = {"drydock-progress-title"}, style = "caption_label"}
+        local drydock = frame.add{type = "table", name = "drydock", column_count = 2, style = "SpaceMod_table_style"}
+        drydock.style.column_alignments[2] = "right"
+    --	drydock.add{type = "label", caption = "-Drydock Structure Component : "}
+        drydock.add{type = "label", caption = {"SpaceX-Progress.dsc"} }
+        drydock.add{type = "label", caption = " : " .. global.launches.drydockstructure .. "/" .. global.requirements.drydockstructure}
+    --	drydock.add{type = "label", caption = "-Drydock Assembly Component : "}
+        drydock.add{type = "label", caption = {"SpaceX-Progress.dac"} }
+        drydock.add{type = "label", caption = " : " .. global.launches.drydockcommand .. "/" .. global.requirements.drydockcommand}
+
+    -- Stage 3 - Spaceship construction
+    else
+        local ship_title = frame.add{type = "label", caption = {"ship-progress-stage"}, style = "caption_label"}
+        local ship_title = frame.add{type = "label", caption = {"ship-progress-title"}, style = "caption_label"}
+        local gui_ship = frame.add{type = "table", name = "ship", column_count = 2, style = "SpaceMod_table_style"}
+        gui_ship.style.column_alignments[2] = "right"
+    --	gui_ship.add{type = "label", caption = "-Protection Field...... : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.protection"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shiptprotectionfield .. "/" .. global.requirements.shiptprotectionfield}
+    --	gui_ship.add{type = "label", caption = "-Fusion Reactor........ : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.fusion"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipfusionreactor .. "/" .. global.requirements.shipfusionreactor }
+    --	gui_ship.add{type = "label", caption = "-Habitation............... : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.habitation"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shiphabitation .. "/" .. global.requirements.shiphabitation}
+    --	gui_ship.add{type = "label", caption = "-Life Support........... : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.life"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shiplifesupport .. "/" .. global.requirements.shiplifesupport}
+    --	gui_ship.add{type = "label", caption = "-Astrometrics.......... : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.astro"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipastrometrics .. "/" .. global.requirements.shipastrometrics}
+    --	gui_ship.add{type = "label", caption = "-Command................ : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.command"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipcommand .. "/" .. global.requirements.shipcommand}
+    --	gui_ship.add{type = "label", caption = "-Fuel Cells............... : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.fuel"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipfuelcells .. "/" .. global.requirements.shipfuelcells}
+    --	gui_ship.add{type = "label", caption = "-Thrusters.............. : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.thrusters"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipthrusters .. "/" .. global.requirements.shipthrusters}
+    --	gui_ship.add{type = "label", caption = "-Hull components.. : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.hull"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipcasings .. "/" .. global.requirements.shipcasings}
+    --	gui_ship.add{type = "label", caption = "-FTL drive............. : "}
+        gui_ship.add{type = "label", caption = {"SpaceX-Progress.ftl"} }
+        gui_ship.add{type = "label", caption = " : " .. global.launches.shipftldrive .. "/" .. global.requirements.shipftldrive}
+    end
 end
 
 script.on_configuration_changed( function(event) 
