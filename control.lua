@@ -595,6 +595,37 @@ local function spacex_continue(surface)
 	local launch_log = {log = get_launch_log(), detail = "?"}
 	-- launch_log.detail = "?"
 	table.insert(global.launch_log, launch_log )
+
+    if global.spacex == 1 then
+        for _, player in pairs(game.players) do
+            if player ~= nil then
+                if player.admin then
+                    if settings.global['SpaceX-no-popup'].value == false then
+                        local gui = mod_gui.get_frame_flow(player)
+                        local gui_ctn = gui.ctn_msg
+                            if gui_ctn then
+                                gui_ctn.destroy()
+                                return
+                            end
+                        gui_ctn = gui.add{
+                                type = "frame",
+                                name = "ctn_msg",
+                                direction = "vertical",
+                                caption = {"ctn-title"},
+                                style = mod_gui.frame_style
+                            }
+                        gui_ctn.add{type = "label", caption = {"ctn-text"}, style = "Launch_label_style"}
+                        gui_ctn.add{type = "button",
+                                name = "ctn_button",
+                                style = mod_gui.button_style,
+                                caption = "Okay!",
+                                tooltip = {"ctn-tooltip"}
+                            }
+                    end
+                end
+            end
+        end
+    end
 end	
 
 script.on_event(defines.events.on_gui_click, function(event) 
@@ -693,6 +724,15 @@ script.on_event(defines.events.on_gui_click, function(event)
 
 	if element.name == "notadmin_button" then
 		gui_open_spacex_launch_gui(player)
+		return
+	end
+
+	if element.name == "ctn_button" then
+        local gui = mod_gui.get_frame_flow(player)
+        local gui_ctn = gui.ctn_msg
+        if gui_ctn then
+            gui_ctn.destroy()
+        end
 		return
 	end
 	
