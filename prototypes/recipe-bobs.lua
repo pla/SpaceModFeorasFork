@@ -98,9 +98,13 @@ end
 
 -- drydock-assembly
   bobmods.lib.recipe.replace_ingredient ("drydock-assembly", "solar-panel", "solar-panel-large-3")  
-  bobmods.lib.recipe.replace_ingredient ("drydock-assembly", "roboport", "bob-roboport-4")
   bobmods.lib.recipe.replace_ingredient ("drydock-assembly", "processing-unit", "advanced-processing-unit")   
 -- data.raw.recipe["drydock-assembly"].ingredients = {{"assembly-robot",50},{"bob-roboport-4",10},{"advanced-processing-unit",200},{"solar-panel-large-3",200},{"low-density-structure", 100}}
+  if settings.startup["bobmods-logistics-disableroboports"].value then
+      bobmods.lib.recipe.replace_ingredient ("drydock-assembly", "roboport", "personal-roboport-mk4-equipment")
+  else
+      bobmods.lib.recipe.replace_ingredient ("drydock-assembly", "roboport", "bob-roboport-4")
+  end
   -- fusion-reactor
   bobmods.lib.recipe.replace_ingredient ("fusion-reactor", "fusion-reactor-equipment", "fusion-reactor-equipment-4")    
 --data.raw.recipe["fusion-reactor"].ingredients = {{"fusion-reactor-equipment-4",100}}

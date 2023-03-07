@@ -4,6 +4,8 @@ occures
 - Added a popup window after the first completion to give a hint about the
 auto-continue and disable popup option
 - Fixed the "/resetSpaceX" command to properly reset the launch progress
+- Fixed Bob Mods compatibility when robo ports are disabled. Will use personal
+roboport instead
 
 v1.1.0
 - Minor corrections to the technology pre-requisites when using Bobs mods courtesy of KiwiHawk.
