@@ -175,11 +175,7 @@ function generate_constant_combinator(combinator)
   return combinator
 end
 
-
-data:extend(
-{
-    generate_constant_combinator
-  {
+local combinator = generate_constant_combinator {
     type = "constant-combinator",
     name = "spacex-combinator",
     icon = "__SpaceMod__/graphics/icons/spacex-combinator.png",
@@ -213,7 +209,10 @@ data:extend(
     },
 
     circuit_wire_max_distance = 9
-  },
- 
-})
+    }
+data:extend({combinator})
 
+local combinator_stage = table.deepcopy(combinator)
+combinator_stage.name = "spacex-combinator-stage"
+combinator_stage.minable.result = "spacex-combinator-stage"
+data:extend({combinator_stage})

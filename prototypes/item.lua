@@ -336,3 +336,8 @@ activity_led_sprites =
     circuit_wire_max_distance = 9
   },  
 })
+
+local combinator_stage = table.deepcopy(data.raw.item["spacex-combinator"])
+combinator_stage.name = "spacex-combinator-stage"
+combinator_stage.place_result = "spacex-combinator-stage"
+data:extend({combinator_stage})

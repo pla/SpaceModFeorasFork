@@ -191,11 +191,16 @@ script.on_configuration_changed( function(event)
   if changed then
     debugp("Processing mod change")
 	global.spacex_com = global.spacex_com or {}
+    -- Add existing combinators to global
 	for _,surface in pairs(game.surfaces) do
 		debugp("Surface found")
 		for _,spacexCom in pairs(surface.find_entities_filtered{type="constant-combinator", name="spacex-combinator"}) do
 			debugp("Found an old spacex combinator")
-			table.insert(global.spacex_com, {entity = spacexCom})	
+			table.insert(global.spacex_com, {entity = spacexCom})
+		end
+		for _,spacexCom in pairs(surface.find_entities_filtered{type="constant-combinator", name="spacex-combinator-stage"}) do
+			debugp("Found an old spacex combinator stage")
+			table.insert(global.spacex_com, {entity = spacexCom})
 		end
 	end   
 		local status,err = pcall(function()
@@ -217,7 +222,25 @@ script.on_configuration_changed( function(event)
 			end
 			for _, force in pairs(game.forces) do
 				if force.technologies["space-assembly"].researched then
+                    -- Migration to enable recipe
 					force.recipes["spacex-combinator"].enabled=true
+                    if settings.startup["SpaceX-split-combinator"].value then
+                        -- Enabled, was disabled before. Migration
+                        if force.recipes["spacex-combinator-stage"].enabled == false then
+                            force.recipes["spacex-combinator-stage"].enabled=true
+                            for _,spacexCom in pairs(global.spacex_com) do
+                                get_spacex_cb(spacexCom.entity)
+                            end
+                        end
+                    else
+                        -- Disabled, was enabled before. Migration
+                        if force.recipes["spacex-combinator-stage"].enabled == true then
+                            force.recipes["spacex-combinator-stage"].enabled=false
+                            for _,spacexCom in pairs(global.spacex_com) do
+                                get_spacex_cb(spacexCom.entity)
+                            end
+                        end
+                    end
 				end
 			end		
 		end)
@@ -353,18 +376,28 @@ function get_spacex_cb(entity)
 	local astro = global.requirements.shipastrometrics - global.launches.shipastrometrics
 	local ftl = global.requirements.shipftldrive - global.launches.shipftldrive
 	local params = nil
-	
+
+    local is_stage_combinator = entity.name == "spacex-combinator-stage"
+    local split_signal = settings.startup["SpaceX-split-combinator"].value
+    local append_items = not is_stage_combinator
+    local append_stage = (split_signal and is_stage_combinator) or (not split_signal and not is_stage_combinator)
+
 	if satellite > 0 then
 		debugp("spacex satellite")
-		cb.parameters = {
-			{
-				signal = {
-					type = "item",
-					name = "satellite"
-				},
-				count = satellite,
-				index = 1
-			},
+        local signals = {}
+        if append_items then
+            signals = {
+                {
+                    signal = {
+                        type = "item",
+                        name = "satellite"
+                    },
+                    count = satellite,
+                    index = 1
+                }}
+        end
+        if append_stage then
+            table.insert(signals,
 			{
 				signal = {
 					type = "virtual",
@@ -372,36 +405,43 @@ function get_spacex_cb(entity)
 				},
 				count = 1,
 				index = 2
-			}
-		}	
+            })
+        end
+        cb.parameters = signals
 	elseif (dsc > 0) or (dac > 0) then
 		debugp("spacex drydock")
-		cb.parameters = {
-			{
-				signal = {
-					type = "item",
-					name = "drydock-structural"
-				},
-				count = dsc,
-				index = 1
-			},
-			{
-				signal = {
-					type = "item",
-					name = "drydock-assembly"
-				},
-				count = dac,
-				index = 2
-			},
-			{
-				signal = {
-					type = "virtual",
-					name = "signal-S"
-				},
-				count = 2,
-				index = 3
-			}
-		}		
+        local signals = {}
+        if append_items then
+            signals = {
+                {
+                    signal = {
+                        type = "item",
+                        name = "drydock-structural"
+                    },
+                    count = dsc,
+                    index = 1
+                },
+                {
+                    signal = {
+                        type = "item",
+                        name = "drydock-assembly"
+                    },
+                    count = dac,
+                    index = 2
+                }}
+        end
+        if append_stage then
+            table.insert(signals,
+                {
+                    signal = {
+                        type = "virtual",
+                        name = "signal-S"
+                    },
+                    count = 2,
+                    index = 3
+                })
+        end
+        cb.parameters = signals
 	elseif (fusion > 0) or
 			(fuelcell > 0) or
 			(hull > 0) or
@@ -413,8 +453,10 @@ function get_spacex_cb(entity)
 			(astro > 0) or
 			(ftl > 0) then
 		debugp("spacex endphase")
-		cb.parameters = {
-			{
+        local signals = {}
+        if append_items then
+            signals = {
+                {
 				signal = {
 					type = "item",
 					name = "fusion-reactor"
@@ -493,16 +535,20 @@ function get_spacex_cb(entity)
 				},
 				count = ftl,
 				index = 10
-			},
-			{
+                }}
+        end
+        if append_stage then
+            table.insert(signals,
+                {
 				signal = {
 					type = "virtual",
 					name = "signal-S"
 				},
 				count = 3,
 				index = 11
-			}
-		}	
+                })
+        end
+        cb.parameters = signals
 	else
 		cb.parameters = {}
 	end
@@ -530,7 +576,7 @@ function remove_spacex_com(entity)
 end
 
 script.on_event(defines.events.on_built_entity, function(event)
-	if event.created_entity.name == "spacex-combinator" then
+	if event.created_entity.name == "spacex-combinator" or event.created_entity.name == "spacex-combinator-stage" then
 		debugp("Spacex combinator built")
 		global.spacex_com = global.spacex_com or {}
 		event.created_entity.operable = false
@@ -544,7 +590,7 @@ script.on_event(defines.events.on_built_entity, function(event)
 end)
 
 script.on_event(defines.events.on_robot_built_entity, function(event)
-	if event.created_entity.name == "spacex-combinator" then
+	if event.created_entity.name == "spacex-combinator" or event.created_entity.name == "spacex-combinator-stage" then
 		debugp("Spacex combinator built")
 		global.spacex_com = global.spacex_com or {}
 		event.created_entity.operable = false
@@ -557,19 +603,19 @@ script.on_event(defines.events.on_robot_built_entity, function(event)
 end)
 
 script.on_event(defines.events.on_pre_player_mined_item, function(event)
-	if event.entity.name == "spacex-combinator" then
+	if event.entity.name == "spacex-combinator" or event.entity.name == "spacex-combinator-stage" then
 		remove_spacex_com(event.entity)
 	end
 end)
 
 script.on_event(defines.events.on_robot_pre_mined, function(event)
-	if event.entity.name == "spacex-combinator" then
+	if event.entity.name == "spacex-combinator" or event.entity.name == "spacex-combinator-stage" then
 		remove_spacex_com(event.entity)
 	end
 end)
 
 script.on_event(defines.events.on_entity_died, function(event)
-	if event.entity.name == "spacex-combinator" then
+	if event.entity.name == "spacex-combinator" or event.entity.name == "spacex-combinator-stage" then
 		remove_spacex_com(event.entity)
 	end
 end)

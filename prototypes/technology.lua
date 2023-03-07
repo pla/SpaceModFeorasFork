@@ -13,8 +13,6 @@ else
 	marathon_adj = 1
 end
 
-local noSpace = settings.startup["SpaceX-no-space-sci"].value
-
 data:extend(
 {
   {
@@ -455,9 +453,10 @@ data:extend(
 	order = "k-p"
   }    
  }
- )
- 
- if noSpace == true then
+)
+
+local noSpace = settings.startup["SpaceX-no-space-sci"].value
+if noSpace == true then
 	local fix = data.raw.technology["ftl-propulsion"]
     fix.unit.ingredients =
       {
@@ -466,5 +465,24 @@ data:extend(
 		{"chemical-science-pack", 1},
 		{"production-science-pack", 1},
 		{"utility-science-pack", 1},
+      }
+end
+
+local combinatorSplit = settings.startup["SpaceX-split-combinator"].value
+if combinatorSplit == true then
+    local fix = data.raw.technology["space-assembly"]
+    fix.effects = {
+        {
+            type = "unlock-recipe",
+            recipe = "assembly-robot"
+        },
+        {
+            type = "unlock-recipe",
+            recipe = "spacex-combinator"
+        },
+        {
+            type = "unlock-recipe",
+            recipe = "spacex-combinator-stage"
+        },
       }
 end

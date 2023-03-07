@@ -3,8 +3,6 @@ if productionCost == nil then
 	productionCost = 1
 end
 
-local cheapFusion = settings.startup["SpaceX-cheaper-fusion-reactor"].value
-
 data:extend({
   {
     type = "recipe",
@@ -194,10 +192,24 @@ data:extend({
 	},
 	result = "spacex-combinator"
   },  
+  {
+	type = "recipe",
+	name = "spacex-combinator-stage",
+	enabled = false,
+	energy_required = 5,
+	ingredients =
+	{
+		{"copper-cable", 5},
+		{"electronic-circuit", 5},
+		{"advanced-circuit", 1}
+	},
+	result = "spacex-combinator-stage"
+  },  
 })
 
-local fix = data.raw.recipe["fusion-reactor"]
+local cheapFusion = settings.startup["SpaceX-cheaper-fusion-reactor"].value
 if cheapFusion == true then
+    local fix = data.raw.recipe["fusion-reactor"]
 	fix.ingredients =
 		{
 		{"fusion-reactor-equipment", 40*productionCost}

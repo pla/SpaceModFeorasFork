@@ -74,6 +74,15 @@ data:extend({
 		description = "SpaceX-no-bob",
 		order = "7",
 	},
+	{	
+		type = "bool-setting",
+		name = "SpaceX-split-combinator",
+		setting_type = "startup",
+		default_value = false,
+		admin = true,
+		description = "SpaceX-split-combinator",
+		order = "8",
+	},
 	{
 		type = "bool-setting",
 		name = "SpaceX-no-popup",
