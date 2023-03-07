@@ -116,7 +116,7 @@ function gui_open_frame(player)
             type = "button",
             name = "launch_log",
 			style = mod_gui.button_style,
-            caption = "Log",
+            caption = {"spacex-log-caption"},
 			tooltip = {"spacex-log-tooltip"}
         }
 	end
@@ -289,14 +289,14 @@ local function gui_open_spacex_launch_gui(player)
             type = "button",
             name = "bio_button",
 			style = mod_gui.button_style,
-            caption = "Yes, Bring it On!",
+            caption = {"spacex-bio-caption"},
 			tooltip = {"spacex-bio-tooltip"}
-        }	
+        }
 	local iwmm = sctable.add{
             type = "button",
             name = "iwmm_button",
 			style = mod_gui.button_style,
-            caption = "No, I want my mummy!",
+            caption = {"spacex-iwmm-caption"},
 			tooltip = {"spacex-iwmm-tooltip"}
         }
 	else
@@ -304,7 +304,7 @@ local function gui_open_spacex_launch_gui(player)
 		    type = "button",
             name = "notadmin_button",
 			style = mod_gui.button_style,
-            caption = "Admins Choice!",
+            caption = {"spacex-notadmin-caption"},
 			tooltip = {"spacex-notadmin-tooltip"}
         }
 	end
@@ -663,7 +663,7 @@ local function spacex_continue(surface)
                         gui_ctn.add{type = "button",
                                 name = "ctn_button",
                                 style = mod_gui.button_style,
-                                caption = "Okay!",
+                                caption = {"ctn-caption"},
                                 tooltip = {"ctn-tooltip"}
                             }
                     end
@@ -805,7 +805,7 @@ function open_gnc_msg(player)
 	gui_gnc.add{type = "button",
             name = "gnc_button",
 			style = mod_gui.button_style,
-            caption = "Great!",
+            caption = {"gnc-caption"},
 			tooltip = {"gnc-tooltip"}
         }	
 end
@@ -828,7 +828,7 @@ function open_drydock_msg(player)
 	gui_drydock.add{type = "button",
             name = "drydock_button",
 			style = mod_gui.button_style,
-            caption = "Awesome!",
+            caption = {"drydock-caption"},
 			tooltip = {"drydock-tooltip"}
         }	
 end

@@ -7,6 +7,7 @@ Date: 01.04.2023
       - Exisiting combinator will output the required item for the current
 	  stage only
       - New combinator will output the current stage as special signal S only
+    - Added more strings to translation config file
   Changes:
     - Changed GUI to only display the required items for the current stage
     - Changed GUI to display the stage number
