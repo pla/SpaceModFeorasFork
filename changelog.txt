@@ -15,6 +15,7 @@ Date: 01.04.2023
     - Fixed a bug that caused the GUI button to not be added when a mod change occures
     - Fixed the "/resetSpaceX" command to properly reset the launch progress
     - Fixed Bob Mods compatibility when robo ports are disabled. Will use personal roboport instead
+    - Fixed closing Log window as well as main window when SpaceX button is pressed
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
   Changes:

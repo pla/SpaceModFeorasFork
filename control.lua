@@ -749,6 +749,9 @@ script.on_event(defines.events.on_gui_click, function(event)
 	if element.name == "space_toggle_button" then
 		if frame then
 			frame.destroy()
+			if spacex_log then
+				spacex_log.destroy()
+			end
 			return
 		end
 		frame = gui.add({
