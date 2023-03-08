@@ -242,7 +242,7 @@ script.on_configuration_changed(function(event)
 	local changed = event.mod_changes
 	if changed then
 		debugp("Processing mod change")
-		global.spacex_com = global.spacex_com or {}
+		global.spacex_com = {}
 		-- Add existing combinators to global
 		for _, surface in pairs(game.surfaces) do
 			debugp("Surface found")
