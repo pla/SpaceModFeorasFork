@@ -5,6 +5,13 @@ MOD_NAME = "SpaceMod"
 
 global = global or {}
 
+-- DEBUG
+local function debugp(text)
+	if __DebugAdapter then
+		__DebugAdapter.print("[SPACEX] " .. text)
+	end
+end
+
 -- TODO Ability to change this during a game. Maybe reset if changed?
 if global.launchMult == nil then
 	global.launchProfile = settings.startup["SpaceX-launch-profile"].value
@@ -56,12 +63,6 @@ local function glob_init()
 			shipftldrive = 0,
 		}
 	end
-end
-
-function debugp(text)
-	-- for _, player in pairs(game.players) do
-	-- 	player.print(text)
-	-- end
 end
 
 local function gui_init(player, after_research)
@@ -1114,43 +1115,45 @@ end)
 
 commands.add_command("spacex_settings", { "x_settings_help" }, function(event)
 	game.player.print("research" .. settings.startup["SpaceX-research"].value)
-	-- TODO
+	-- TODO print all settings?
 end)
 
 commands.add_command("Get_log_file", { "get log file help" }, function(event)
-	game.write_file("spacex_log", serpent.block(global.launch_log), { comment = false })
+	game.write_file("spacex_log", serpent.block(global.launch_log))
 end)
 
 commands.add_command("spacex_combinators", { "get spacex_combinator help" }, function(event)
-	game.write_file("spacex_combinator", serpent.block(global.spacex_com), { comment = false })
+	game.write_file("spacex_combinator", serpent.block(global.spacex_com))
 end)
 
---Cheat command
--- commands.add_command("SpaceX_complete_launch_cycle", { "SpaceX_cheat_help" }, function(event)
--- 	global.launches.satellite = global.requirements.satellite
--- 	global.launches.drydockstructure = global.requirements.drydockstructure
--- 	global.launches.drydockcommand = global.requirements.drydockcommand
--- 	global.launches.shipfusionreactor = global.requirements.shipfusionreactor
--- 	global.launches.shipcasings = global.requirements.shipcasings
--- 	global.launches.shiptprotectionfield = global.requirements.shiptprotectionfield
--- 	global.launches.shipthrusters = global.requirements.shipthrusters
--- 	global.launches.shiphabitation = global.requirements.shiphabitation
--- 	global.launches.shiplifesupport = global.requirements.shiplifesupport
--- 	global.launches.shipfuelcells = global.requirements.shipfuelcells
--- 	global.launches.shipcommand = global.requirements.shipcommand
--- 	global.launches.shipastrometrics = global.requirements.shipastrometrics
--- 	global.launches.shipftldrive = global.requirements.shipftldrive - 1
--- 	updateSpacexCombinators(game.player.surface)
--- end)
---
--- commands.add_command("SpaceX_complete_satellite", { "SpaceX_cheat_sat_help" }, function(event)
--- 	global.launches.satellite = global.requirements.satellite - 1
--- 	updateSpacexCombinators(game.player.surface)
--- end)
---
--- commands.add_command("SpaceX_complete_drydock", { "SpaceX_cheat_dry_help" }, function(event)
--- 	global.launches.satellite = global.requirements.satellite
--- 	global.launches.drydockstructure = global.requirements.drydockstructure - 1
--- 	global.launches.drydockcommand = global.requirements.drydockcommand
--- 	updateSpacexCombinators(game.player.surface)
--- end)
+-- Cheat command
+if __DebugAdapter then
+	commands.add_command("SpaceX_complete_launch_cycle", { "SpaceX_cheat_help" }, function(event)
+		global.launches.satellite = global.requirements.satellite
+		global.launches.drydockstructure = global.requirements.drydockstructure
+		global.launches.drydockcommand = global.requirements.drydockcommand
+		global.launches.shipfusionreactor = global.requirements.shipfusionreactor
+		global.launches.shipcasings = global.requirements.shipcasings
+		global.launches.shiptprotectionfield = global.requirements.shiptprotectionfield
+		global.launches.shipthrusters = global.requirements.shipthrusters
+		global.launches.shiphabitation = global.requirements.shiphabitation
+		global.launches.shiplifesupport = global.requirements.shiplifesupport
+		global.launches.shipfuelcells = global.requirements.shipfuelcells
+		global.launches.shipcommand = global.requirements.shipcommand
+		global.launches.shipastrometrics = global.requirements.shipastrometrics
+		global.launches.shipftldrive = global.requirements.shipftldrive - 1
+		updateSpacexCombinators(game.player.surface)
+	end)
+
+	commands.add_command("SpaceX_complete_satellite", { "SpaceX_cheat_sat_help" }, function(event)
+		global.launches.satellite = global.requirements.satellite - 1
+		updateSpacexCombinators(game.player.surface)
+	end)
+
+	commands.add_command("SpaceX_complete_drydock", { "SpaceX_cheat_dry_help" }, function(event)
+		global.launches.satellite = global.requirements.satellite
+		global.launches.drydockstructure = global.requirements.drydockstructure - 1
+		global.launches.drydockcommand = global.requirements.drydockcommand
+		updateSpacexCombinators(game.player.surface)
+	end)
+end
