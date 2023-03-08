@@ -1,13 +1,4 @@
 data:extend({
-	-- {
-	-- type = "string-setting",
-	-- name = "SpaceX-game-mode",
-	-- setting_type = "startup",
-	-- default_value = "Classic",
-	-- allowed_values = {"Classic","SpaceX Plus","SpaceX Extreme","Custom"},
-	-- admin = true,
-	-- description = "SpaceX-game-mode_des",
-	-- },
 	{
 		type = "int-setting",
 		name = "SpaceX-research",

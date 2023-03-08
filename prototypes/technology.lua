@@ -1,13 +1,8 @@
-local researchCost = settings.startup["SpaceX-research"].value
-if researchCost == nil then
-	researchCost = 1
-end
+local researchCost = settings.startup["SpaceX-research"].value or 1
+local ignoreMult = settings.startup["SpaceX-ignore-tech-multiplier"].value or false
 
 local marathon_adj
-local ignoreMult = settings.startup["SpaceX-ignore-tech-multiplier"].value
-if ignoreMult == nil then
-	marathon_adj = 1
-elseif ignoreMult == true then
+if ignoreMult then
 	marathon_adj = 4
 else
 	marathon_adj = 1
@@ -407,7 +402,7 @@ data:extend({
 })
 
 local noSpace = settings.startup["SpaceX-no-space-sci"].value
-if noSpace == true then
+if noSpace then
 	local fix = data.raw.technology["ftl-propulsion"]
 	fix.unit.ingredients = {
 		{ "automation-science-pack", 1 },
@@ -419,7 +414,7 @@ if noSpace == true then
 end
 
 local combinatorSplit = settings.startup["SpaceX-split-combinator"].value
-if combinatorSplit == true then
+if combinatorSplit then
 	local fix = data.raw.technology["space-assembly"]
 	fix.effects = {
 		{

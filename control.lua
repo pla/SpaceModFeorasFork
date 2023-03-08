@@ -5,6 +5,7 @@ MOD_NAME = "SpaceMod"
 
 global = global or {}
 
+-- TODO Ability to change this during a game. Maybe reset if changed?
 if global.launchMult == nil then
 	global.launchProfile = settings.startup["SpaceX-launch-profile"].value
 	if global.launchProfile == "Classic" then
@@ -59,7 +60,7 @@ end
 
 function debugp(text)
 	-- for _, player in pairs(game.players) do
-	-- player.print(text)
+	-- 	player.print(text)
 	-- end
 end
 

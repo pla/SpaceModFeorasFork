@@ -4,8 +4,7 @@ Date: 01.04.2023
   Features:
     - Added a popup window after the first completion to give a hint about the auto-continue and disable popup option
     - Added startup option to split combinator signal output. If enabled:
-      - Exisiting combinator will output the required item for the current
-	  stage only
+      - Exisiting combinator will output the required item for the current stage only
       - New combinator will output the current stage as special signal S only
     - Added more strings to translation config file
     - Added player option to display days or hours in the log
@@ -22,10 +21,6 @@ Date: 01.04.2023
     - Fixed closing Log window as well as main window when SpaceX button is pressed
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
-  Changes:
-    - Redacted
----------------------------------------------------------------------------------------------------
-Version: 1.1.0
   Changes:
     - Minor corrections to the technology pre-requisites when using Bobs mods courtesy of KiwiHawk.
 ---------------------------------------------------------------------------------------------------

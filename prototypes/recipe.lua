@@ -1,7 +1,4 @@
-local productionCost = settings.startup["SpaceX-production"].value
-if productionCost == nil then
-	productionCost = 1
-end
+local productionCost = settings.startup["SpaceX-production"].value or 1
 
 data:extend({
 	{

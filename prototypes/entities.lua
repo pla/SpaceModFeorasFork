@@ -1,17 +1,39 @@
 require("util")
--- require ("prototypes.entity.demo-rail-pictures")
--- require ("prototypes.entity.demo-pipecovers")
--- require ("prototypes.entity.demo-transport-belt-pictures")
--- require ("prototypes.entity.transport-belt-pictures")
--- require ("circuit-connector-sprites")
--- require ("prototypes.entity.assemblerpipes")
--- require ("prototypes.entity.demo-player-animations")
--- require ("prototypes.entity.laser-sounds")
--- require ("prototypes.entity.demo-gunshot-sounds")
--- require ("prototypes.entity.combinator-pictures")
 
-function generate_constant_combinator(combinator)
-	combinator.sprites = make_4way_animation_from_spritesheet({
+local combinator = {
+	type = "constant-combinator",
+	name = "spacex-combinator",
+	icon = "__SpaceMod__/graphics/icons/spacex-combinator.png",
+	icon_size = 32,
+	icon_mipmaps = 1,
+	flags = { "placeable-neutral", "player-creation" },
+	minable = { hardness = 0.2, mining_time = 0.5, result = "spacex-combinator" },
+	max_health = 120,
+	corpse = "small-remnants",
+
+	collision_box = { { -0.35, -0.35 }, { 0.35, 0.35 } },
+	selection_box = { { -0.5, -0.5 }, { 0.5, 0.5 } },
+
+	item_slot_count = 18,
+
+	vehicle_impact_sound = { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
+
+	activity_led_light = {
+		intensity = 0.8,
+		size = 1,
+		color = { r = 1.0, g = 1.0, b = 1.0 },
+	},
+
+	activity_led_light_offsets = {
+		{ 0.296875, -0.40625 },
+		{ 0.25, -0.03125 },
+		{ -0.296875, -0.078125 },
+		{ -0.21875, -0.46875 },
+	},
+
+	circuit_wire_max_distance = 9,
+
+	sprites = make_4way_animation_from_spritesheet({
 		layers = {
 			{
 				filename = "__SpaceMod__/graphics/entity/spacex-combinator.png",
@@ -46,8 +68,8 @@ function generate_constant_combinator(combinator)
 				},
 			},
 		},
-	})
-	combinator.activity_led_sprites = {
+	}),
+	activity_led_sprites = {
 		north = {
 			filename = "__SpaceMod__/graphics/entity/activity-leds/constant-combinator-LED-N.png",
 			width = 8,
@@ -108,8 +130,8 @@ function generate_constant_combinator(combinator)
 				shift = util.by_pixel(-7, -15),
 			},
 		},
-	}
-	combinator.circuit_wire_connection_points = {
+	},
+	circuit_wire_connection_points = {
 		{
 			shadow = {
 				red = util.by_pixel(7, -6),
@@ -150,46 +172,11 @@ function generate_constant_combinator(combinator)
 				green = util.by_pixel(-15, -13.5),
 			},
 		},
-	}
-	return combinator
-end
-
-local combinator = generate_constant_combinator({
-	type = "constant-combinator",
-	name = "spacex-combinator",
-	icon = "__SpaceMod__/graphics/icons/spacex-combinator.png",
-	icon_size = 32,
-	icon_mipmaps = 1,
-	flags = { "placeable-neutral", "player-creation" },
-	minable = { hardness = 0.2, mining_time = 0.5, result = "spacex-combinator" },
-	max_health = 120,
-	corpse = "small-remnants",
-
-	collision_box = { { -0.35, -0.35 }, { 0.35, 0.35 } },
-	selection_box = { { -0.5, -0.5 }, { 0.5, 0.5 } },
-
-	item_slot_count = 18,
-
-	vehicle_impact_sound = { filename = "__base__/sound/car-metal-impact.ogg", volume = 0.65 },
-
-	activity_led_light = {
-		intensity = 0.8,
-		size = 1,
-		color = { r = 1.0, g = 1.0, b = 1.0 },
 	},
-
-	activity_led_light_offsets = {
-		{ 0.296875, -0.40625 },
-		{ 0.25, -0.03125 },
-		{ -0.296875, -0.078125 },
-		{ -0.21875, -0.46875 },
-	},
-
-	circuit_wire_max_distance = 9,
-})
-data:extend({ combinator })
+}
 
 local combinator_stage = table.deepcopy(combinator)
 combinator_stage.name = "spacex-combinator-stage"
 combinator_stage.minable.result = "spacex-combinator-stage"
-data:extend({ combinator_stage })
+
+data:extend({ combinator, combinator_stage })
