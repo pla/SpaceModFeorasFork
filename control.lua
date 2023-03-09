@@ -989,35 +989,20 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 	updateSpacexCombinators(event.rocket.surface)
 end)
 
-commands.add_command("resetSpaceX", { "resetSpaceX_help" }, function(event)
+commands.add_command("SpaceX_reset", { "resetSpaceX_help" }, function(event)
 	global.finished = false
 	global.launches = nil
 	glob_init()
 	updateSpacexCombinators(game.player.surface)
 end)
 
-commands.add_command("modlist", { "modlist_help" }, function(event)
-	for name, version in pairs(game.active_mods) do
-		game.player.print(name .. " version " .. version)
-	end
-end)
-
-commands.add_command("spacex_settings", { "x_settings_help" }, function(event)
-	game.player.print("research" .. settings.startup["SpaceX-research"].value)
-	-- TODO print all settings?
-end)
-
-commands.add_command("Get_log_file", { "get log file help" }, function(event)
+commands.add_command("SpaceX_write_log_file", { "get log file help" }, function(event)
 	game.write_file("spacex_log", serpent.block(global.launch_log))
-end)
-
-commands.add_command("spacex_combinators", { "get spacex_combinator help" }, function(event)
-	game.write_file("spacex_combinator", serpent.block(global.spacex_com))
 end)
 
 -- Cheat command
 if __DebugAdapter then
-	commands.add_command("SpaceX_complete_launch_cycle", { "SpaceX_cheat_help" }, function(event)
+	commands.add_command("SpaceX_complete_stage_3", { "SpaceX_cheat_help" }, function(event)
 		global.launches.satellite = global.requirements.satellite
 		global.launches.drydockstructure = global.requirements.drydockstructure
 		global.launches.drydockcommand = global.requirements.drydockcommand
@@ -1034,15 +1019,25 @@ if __DebugAdapter then
 		updateSpacexCombinators(game.player.surface)
 	end)
 
-	commands.add_command("SpaceX_complete_satellite", { "SpaceX_cheat_sat_help" }, function(event)
+	commands.add_command("SpaceX_complete_stage_1", { "SpaceX_cheat_sat_help" }, function(event)
 		global.launches.satellite = global.requirements.satellite - 1
 		updateSpacexCombinators(game.player.surface)
 	end)
 
-	commands.add_command("SpaceX_complete_drydock", { "SpaceX_cheat_dry_help" }, function(event)
+	commands.add_command("SpaceX_complete_stage_2", { "SpaceX_cheat_dry_help" }, function(event)
 		global.launches.satellite = global.requirements.satellite
 		global.launches.drydockstructure = global.requirements.drydockstructure - 1
 		global.launches.drydockcommand = global.requirements.drydockcommand
 		updateSpacexCombinators(game.player.surface)
+	end)
+
+	commands.add_command("SpaceX_write_combinators", { "get spacex_combinator help" }, function(event)
+		game.write_file("spacex_combinator", serpent.block(global.spacex_com))
+	end)
+
+	commands.add_command("SpaceX_modlist", { "modlist_help" }, function(event)
+		for name, version in pairs(game.active_mods) do
+			game.player.print(name .. " version " .. version)
+		end
 	end)
 end
