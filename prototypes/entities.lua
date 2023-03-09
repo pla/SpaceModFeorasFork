@@ -178,5 +178,42 @@ local combinator = {
 local combinator_stage = table.deepcopy(combinator)
 combinator_stage.name = "spacex-combinator-stage"
 combinator_stage.minable.result = "spacex-combinator-stage"
+combinator_stage.icon = "__SpaceMod__/graphics/icons/spacex-combinator-stage.png"
+combinator_stage.sprites = make_4way_animation_from_spritesheet({
+	layers = {
+		{
+			filename = "__SpaceMod__/graphics/entity/spacex-combinator-stage.png",
+			width = 58,
+			height = 52,
+			frame_count = 1,
+			shift = util.by_pixel(0, 5),
+			hr_version = {
+				scale = 0.5,
+				filename = "__SpaceMod__/graphics/entity/hr-spacex-combinator-stage.png",
+				width = 114,
+				height = 102,
+				frame_count = 1,
+				shift = util.by_pixel(0, 5),
+			},
+		},
+		{
+			filename = "__SpaceMod__/graphics/entity/constant-combinator-shadow.png",
+			width = 50,
+			height = 34,
+			frame_count = 1,
+			shift = util.by_pixel(9, 6),
+			draw_as_shadow = true,
+			hr_version = {
+				scale = 0.5,
+				filename = "__SpaceMod__/graphics/entity/hr-constant-combinator-shadow.png",
+				width = 98,
+				height = 66,
+				frame_count = 1,
+				shift = util.by_pixel(8.5, 5.5),
+				draw_as_shadow = true,
+			},
+		},
+	},
+})
 
 data:extend({ combinator, combinator_stage })

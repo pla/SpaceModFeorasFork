@@ -129,7 +129,7 @@ data:extend({
 	{
 		type = "item",
 		name = "spacex-combinator-stage",
-		icon = "__SpaceMod__/graphics/icons/spacex-combinator.png",
+		icon = "__SpaceMod__/graphics/icons/spacex-combinator-stage.png",
 		icon_size = 32,
 		subgroup = "circuit-network",
 		place_result = "spacex-combinator-stage",
