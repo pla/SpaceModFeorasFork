@@ -14,16 +14,7 @@ end
 
 -- TODO Ability to change this during a game. Maybe reset if changed?
 if global.launchMult == nil then
-	global.launchProfile = settings.startup["SpaceX-launch-profile"].value
-	if global.launchProfile == "Classic" then
-		global.launchMult = 1
-	elseif global.launchProfile == "Launch Mania(x5)" then
-		global.launchMult = 5
-	elseif global.launchProfile == "Launch Meglo-mania(x25)" then
-		global.launchMult = 25
-	else
-		global.launchMult = 1
-	end
+	global.launchMult = settings.startup["SpaceX-launch-multiplier"].value or 1
 end
 
 local launchMult = global.launchMult

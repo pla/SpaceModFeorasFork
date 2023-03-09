@@ -20,13 +20,13 @@ data:extend({
 		order = "2",
 	},
 	{
-		type = "string-setting",
-		name = "SpaceX-launch-profile",
+		type = "int-setting",
+		name = "SpaceX-launch-multiplier",
 		setting_type = "startup",
-		default_value = "Classic",
-		allowed_values = { "Classic", "Launch Mania(x5)", "Launch Meglo-mania(x25)" },
+		default_value = 1,
+		allowed_values = { 1, 2, 5, 10, 25 },
 		admin = true,
-		description = "SpaceX-launch-profile",
+		description = "SpaceX-launch-multiplier",
 		order = "3",
 	},
 	{

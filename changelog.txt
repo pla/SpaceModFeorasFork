@@ -15,6 +15,7 @@ Date: 01.04.2023
       - Main GUI
       - Log GUI
     - Slightly changed color of combinator graphics
+    - Changed launch profile startup settings to launch multiplier and added a few more multipliers
   Bugfixes:
     - Fixed a bug that caused the GUI button to not be added when a mod change occures
     - Fixed the "/resetSpaceX" command to properly reset the launch progress
