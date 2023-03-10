@@ -12,50 +12,155 @@ local function debugp(text)
 	end
 end
 
--- TODO Ability to change this during a game. Maybe reset if changed?
-if global.launchMult == nil then
-	global.launchMult = settings.startup["SpaceX-launch-multiplier"].value or 1
+local function gui_open_spacex(player)
+	local frame = mod_gui.get_frame_flow(player).space_progress_frame
+	if not frame then
+		return
+	end
+	frame.clear()
+
+	-- Launch history, if any
+	if global.completed > 0 then
+		local launch =
+			frame.add({ type = "table", name = "launch_info", column_count = 2, style = "SpaceMod_item_table_style" })
+		launch.add({ type = "label", caption = { "instellar-launch", global.completed }, style = "caption_label" })
+		local log_button = launch.add({
+			type = "button",
+			name = "launch_log",
+			style = mod_gui.button_style,
+			caption = { "spacex-log-caption" },
+			tooltip = { "spacex-log-tooltip" },
+		})
+		log_button.style.height = 30
+	end
+
+	-- Current required items to launch
+	local current_stage = global.stages[global.current_stage]
+	frame.add({ type = "label", caption = { current_stage.name .. "-progress-stage" }, style = "caption_label" })
+	local items_to_launch =
+		frame.add({ type = "table", name = current_stage.name, column_count = 2, style = "SpaceMod_item_table_style" })
+	items_to_launch.style.column_alignments[2] = "center"
+	items_to_launch.draw_horizontal_lines = true
+	items_to_launch.draw_vertical_lines = true
+	items_to_launch.draw_horizontal_line_after_headers = true
+	items_to_launch.add({
+		type = "label",
+		caption = { current_stage.name .. "-progress-title" },
+		style = "caption_label",
+	})
+	items_to_launch.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
+	for _, item in pairs(current_stage.requirements) do
+		items_to_launch.add({ type = "label", caption = { "SpaceX-Progress." .. item.item_name } })
+		items_to_launch.add({ type = "label", caption = item.launched .. "/" .. item.required })
+	end
 end
 
-local launchMult = global.launchMult
-local spaceshiprequirements = {
-	satellite = 7 * launchMult,
-	drydockstructure = 10 * launchMult,
-	drydockcommand = 2 * launchMult,
-	shipcasings = 10 * launchMult,
-	shipthrusters = 4 * launchMult,
-	shiptprotectionfield = 1 * launchMult,
-	shipfusionreactor = 1 * launchMult,
-	shipfuelcells = 2 * launchMult,
-	shiphabitation = 1 * launchMult,
-	shiplifesupport = 1 * launchMult,
-	shipastrometrics = 1 * launchMult,
-	shipcommand = 1 * launchMult,
-	shipftldrive = 1 * launchMult,
-}
+local function update_combinator(combinator)
+	if combinator.valid == true then
+		local cb = combinator.get_or_create_control_behavior()
 
-local function glob_init()
-	global.requirements = spaceshiprequirements
-	if global.launches == nil then
-		global.launches = {
-			satellite = 0,
-			drydockstructure = 0,
-			drydockcommand = 0,
-			shipcasings = 0,
-			shipthrusters = 0,
-			shiptprotectionfield = 0,
-			shipfusionreactor = 0,
-			shipfuelcells = 0,
-			shiphabitation = 0,
-			shiplifesupport = 0,
-			shipastrometrics = 0,
-			shipcommand = 0,
-			shipftldrive = 0,
+		local is_stage_combinator = combinator.name == "spacex-combinator-stage"
+		local split_signal = settings.startup["SpaceX-split-combinator"].value
+		local append_items = not is_stage_combinator
+		local append_stage = (split_signal and is_stage_combinator) or (not split_signal and not is_stage_combinator)
+
+		local current_stage = global.stages[global.current_stage]
+		local signals = {}
+		if append_items then
+			for i, item in pairs(current_stage.requirements) do
+				table.insert(signals, {
+					signal = {
+						type = "item",
+						name = item.item_name,
+					},
+					count = item.required - item.launched,
+					index = i,
+				})
+			end
+		end
+		if append_stage then
+			table.insert(signals, {
+				signal = {
+					type = "virtual",
+					name = "signal-S",
+				},
+				count = current_stage.number,
+				index = table_size(signals) + 1,
+			})
+		end
+		cb.parameters = signals
+	end
+end
+
+local function update_all_combinators()
+	for _, spacexCom in pairs(global.combinators) do
+		debugp("spacex combinator found")
+		update_combinator(spacexCom.entity)
+	end
+end
+
+local function init_launch_multiplier()
+	if global.launch_mult ~= settings.startup["SpaceX-launch-multiplier"].value then
+		global.launch_mult = settings.startup["SpaceX-launch-multiplier"].value or 1
+		for _, stage in pairs(global.stages) do
+			for _, item in pairs(stage.requirements) do
+				item.required = item.base_required * global.launch_mult
+			end
+		end
+		for _, player in pairs(game.players) do
+			gui_open_spacex(player)
+		end
+	end
+end
+
+local function init_stages()
+	if global.stages == nil then
+		global.stages = {
+			{
+				name = "satellite",
+				number = 1,
+				requirements = { { item_name = "satellite", base_required = 7, launched = 0 } },
+			},
+			{
+				name = "drydock",
+				number = 2,
+				requirements = {
+					{ item_name = "drydock-structural", base_required = 10, launched = 0 },
+					{ item_name = "drydock-assembly", base_required = 2, launched = 0 },
+				},
+			},
+			{
+				name = "ship",
+				number = 3,
+				requirements = {
+					{ item_name = "protection-field", base_required = 1, launched = 0 },
+					{ item_name = "fusion-reactor", base_required = 1, launched = 0 },
+					{ item_name = "habitation", base_required = 1, launched = 0 },
+					{ item_name = "life-support", base_required = 1, launched = 0 },
+					{ item_name = "astrometrics", base_required = 1, launched = 0 },
+					{ item_name = "command", base_required = 1, launched = 0 },
+					{ item_name = "fuel-cell", base_required = 2, launched = 0 },
+					{ item_name = "space-thruster", base_required = 4, launched = 0 },
+					{ item_name = "hull-component", base_required = 10, launched = 0 },
+					{ item_name = "ftl-drive", base_required = 1, launched = 0 },
+				},
+			},
 		}
 	end
 end
 
-local function gui_init(player, after_research)
+local function init_spacex()
+	init_stages()
+	global.current_stage = global.current_stage or 1
+	init_launch_multiplier()
+	global.finished = global.finished or false
+	global.combinators = global.combinators or {}
+	global.completed = global.completed or 0
+	global.launch_log = global.launch_log or {}
+	update_all_combinators()
+end
+
+local function init_gui(player, after_research)
 	local button = mod_gui.get_button_flow(player).space_toggle_button
 	if button then
 		if player.force.technologies["rocket-silo"].researched ~= true then
@@ -74,148 +179,13 @@ local function gui_init(player, after_research)
 	end
 end
 
-local function on_player_created(event)
-	gui_init(game.players[event.player_index], false)
-end
-
-local function gui_open_frame(player)
-	local frame = mod_gui.get_frame_flow(player).space_progress_frame
-	if not frame then
-		return
-	end
-	frame.clear()
-
-	-- Now we can build the GUI.
-
-	-- Launch history, if any
-	if global.spacex == nil then
-	elseif global.spacex > 0 then
-		local ltext = "Interstellar Launches: " .. global.spacex
-		local launch =
-			frame.add({ type = "table", name = "launch_info", column_count = 2, style = "SpaceMod_item_table_style" })
-		launch.add({ type = "label", caption = ltext, style = "caption_label" })
-		local log_button = launch.add({
-			type = "button",
-			name = "launch_log",
-			style = mod_gui.button_style,
-			caption = { "spacex-log-caption" },
-			tooltip = { "spacex-log-tooltip" },
-		})
-		log_button.style.height = 30
-	end
-	-- TODO make a proper stage variable so that this does not have to be checked everywhere
-
-	-- Stage 1 - Satellite network
-	if global.launches.satellite < global.requirements.satellite then
-		frame.add({ type = "label", caption = { "satellite-network-progress-stage" }, style = "caption_label" })
-		local satellite =
-			frame.add({ type = "table", name = "satellite", column_count = 2, style = "SpaceMod_item_table_style" })
-		satellite.style.column_alignments[2] = "center"
-		satellite.draw_horizontal_lines = true
-		satellite.draw_vertical_lines = true
-		satellite.draw_horizontal_line_after_headers = true
-		satellite.add({ type = "label", caption = { "satellite-network-progress-title" }, style = "caption_label" })
-		satellite.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
-		satellite.add({ type = "label", caption = { "SpaceX-Progress.satellites" } })
-		satellite.add({
-			type = "label",
-			caption = global.launches.satellite .. "/" .. global.requirements.satellite,
-		})
-
-	-- Stage 2 - Drydock construction
-	elseif
-		global.launches.drydockstructure < global.requirements.drydockstructure
-		or global.launches.drydockcommand < global.requirements.drydockcommand
-	then
-		frame.add({ type = "label", caption = { "drydock-progress-stage" }, style = "caption_label" })
-		local drydock =
-			frame.add({ type = "table", name = "drydock", column_count = 2, style = "SpaceMod_table_style" })
-		drydock.style.column_alignments[2] = "center"
-		drydock.draw_horizontal_lines = true
-		drydock.draw_vertical_lines = true
-		drydock.draw_horizontal_line_after_headers = true
-		drydock.add({ type = "label", caption = { "drydock-progress-title" }, style = "caption_label" })
-		drydock.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
-		drydock.add({ type = "label", caption = { "SpaceX-Progress.dsc" } })
-		drydock.add({
-			type = "label",
-			caption = global.launches.drydockstructure .. "/" .. global.requirements.drydockstructure,
-		})
-		drydock.add({ type = "label", caption = { "SpaceX-Progress.dac" } })
-		drydock.add({
-			type = "label",
-			caption = global.launches.drydockcommand .. "/" .. global.requirements.drydockcommand,
-		})
-
-	-- Stage 3 - Spaceship construction
-	else
-		frame.add({ type = "label", caption = { "ship-progress-stage" }, style = "caption_label" })
-		local gui_ship =
-			frame.add({ type = "table", name = "ship", column_count = 2, style = "SpaceMod_item_table_style" })
-		gui_ship.style.column_alignments[2] = "center"
-		gui_ship.draw_horizontal_lines = true
-		gui_ship.draw_vertical_lines = true
-		gui_ship.draw_horizontal_line_after_headers = true
-		gui_ship.add({ type = "label", caption = { "ship-progress-title" }, style = "caption_label" })
-		gui_ship.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.protection" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shiptprotectionfield .. "/" .. global.requirements.shiptprotectionfield,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.fusion" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipfusionreactor .. "/" .. global.requirements.shipfusionreactor,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.habitation" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shiphabitation .. "/" .. global.requirements.shiphabitation,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.life" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shiplifesupport .. "/" .. global.requirements.shiplifesupport,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.astro" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipastrometrics .. "/" .. global.requirements.shipastrometrics,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.command" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipcommand .. "/" .. global.requirements.shipcommand,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.fuel" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipfuelcells .. "/" .. global.requirements.shipfuelcells,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.thrusters" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipthrusters .. "/" .. global.requirements.shipthrusters,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.hull" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipcasings .. "/" .. global.requirements.shipcasings,
-		})
-		gui_ship.add({ type = "label", caption = { "SpaceX-Progress.ftl" } })
-		gui_ship.add({
-			type = "label",
-			caption = global.launches.shipftldrive .. "/" .. global.requirements.shipftldrive,
-		})
-	end
-end
-
 script.on_configuration_changed(function(event)
+	global.launch_mult = nil
+	init_spacex()
 	local changed = event.mod_changes
 	if changed then
 		debugp("Processing mod change")
-		global.spacex_com = {}
+		global.combinators = {}
 		-- Add existing combinators to global
 		for _, surface in pairs(game.surfaces) do
 			debugp("Surface found")
@@ -223,7 +193,7 @@ script.on_configuration_changed(function(event)
 				pairs(surface.find_entities_filtered({ type = "constant-combinator", name = "spacex-combinator" }))
 			do
 				debugp("Found an old spacex combinator")
-				table.insert(global.spacex_com, { entity = spacexCom })
+				table.insert(global.combinators, { entity = spacexCom })
 			end
 			for _, spacexCom in
 				pairs(
@@ -231,7 +201,7 @@ script.on_configuration_changed(function(event)
 				)
 			do
 				debugp("Found an old spacex combinator stage")
-				table.insert(global.spacex_com, { entity = spacexCom })
+				table.insert(global.combinators, { entity = spacexCom })
 			end
 		end
 		if game.players ~= nil then
@@ -244,8 +214,7 @@ script.on_configuration_changed(function(event)
 				if button then
 					button.destroy()
 				end
-				gui_init(player, player.force.technologies["rocket-silo"].researched)
-
+				init_gui(player, player.force.technologies["rocket-silo"].researched)
 				debugp("Mod version changed processed")
 			end
 		end
@@ -257,17 +226,13 @@ script.on_configuration_changed(function(event)
 					-- Enabled, was disabled before. Migration
 					if force.recipes["spacex-combinator-stage"].enabled == false then
 						force.recipes["spacex-combinator-stage"].enabled = true
-						for _, spacexCom in pairs(global.spacex_com) do
-							get_spacex_cb(spacexCom.entity)
-						end
+						update_all_combinators()
 					end
 				else
 					-- Disabled, was enabled before. Migration
 					if force.recipes["spacex-combinator-stage"].enabled == true then
 						force.recipes["spacex-combinator-stage"].enabled = false
-						for _, spacexCom in pairs(global.spacex_com) do
-							get_spacex_cb(spacexCom.entity)
-						end
+						update_all_combinators()
 					end
 				end
 			end
@@ -275,7 +240,7 @@ script.on_configuration_changed(function(event)
 	end
 end)
 
-local function gui_open_spacex_launch_gui(player)
+local function gui_open_spacex_completed(player)
 	local gui = mod_gui.get_frame_flow(player)
 	local gui_spacex = gui.spacex_launch
 	if gui_spacex then
@@ -295,14 +260,10 @@ local function gui_open_spacex_launch_gui(player)
 	gui_spacex.add({ type = "label", caption = { "spacex-launch-title" }, style = "caption_label" })
 	gui_spacex.add({ type = "label", caption = { "spacex-completion-text" }, style = "Launch_label_style" })
 	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = { "spacex-completion-text1" }, style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = { "spacex-completion-text2" }, style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = { "spacex-completion-text3" }, style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
-	gui_spacex.add({ type = "label", caption = { "spacex-completion-text4" }, style = "caption_label" })
-	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
+	for i = 1,4 do
+		gui_spacex.add({ type = "label", caption = { "spacex-completion-text" .. i }, style = "Launch_label_style" })
+		gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
+	end
 	if player.admin then
 		local sctable = gui_spacex.add({
 			type = "table",
@@ -315,17 +276,17 @@ local function gui_open_spacex_launch_gui(player)
 		sctable.style.column_alignments[2] = "right"
 		sctable.add({
 			type = "button",
-			name = "bio_button",
+			name = "spacex_continue_button",
 			style = mod_gui.button_style,
-			caption = { "spacex-bio-caption" },
-			tooltip = { "spacex-bio-tooltip" },
+			caption = { "spacex-continue-caption" },
+			tooltip = { "spacex-continue-tooltip" },
 		})
 		sctable.add({
 			type = "button",
-			name = "iwmm_button",
+			name = "spacex_finish_button",
 			style = mod_gui.button_style,
-			caption = { "spacex-iwmm-caption" },
-			tooltip = { "spacex-iwmm-tooltip" },
+			caption = { "spacex-finish-caption" },
+			tooltip = { "spacex-finish-tooltip" },
 		})
 	else
 		gui_spacex.add({
@@ -343,7 +304,7 @@ local function format_launch_log(ticks, player)
 	local minutes = math.floor(seconds / 60)
 	local hours = math.floor(minutes / 60)
 
-	local show_days = settings.get_player_settings(player)["SpaceX-log-days"].value
+	local show_days = settings.get_player_settings(player)["SpaceX-log-days"].value or false
 	if show_days then
 		local days = math.floor(hours / 24)
 		return string.format("%dd %02dh %02dm %02ds", days, hours % 24, minutes % 60, seconds % 60)
@@ -352,8 +313,7 @@ local function format_launch_log(ticks, player)
 	end
 end
 
-local function gui_log_open(player)
-	global.launch_log = global.launch_log or {}
+local function gui_open_log(player)
 	local gui = mod_gui.get_frame_flow(player)
 	local llog = gui.spacex_log
 	if not llog then
@@ -391,208 +351,11 @@ script.on_event(defines.events.on_gui_text_changed, function(event)
 	end
 end)
 
-function get_spacex_cb(entity)
-	if entity.valid == true then
-		local cb = entity.get_or_create_control_behavior()
-		local satellite = global.requirements.satellite - global.launches.satellite
-		local dsc = global.requirements.drydockstructure - global.launches.drydockstructure
-		local dac = global.requirements.drydockcommand - global.launches.drydockcommand
-		local fusion = global.requirements.shipfusionreactor - global.launches.shipfusionreactor
-		local fuelcell = global.requirements.shipfuelcells - global.launches.shipfuelcells
-		local hull = global.requirements.shipcasings - global.launches.shipcasings
-		local shield = global.requirements.shiptprotectionfield - global.launches.shiptprotectionfield
-		local thruster = global.requirements.shipthrusters - global.launches.shipthrusters
-		local habitation = global.requirements.shiphabitation - global.launches.shiphabitation
-		local life = global.requirements.shiplifesupport - global.launches.shiplifesupport
-		local command = global.requirements.shipcommand - global.launches.shipcommand
-		local astro = global.requirements.shipastrometrics - global.launches.shipastrometrics
-		local ftl = global.requirements.shipftldrive - global.launches.shipftldrive
-
-		local is_stage_combinator = entity.name == "spacex-combinator-stage"
-		local split_signal = settings.startup["SpaceX-split-combinator"].value
-		local append_items = not is_stage_combinator
-		local append_stage = (split_signal and is_stage_combinator) or (not split_signal and not is_stage_combinator)
-
-		if satellite > 0 then
-			debugp("spacex satellite")
-			local signals = {}
-			if append_items then
-				signals = {
-					{
-						signal = {
-							type = "item",
-							name = "satellite",
-						},
-						count = satellite,
-						index = 1,
-					},
-				}
-			end
-			if append_stage then
-				table.insert(signals, {
-					signal = {
-						type = "virtual",
-						name = "signal-S",
-					},
-					count = 1,
-					index = 2,
-				})
-			end
-			cb.parameters = signals
-		elseif (dsc > 0) or (dac > 0) then
-			debugp("spacex drydock")
-			local signals = {}
-			if append_items then
-				signals = {
-					{
-						signal = {
-							type = "item",
-							name = "drydock-structural",
-						},
-						count = dsc,
-						index = 1,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "drydock-assembly",
-						},
-						count = dac,
-						index = 2,
-					},
-				}
-			end
-			if append_stage then
-				table.insert(signals, {
-					signal = {
-						type = "virtual",
-						name = "signal-S",
-					},
-					count = 2,
-					index = 3,
-				})
-			end
-			cb.parameters = signals
-		elseif
-			(fusion > 0)
-			or (fuelcell > 0)
-			or (hull > 0)
-			or (shield > 0)
-			or (thruster > 0)
-			or (habitation > 0)
-			or (life > 0)
-			or (command > 0)
-			or (astro > 0)
-			or (ftl > 0)
-		then
-			debugp("spacex endphase")
-			local signals = {}
-			if append_items then
-				signals = {
-					{
-						signal = {
-							type = "item",
-							name = "fusion-reactor",
-						},
-						count = fusion,
-						index = 1,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "hull-component",
-						},
-						count = hull,
-						index = 2,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "protection-field",
-						},
-						count = shield,
-						index = 3,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "space-thruster",
-						},
-						count = thruster,
-						index = 4,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "fuel-cell",
-						},
-						count = fuelcell,
-						index = 5,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "habitation",
-						},
-						count = habitation,
-						index = 6,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "life-support",
-						},
-						count = life,
-						index = 7,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "command",
-						},
-						count = command,
-						index = 8,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "astrometrics",
-						},
-						count = astro,
-						index = 9,
-					},
-					{
-						signal = {
-							type = "item",
-							name = "ftl-drive",
-						},
-						count = ftl,
-						index = 10,
-					},
-				}
-			end
-			if append_stage then
-				table.insert(signals, {
-					signal = {
-						type = "virtual",
-						name = "signal-S",
-					},
-					count = 3,
-					index = 11,
-				})
-			end
-			cb.parameters = signals
-		else
-			cb.parameters = {}
-		end
-	end
-end
-
-local function remove_spacex_com(entity)
-	for i, coms in ipairs(global.spacex_com) do
-		if coms.entity == entity then
-			table.remove(global.spacex_com, i)
-			break
+local function remove_combinator(entity)
+	for i, combinator in ipairs(global.combinators) do
+		if combinator.entity == entity then
+			table.remove(global.combinators, i)
+			return
 		end
 	end
 end
@@ -600,10 +363,9 @@ end
 local function on_entity_build(event)
 	if event.created_entity.name == "spacex-combinator" or event.created_entity.name == "spacex-combinator-stage" then
 		debugp("Spacex combinator built")
-		global.spacex_com = global.spacex_com or {}
 		event.created_entity.operable = false
-		table.insert(global.spacex_com, { entity = event.created_entity })
-		get_spacex_cb(event.created_entity)
+		table.insert(global.combinators, { entity = event.created_entity })
+		update_combinator(event.created_entity)
 	end
 end
 script.on_event(defines.events.on_built_entity, on_entity_build)
@@ -611,67 +373,79 @@ script.on_event(defines.events.on_robot_built_entity, on_entity_build)
 
 local function on_remove_entity(event)
 	if event.entity.name == "spacex-combinator" or event.entity.name == "spacex-combinator-stage" then
-		remove_spacex_com(event.entity)
+		remove_combinator(event.entity)
 	end
 end
 script.on_event(defines.events.on_pre_player_mined_item, on_remove_entity)
 script.on_event(defines.events.on_robot_pre_mined, on_remove_entity)
 script.on_event(defines.events.on_entity_died, on_remove_entity)
 
-local function updateSpacexCombinators(surface)
-	global.spacex_com = global.spacex_com or {}
-	if global.spacex_com == {} then
-		return
-	end
-	for _, spacexCom in pairs(global.spacex_com) do
-		debugp("spacex combinator found")
-		get_spacex_cb(spacexCom.entity)
-	end
-end
-
 local function spacex_continue(surface)
-	global.launches = nil
-	glob_init()
-	updateSpacexCombinators(surface)
-	if global.spacex == nil then
-		global.spacex = 0
-	end
-	global.spacex = global.spacex + 1
-	global.launch_log = global.launch_log or {}
-	local launch_log = { log = game.ticks_played, detail = "", number = global.spacex }
+	global.stages = nil
+	global.launch_mult = nil
+	global.current_stage = nil
+	init_spacex()
+	global.completed = global.completed + 1
+	local launch_log = { log = game.ticks_played, detail = "", number = global.completed }
 	table.insert(global.launch_log, launch_log)
 
-	if global.spacex == 1 then
+	-- Show hint message for auto-continue and disable popups
+	if global.completed == 1 then
 		for _, player in pairs(game.players) do
 			if player ~= nil then
 				if player.admin then
 					if settings.global["SpaceX-no-popup"].value == false then
 						local gui = mod_gui.get_frame_flow(player)
-						local gui_ctn = gui.ctn_msg
-						if gui_ctn then
-							gui_ctn.destroy()
-							return
-						end
-						gui_ctn = gui.add({
+						local gui_continue_hint = gui.continue_hint_msg
+						gui_continue_hint = gui.add({
 							type = "frame",
-							name = "ctn_msg",
+							name = "continue_hint_msg",
 							direction = "vertical",
-							caption = { "ctn-title" },
+							caption = { "continue-hint-title" },
 							style = mod_gui.frame_style,
 						})
-						gui_ctn.add({ type = "label", caption = { "ctn-text" }, style = "Launch_label_style" })
-						gui_ctn.add({
+						gui_continue_hint.add({ type = "label", caption = { "continue-hint-text" }, style = "Launch_label_style" })
+						gui_continue_hint.add({
 							type = "button",
-							name = "ctn_button",
+							name = "continue_hint_button",
 							style = mod_gui.button_style,
-							caption = { "ctn-caption" },
-							tooltip = { "ctn-tooltip" },
+							caption = { "continue-hint-caption" },
+							tooltip = { "continue-hint-tooltip" },
 						})
 					end
 				end
 			end
 		end
 	end
+end
+
+local function gui_open_stage_complete(player, stage_number)
+	local gui = mod_gui.get_frame_flow(player)
+	local gui_stage = gui["completion_stage_" .. stage_number]
+	if gui_stage then
+		gui_stage.destroy()
+		return
+	end
+
+	gui_stage = gui.add({
+		type = "frame",
+		name = "completion_stage_" .. stage_number,
+		direction = "vertical",
+		caption = { "stage-" .. stage_number .. "-completion-title" },
+		style = mod_gui.frame_style,
+	})
+	gui_stage.add({
+		type = "label",
+		caption = { "stage-" .. stage_number .. "-completion-text" },
+		style = "Launch_label_style",
+	})
+	gui_stage.add({
+		type = "button",
+		name = "completion_stage_" .. stage_number .. "_button",
+		style = mod_gui.button_style,
+		caption = { "stage-" .. stage_number .. "-completion-caption" },
+		tooltip = { "stage-" .. stage_number .. "-completion-tooltip" },
+	})
 end
 
 script.on_event(defines.events.on_gui_click, function(event)
@@ -697,13 +471,11 @@ script.on_event(defines.events.on_gui_click, function(event)
 			caption = { "space-progress-frame-title" },
 			style = mod_gui.frame_style,
 		})
-		gui_open_frame(player)
-	end
-
-	if element.name == "bio_button" then
+		gui_open_spacex(player)
+	elseif element.name == "spacex_continue_button" then
 		for _, player in pairs(game.players) do
 			-- Close every launch gui
-			gui_open_spacex_launch_gui(player)
+			gui_open_spacex_completed(player)
 		end
 		spacex_continue(player.surface)
 		if frame then
@@ -719,320 +491,166 @@ script.on_event(defines.events.on_gui_click, function(event)
 			caption = { "space-progress-frame-title" },
 			style = mod_gui.frame_style,
 		})
-		gui_open_frame(player)
-		return
-	end
-	if element.name == "iwmm_button" then
+		gui_open_spacex(player)
+	elseif element.name == "spacex_finish_button" then
 		for _, player in pairs(game.players) do
 			-- Close every launch gui
-			gui_open_spacex_launch_gui(player)
+			gui_open_spacex_completed(player)
 		end
 		if gui_spacex then
 			gui_spacex.destroy()
 		end
 		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
 		global.finished = true
-		return
-	end
-
-	if element.name == "launch_log" then
+	elseif element.name == "launch_log" then
 		if spacex_log then
 			spacex_log.destroy()
 			return
 		end
-		log = gui.add({
+		spacex_log = gui.add({
 			type = "frame",
 			name = "spacex_log",
 			direction = "vertical",
 			caption = { "gui-log-title" },
 			style = mod_gui.frame_style,
 		})
-		gui_log_open(player)
-	end
-
-	if element.name == "gnc_button" then
-		open_gnc_msg(player)
-		return
-	end
-
-	if element.name == "drydock_button" then
-		open_drydock_msg(player)
-		return
-	end
-
-	if element.name == "notadmin_button" then
-		gui_open_spacex_launch_gui(player)
-		return
-	end
-
-	if element.name == "ctn_button" then
-		local gui = mod_gui.get_frame_flow(player)
-		local gui_ctn = gui.ctn_msg
-		if gui_ctn then
-			gui_ctn.destroy()
+		gui_open_log(player)
+	elseif element.name == "completion_stage_1_button" then
+		gui_open_stage_complete(player, 1)
+	elseif element.name == "completion_stage_2_button" then
+		gui_open_stage_complete(player, 2)
+	elseif element.name == "notadmin_button" then
+		gui_open_spacex_completed(player)
+	elseif element.name == "continue_hint_button" then
+		local gui_continue_hint = gui.continue_hint_msg
+		if gui_continue_hint then
+			gui_continue_hint.destroy()
 		end
-		return
 	end
 end)
 
-function open_gnc_msg(player)
-	local gui = mod_gui.get_frame_flow(player)
-	local gui_gnc = gui.gnc_msg
-	if gui_gnc then
-		gui_gnc.destroy()
-		return
-	end
-	gui_gnc = gui.add({
-		type = "frame",
-		name = "gnc_msg",
-		direction = "vertical",
-		caption = { "gnc-title" },
-		style = mod_gui.frame_style,
-	})
-	gui_gnc.add({ type = "label", caption = { "satellite-network-text1" }, style = "Launch_label_style" })
-	gui_gnc.add({
-		type = "button",
-		name = "gnc_button",
-		style = mod_gui.button_style,
-		caption = { "gnc-caption" },
-		tooltip = { "gnc-tooltip" },
-	})
-end
-
-function open_drydock_msg(player)
-	local gui = mod_gui.get_frame_flow(player)
-	local gui_drydock = gui.drydock_msg
-	if gui_drydock then
-		gui_drydock.destroy()
-		return
-	end
-	gui_drydock = gui.add({
-		type = "frame",
-		name = "drydock_msg",
-		direction = "vertical",
-		caption = { "drydock-title" },
-		style = mod_gui.frame_style,
-	})
-	gui_drydock.add({ type = "label", caption = { "drydock-text1" }, style = "Launch_label_style" })
-	gui_drydock.add({
-		type = "button",
-		name = "drydock_button",
-		style = mod_gui.button_style,
-		caption = { "drydock-caption" },
-		tooltip = { "drydock-tooltip" },
-	})
-end
+script.on_event(defines.events.on_player_created, function(event)
+	init_gui(game.players[event.player_index], false)
+end)
 
 script.on_event(defines.events.on_research_finished, function(event)
 	if event.research.name == "rocket-silo" then
 		for _, player in pairs(game.players) do
-			gui_init(player, true)
+			init_gui(player, true)
 		end
 	end
 end)
 
 script.on_init(function()
-	glob_init()
-
+	init_spacex()
 	for _, player in pairs(game.players) do
-		gui_init(player, false)
+		init_gui(player, false)
 	end
 end)
 
-script.on_event(defines.events.on_player_created, on_player_created)
+local function check_stage_completed(stage)
+	for _, item in pairs(stage.requirements) do
+		if item.launched < item.required then
+			return false
+		end
+	end
+	return true
+end
 
 script.on_event(defines.events.on_rocket_launched, function(event)
-	remote.call("silo_script", "set_no_victory", true)
-	if event.rocket.get_item_count("satellite") > 0 then
-		if global.launches.satellite < global.requirements.satellite then
-			global.launches.satellite = global.launches.satellite + 1
-			if global.launches.satellite == global.requirements.satellite then
+	if remote.interfaces["silo_script"] then
+		remote.call("silo_script", "set_no_victory", true)
+	end
+	game.set_game_state({ game_finished = false, player_won = false, can_continue = true })
+
+	local current_stage = global.stages[global.current_stage]
+	for _, item in pairs(current_stage.requirements) do
+		if event.rocket.get_item_count(item.item_name) > 0 then
+			if item.launched < item.required then
+				item.launched = item.launched + 1
+			end
+		end
+	end
+
+	for i = global.current_stage, table_size(global.stages), 1 do
+		if check_stage_completed(global.stages[i]) then
+			-- Check for spacex completion
+			if current_stage.number == table_size(global.stages) then
+				if settings.global["SpaceX-auto-continue"].value == false then
+					for _, player in pairs(game.players) do
+						player.print({ "spacex-completion-msg" })
+						gui_open_spacex_completed(player)
+					end
+				else
+					spacex_continue(event.rocket.surface)
+				end
+			-- Stage completion
+			else
 				for _, player in pairs(game.players) do
-					player.print({ "satellite-network-complete-msg" })
+					player.print({ "stage-" .. current_stage.number .. "-completion-msg" })
 					if settings.global["SpaceX-no-popup"].value == false then
-						open_gnc_msg(player)
+						gui_open_stage_complete(player, current_stage.number)
 					end
 				end
-			end
-			updateSpacexCombinators(event.rocket.surface)
-		end
-		game.set_game_state({ game_finished = false, player_won = false, can_continue = true })
-		for _, player in pairs(game.players) do
-			local frame = mod_gui.get_frame_flow(player).space_progress_frame
-			if frame then
-				frame.clear()
-				gui_open_frame(player)
-			end
-		end
-
-		return
-	end
-
-	if event.rocket.get_item_count("drydock-structural") > 0 then
-		if global.launches.drydockstructure < global.requirements.drydockstructure then
-			global.launches.drydockstructure = global.launches.drydockstructure + 1
-		end
-	end
-
-	if event.rocket.get_item_count("drydock-assembly") > 0 then
-		if global.launches.drydockcommand < global.requirements.drydockcommand then
-			global.launches.drydockcommand = global.launches.drydockcommand + 1
-		end
-	end
-
-	if
-		(event.rocket.get_item_count("drydock-structural") > 0 or event.rocket.get_item_count("drydock-assembly") > 0)
-		and global.launches.drydockstructure == global.requirements.drydockstructure
-		and global.launches.drydockcommand == global.requirements.drydockcommand
-	then
-		for _, player in pairs(game.players) do
-			player.print({ "drydock-complete-msg" })
-			if settings.global["SpaceX-no-popup"].value == false then
-				open_drydock_msg(player)
-			end
-			updateSpacexCombinators(event.rocket.surface)
-		end
-	end
-
-	if event.rocket.get_item_count("fusion-reactor") > 0 then
-		if global.launches.shipfusionreactor < global.requirements.shipfusionreactor then
-			global.launches.shipfusionreactor = global.launches.shipfusionreactor + 1
-		end
-	end
-
-	if event.rocket.get_item_count("fuel-cell") > 0 then
-		if global.launches.shipfuelcells < global.requirements.shipfuelcells then
-			global.launches.shipfuelcells = global.launches.shipfuelcells + 1
-		end
-	end
-
-	if event.rocket.get_item_count("hull-component") > 0 then
-		if global.launches.shipcasings < global.requirements.shipcasings then
-			global.launches.shipcasings = global.launches.shipcasings + 1
-		end
-	end
-
-	if event.rocket.get_item_count("protection-field") > 0 then
-		if global.launches.shiptprotectionfield < global.requirements.shiptprotectionfield then
-			global.launches.shiptprotectionfield = global.launches.shiptprotectionfield + 1
-		end
-	end
-
-	if event.rocket.get_item_count("space-thruster") > 0 then
-		if global.launches.shipthrusters < global.requirements.shipthrusters then
-			global.launches.shipthrusters = global.launches.shipthrusters + 1
-		end
-	end
-
-	if event.rocket.get_item_count("habitation") > 0 then
-		if global.launches.shiphabitation < global.requirements.shiphabitation then
-			global.launches.shiphabitation = global.launches.shiphabitation + 1
-		end
-	end
-
-	if event.rocket.get_item_count("life-support") > 0 then
-		if global.launches.shiplifesupport < global.requirements.shiplifesupport then
-			global.launches.shiplifesupport = global.launches.shiplifesupport + 1
-		end
-	end
-
-	if event.rocket.get_item_count("command") > 0 then
-		if global.launches.shipcommand < global.requirements.shipcommand then
-			global.launches.shipcommand = global.launches.shipcommand + 1
-		end
-	end
-
-	if event.rocket.get_item_count("astrometrics") > 0 then
-		if global.launches.shipastrometrics < global.requirements.shipastrometrics then
-			global.launches.shipastrometrics = global.launches.shipastrometrics + 1
-		end
-	end
-
-	if event.rocket.get_item_count("ftl-drive") > 0 then
-		if global.launches.shipftldrive < global.requirements.shipftldrive then
-			global.launches.shipftldrive = global.launches.shipftldrive + 1
-		end
-	end
-
-	-- Test for victory condition
-	global.finished = global.finished or false
-
-	if
-		global.launches.shipfusionreactor == global.requirements.shipfusionreactor
-		and global.launches.shipcasings == global.requirements.shipcasings
-		and global.launches.shiptprotectionfield == global.requirements.shiptprotectionfield
-		and global.launches.shipthrusters == global.requirements.shipthrusters
-		and global.launches.shiphabitation == global.requirements.shiphabitation
-		and global.launches.shiplifesupport == global.requirements.shiplifesupport
-		and global.launches.shipfuelcells == global.requirements.shipfuelcells
-		and global.launches.shipcommand == global.requirements.shipcommand
-		and global.launches.shipastrometrics == global.requirements.shipastrometrics
-		and global.launches.shipftldrive == global.requirements.shipftldrive
-		and global.finished == false
-	then
-		if settings.global["SpaceX-auto-continue"].value == false then
-			for _, player in pairs(game.players) do
-				-- TODO overthink this message here
-				player.print({ "spaceship-complete-msg" })
-				gui_open_spacex_launch_gui(player)
+				global.current_stage = global.stages[i].number + 1
 			end
 		else
-			spacex_continue(event.rocket.surface)
+			break
 		end
 	end
+
 	for _, player in pairs(game.players) do
 		local frame = mod_gui.get_frame_flow(player).space_progress_frame
 		if frame then
-			gui_open_frame(player)
+			gui_open_spacex(player)
 		end
 	end
-	updateSpacexCombinators(event.rocket.surface)
+	update_all_combinators()
 end)
 
 commands.add_command("SpaceX_reset", { "resetSpaceX_help" }, function(event)
 	global.finished = false
-	global.launches = nil
-	glob_init()
-	updateSpacexCombinators(game.player.surface)
+	global.stages = nil
+	global.current_stage = nil
+	global.launch_mult = nil
+	init_spacex()
 end)
 
 commands.add_command("SpaceX_write_log_file", { "get log file help" }, function(event)
 	game.write_file("spacex_log", serpent.block(global.launch_log))
 end)
 
--- Cheat command
+-- Cheat commands
 if __DebugAdapter then
-	commands.add_command("SpaceX_complete_stage_3", { "SpaceX_cheat_help" }, function(event)
-		global.launches.satellite = global.requirements.satellite
-		global.launches.drydockstructure = global.requirements.drydockstructure
-		global.launches.drydockcommand = global.requirements.drydockcommand
-		global.launches.shipfusionreactor = global.requirements.shipfusionreactor
-		global.launches.shipcasings = global.requirements.shipcasings
-		global.launches.shiptprotectionfield = global.requirements.shiptprotectionfield
-		global.launches.shipthrusters = global.requirements.shipthrusters
-		global.launches.shiphabitation = global.requirements.shiphabitation
-		global.launches.shiplifesupport = global.requirements.shiplifesupport
-		global.launches.shipfuelcells = global.requirements.shipfuelcells
-		global.launches.shipcommand = global.requirements.shipcommand
-		global.launches.shipastrometrics = global.requirements.shipastrometrics
-		global.launches.shipftldrive = global.requirements.shipftldrive - 1
-		updateSpacexCombinators(game.player.surface)
-	end)
+	local function cheat_complete_stage()
+		for _, item in pairs(global.stages[global.current_stage].requirements) do
+			item.launched = item.required
+		end
+		local stage_req = global.stages[global.current_stage].requirements
+		stage_req[table_size(stage_req)].launched = stage_req[table_size(stage_req)].required - 1
+		update_all_combinators()
+		for _, player in pairs(game.players) do
+			gui_open_spacex(player)
+		end
+	end
 
 	commands.add_command("SpaceX_complete_stage_1", { "SpaceX_cheat_sat_help" }, function(event)
-		global.launches.satellite = global.requirements.satellite - 1
-		updateSpacexCombinators(game.player.surface)
+		global.current_stage = 1
+		cheat_complete_stage()
 	end)
 
 	commands.add_command("SpaceX_complete_stage_2", { "SpaceX_cheat_dry_help" }, function(event)
-		global.launches.satellite = global.requirements.satellite
-		global.launches.drydockstructure = global.requirements.drydockstructure - 1
-		global.launches.drydockcommand = global.requirements.drydockcommand
-		updateSpacexCombinators(game.player.surface)
+		global.current_stage = 2
+		cheat_complete_stage()
+	end)
+
+	commands.add_command("SpaceX_complete_stage_3", { "SpaceX_cheat_help" }, function(event)
+		global.current_stage = 3
+		cheat_complete_stage()
 	end)
 
 	commands.add_command("SpaceX_write_combinators", { "get spacex_combinator help" }, function(event)
-		game.write_file("spacex_combinator", serpent.block(global.spacex_com))
+		game.write_file("spacex_combinator", serpent.block(global.combinators))
 	end)
 
 	commands.add_command("SpaceX_modlist", { "modlist_help" }, function(event)
