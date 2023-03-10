@@ -36,16 +36,16 @@ local function gui_open_spacex(player)
 
 	-- Current required items to launch
 	local current_stage = global.stages[global.current_stage]
-	frame.add({ type = "label", caption = { current_stage.name .. "-progress-stage" }, style = "caption_label" })
+	frame.add({ type = "label", caption = { "stage-" .. current_stage.number .. "-progress-stage" }, style = "caption_label" })
 	local items_to_launch =
-		frame.add({ type = "table", name = current_stage.name, column_count = 2, style = "SpaceMod_item_table_style" })
+		frame.add({ type = "table", name = "stage-" .. current_stage.number, column_count = 2, style = "SpaceMod_item_table_style" })
 	items_to_launch.style.column_alignments[2] = "center"
 	items_to_launch.draw_horizontal_lines = true
 	items_to_launch.draw_vertical_lines = true
 	items_to_launch.draw_horizontal_line_after_headers = true
 	items_to_launch.add({
 		type = "label",
-		caption = { current_stage.name .. "-progress-title" },
+		caption = { "stage-" .. current_stage.number .. "-progress-title" },
 		style = "caption_label",
 	})
 	items_to_launch.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
@@ -117,12 +117,10 @@ local function init_stages()
 	if global.stages == nil then
 		global.stages = {
 			{
-				name = "satellite",
 				number = 1,
 				requirements = { { item_name = "satellite", base_required = 7, launched = 0 } },
 			},
 			{
-				name = "drydock",
 				number = 2,
 				requirements = {
 					{ item_name = "drydock-structural", base_required = 10, launched = 0 },
@@ -130,7 +128,6 @@ local function init_stages()
 				},
 			},
 			{
-				name = "ship",
 				number = 3,
 				requirements = {
 					{ item_name = "protection-field", base_required = 1, launched = 0 },
