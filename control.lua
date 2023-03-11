@@ -665,20 +665,13 @@ if __DebugAdapter then
 		end
 	end
 
-	commands.add_command("SpaceX_complete_stage_1", { "SpaceX_cheat_sat_help" }, function(event)
-		global.current_stage = 1
-		cheat_complete_stage()
-	end)
-
-	commands.add_command("SpaceX_complete_stage_2", { "SpaceX_cheat_dry_help" }, function(event)
-		global.current_stage = 2
-		cheat_complete_stage()
-	end)
-
-	commands.add_command("SpaceX_complete_stage_3", { "SpaceX_cheat_help" }, function(event)
-		global.current_stage = 3
-		cheat_complete_stage()
-	end)
+	-- For every stage create a complete command
+	for i = 1, 3 do
+		commands.add_command("SpaceX_complete_stage_" .. i, { "SpaceX_cheat_sat_help" }, function(event)
+			global.current_stage = i
+			cheat_complete_stage()
+		end)
+	end
 
 	commands.add_command("SpaceX_write_combinators", { "get spacex_combinator help" }, function(event)
 		game.write_file("spacex_combinator", serpent.block(global.combinators))
