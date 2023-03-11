@@ -358,24 +358,63 @@ local function remove_combinator(entity)
 end
 
 local function on_entity_build(event)
-	if event.created_entity.name == "spacex-combinator" or event.created_entity.name == "spacex-combinator-stage" then
-		debugp("Spacex combinator built")
-		event.created_entity.operable = false
-		table.insert(global.combinators, { entity = event.created_entity })
-		update_combinator(event.created_entity)
-	end
+	debugp("Spacex combinator built")
+	event.created_entity.operable = false
+	table.insert(global.combinators, { entity = event.created_entity })
+	update_combinator(event.created_entity)
 end
-script.on_event(defines.events.on_built_entity, on_entity_build)
-script.on_event(defines.events.on_robot_built_entity, on_entity_build)
+script.on_event(
+	defines.events.on_built_entity,
+	on_entity_build,
+	{
+		{ filter = "name", name = "spacex-combinator", mode = "or" },
+		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+	}
+)
+script.on_event(
+	defines.events.on_robot_built_entity,
+	on_entity_build,
+	{
+		{ filter = "name", name = "spacex-combinator", mode = "or" },
+		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+	}
+)
+script.on_event(
+	defines.events.on_entity_cloned,
+	on_entity_build,
+	{
+		{ filter = "name", name = "spacex-combinator", mode = "or" },
+		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+	}
+)
 
 local function on_remove_entity(event)
-	if event.entity.name == "spacex-combinator" or event.entity.name == "spacex-combinator-stage" then
-		remove_combinator(event.entity)
-	end
+	remove_combinator(event.entity)
 end
-script.on_event(defines.events.on_pre_player_mined_item, on_remove_entity)
-script.on_event(defines.events.on_robot_pre_mined, on_remove_entity)
-script.on_event(defines.events.on_entity_died, on_remove_entity)
+script.on_event(
+	defines.events.on_pre_player_mined_item,
+	on_remove_entity,
+	{
+		{ filter = "name", name = "spacex-combinator", mode = "or" },
+		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+	}
+)
+script.on_event(
+	defines.events.on_robot_pre_mined,
+	on_remove_entity,
+	{
+		{ filter = "name", name = "spacex-combinator", mode = "or" },
+		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+	}
+)
+script.on_event(
+	defines.events.on_entity_died,
+	on_remove_entity,
+	{
+		{ filter = "name", name = "spacex-combinator", mode = "or" },
+		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+	}
+)
 
 local function spacex_continue(surface)
 	global.stages = nil
