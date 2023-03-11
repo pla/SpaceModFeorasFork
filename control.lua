@@ -36,9 +36,17 @@ local function gui_open_spacex(player)
 
 	-- Current required items to launch
 	local current_stage = global.stages[global.current_stage]
-	frame.add({ type = "label", caption = { "stage-" .. current_stage.number .. "-progress-stage" }, style = "caption_label" })
-	local items_to_launch =
-		frame.add({ type = "table", name = "stage-" .. current_stage.number, column_count = 2, style = "SpaceMod_item_table_style" })
+	frame.add({
+		type = "label",
+		caption = { "stage-" .. current_stage.number .. "-progress-stage" },
+		style = "caption_label",
+	})
+	local items_to_launch = frame.add({
+		type = "table",
+		name = "stage-" .. current_stage.number,
+		column_count = 2,
+		style = "SpaceMod_item_table_style",
+	})
 	items_to_launch.style.column_alignments[2] = "center"
 	items_to_launch.draw_horizontal_lines = true
 	items_to_launch.draw_vertical_lines = true
@@ -257,7 +265,7 @@ local function gui_open_spacex_completed(player)
 	gui_spacex.add({ type = "label", caption = { "spacex-launch-title" }, style = "caption_label" })
 	gui_spacex.add({ type = "label", caption = { "spacex-completion-text" }, style = "Launch_label_style" })
 	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
-	for i = 1,4 do
+	for i = 1, 4 do
 		gui_spacex.add({ type = "label", caption = { "spacex-completion-text" .. i }, style = "Launch_label_style" })
 		gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
 	end
@@ -363,58 +371,34 @@ local function on_entity_build(event)
 	table.insert(global.combinators, { entity = event.created_entity })
 	update_combinator(event.created_entity)
 end
-script.on_event(
-	defines.events.on_built_entity,
-	on_entity_build,
-	{
-		{ filter = "name", name = "spacex-combinator", mode = "or" },
-		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-	}
-)
-script.on_event(
-	defines.events.on_robot_built_entity,
-	on_entity_build,
-	{
-		{ filter = "name", name = "spacex-combinator", mode = "or" },
-		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-	}
-)
-script.on_event(
-	defines.events.on_entity_cloned,
-	on_entity_build,
-	{
-		{ filter = "name", name = "spacex-combinator", mode = "or" },
-		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-	}
-)
+script.on_event(defines.events.on_built_entity, on_entity_build, {
+	{ filter = "name", name = "spacex-combinator", mode = "or" },
+	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+})
+script.on_event(defines.events.on_robot_built_entity, on_entity_build, {
+	{ filter = "name", name = "spacex-combinator", mode = "or" },
+	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+})
+script.on_event(defines.events.on_entity_cloned, on_entity_build, {
+	{ filter = "name", name = "spacex-combinator", mode = "or" },
+	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+})
 
 local function on_remove_entity(event)
 	remove_combinator(event.entity)
 end
-script.on_event(
-	defines.events.on_pre_player_mined_item,
-	on_remove_entity,
-	{
-		{ filter = "name", name = "spacex-combinator", mode = "or" },
-		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-	}
-)
-script.on_event(
-	defines.events.on_robot_pre_mined,
-	on_remove_entity,
-	{
-		{ filter = "name", name = "spacex-combinator", mode = "or" },
-		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-	}
-)
-script.on_event(
-	defines.events.on_entity_died,
-	on_remove_entity,
-	{
-		{ filter = "name", name = "spacex-combinator", mode = "or" },
-		{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-	}
-)
+script.on_event(defines.events.on_pre_player_mined_item, on_remove_entity, {
+	{ filter = "name", name = "spacex-combinator", mode = "or" },
+	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+})
+script.on_event(defines.events.on_robot_pre_mined, on_remove_entity, {
+	{ filter = "name", name = "spacex-combinator", mode = "or" },
+	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+})
+script.on_event(defines.events.on_entity_died, on_remove_entity, {
+	{ filter = "name", name = "spacex-combinator", mode = "or" },
+	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
+})
 
 local function spacex_continue(surface)
 	global.stages = nil
@@ -440,7 +424,11 @@ local function spacex_continue(surface)
 							caption = { "continue-hint-title" },
 							style = mod_gui.frame_style,
 						})
-						gui_continue_hint.add({ type = "label", caption = { "continue-hint-text" }, style = "Launch_label_style" })
+						gui_continue_hint.add({
+							type = "label",
+							caption = { "continue-hint-text" },
+							style = "Launch_label_style",
+						})
 						gui_continue_hint.add({
 							type = "button",
 							name = "continue_hint_button",
