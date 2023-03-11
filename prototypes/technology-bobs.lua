@@ -35,7 +35,7 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
-				count = 200000 * researchCost,
+				count = 150000 * researchCost,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -61,11 +61,11 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 	bobmods.lib.tech.add_science_pack("astrometrics", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("ftl-propulsion", "advanced-logistic-science-pack", 1)
 
-	data.raw.technology["ftl-theory-A"].unit.count = 200000 * researchCost
-	data.raw.technology["ftl-theory-B"].unit.count = 200000 * researchCost
-	data.raw.technology["ftl-theory-C"].unit.count = 200000 * researchCost
-	data.raw.technology["ftl-theory-D1"].unit.count = 200000 * researchCost
-	data.raw.technology["ftl-theory-D2"].unit.count = 200000 * researchCost
+	data.raw.technology["ftl-theory-A"].unit.count = 25000 * researchCost
+	data.raw.technology["ftl-theory-B"].unit.count = 50000 * researchCost
+	data.raw.technology["ftl-theory-C"].unit.count = 100000 * researchCost
+	data.raw.technology["ftl-theory-D1"].unit.count = 150000 * researchCost
+	data.raw.technology["ftl-theory-D2"].unit.count = 150000 * researchCost
 	data.raw.technology["ftl-propulsion"].unit.count = 200000 * researchCost
 
 	bobmods.lib.tech.replace_prerequisite("ftl-theory-D1", "ftl-theory-C", "ftl-theory-D")

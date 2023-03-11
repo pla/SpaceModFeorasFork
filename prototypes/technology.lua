@@ -296,7 +296,7 @@ data:extend({
 		icon_size = 128,
 		prerequisites = { "space-construction" },
 		unit = {
-			count = 200000 * researchCost / marathon_adj,
+			count = 25000 * researchCost / marathon_adj,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 			},
@@ -311,7 +311,7 @@ data:extend({
 		icon_size = 128,
 		prerequisites = { "ftl-theory-A" },
 		unit = {
-			count = 200000 * researchCost / marathon_adj,
+			count = 50000 * researchCost / marathon_adj,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },
@@ -327,7 +327,7 @@ data:extend({
 		icon_size = 128,
 		prerequisites = { "ftl-theory-B" },
 		unit = {
-			count = 200000 * researchCost / marathon_adj,
+			count = 100000 * researchCost / marathon_adj,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },
@@ -344,7 +344,7 @@ data:extend({
 		icon_size = 128,
 		prerequisites = { "ftl-theory-C" },
 		unit = {
-			count = 200000 * researchCost / marathon_adj,
+			count = 150000 * researchCost / marathon_adj,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },
@@ -362,7 +362,7 @@ data:extend({
 		icon_size = 128,
 		prerequisites = { "ftl-theory-C" },
 		unit = {
-			count = 200000 * researchCost / marathon_adj,
+			count = 150000 * researchCost / marathon_adj,
 			ingredients = {
 				{ "automation-science-pack", 1 },
 				{ "logistic-science-pack", 1 },
