@@ -379,7 +379,14 @@ script.on_event(defines.events.on_robot_built_entity, on_entity_build, {
 	{ filter = "name", name = "spacex-combinator", mode = "or" },
 	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
 })
-script.on_event(defines.events.on_entity_cloned, on_entity_build, {
+
+local function on_entity_cloned(event)
+	debugp("Spacex combinator cloned")
+	event.destination.operable = false
+	table.insert(global.combinators, { entity = event.destination })
+	update_combinator(event.destination)
+end
+script.on_event(defines.events.on_entity_cloned, on_entity_cloned, {
 	{ filter = "name", name = "spacex-combinator", mode = "or" },
 	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
 })
