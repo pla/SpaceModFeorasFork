@@ -340,7 +340,7 @@ local function gui_open_log(player)
 		local launch = global.launch_log[i]
 		logtable.add({ type = "label", caption = launch.number, style = "Launch_label_style" })
 		logtable.add({ type = "label", caption = format_launch_log(launch.log, player), style = "Launch_label_style" })
-		logtable.add({ type = "textfield", name = "logdetail" .. i, enabled = player.admin, text = launch.detail })
+		logtable.add({ type = "textfield", name = "spacex-logdetail" .. i, enabled = player.admin, text = launch.detail })
 	end
 end
 
@@ -348,7 +348,7 @@ script.on_event(defines.events.on_gui_text_changed, function(event)
 	local element = event.element
 	local player = game.players[event.player_index]
 
-	if string.find(element.name, "logdetail") then
+	if string.find(element.name, "spacex-logdetail") then
 		if player.admin then
 			local cur_log = tonumber(string.match(element.name, "%d+"))
 			global.launch_log[cur_log].detail = element.text
