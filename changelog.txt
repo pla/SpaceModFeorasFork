@@ -2,13 +2,17 @@
 Version: 1.2.0
 Date: 01.04.2023
   Features:
-    - Added a popup window after the first completion to give a hint about the auto-continue and disable popup option
+    - Added Laser Cannon to the already existing stage 3
+    - Added Lab as ingridient to astrometrics lab
     - Added startup option to split combinator signal output. If enabled:
       - Exisiting combinator will output the required item for the current stage only
       - New combinator will output the current stage as special signal S only
+    - Added a popup window after the first completion to give a hint about the auto-continue and disable popup option
     - Added more strings to translation config file
     - Added player option to display days or hours in the log
   Changes:
+    - Changed research cost to gradually increase
+    - Replaced rocket fuel with nuclear reactor for the fuel cell
     - Changed GUI to only display the required items for the current stage
     - Changed GUI to display the stage number
     - Various GUI overhauls to look more aesthetic
