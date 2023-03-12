@@ -100,6 +100,15 @@ data:extend({
 	},
 	{
 		type = "item",
+		name = "laser-cannon",
+		icon = "__SpaceMod__/graphics/icons/spacex-laser-cannon.png",
+		icon_size = 32,
+		subgroup = "intermediate-product",
+		order = "z-a[laser]",
+		stack_size = 1,
+	},
+	{
+		type = "item",
 		name = "astrometrics",
 		icon = "__SpaceMod__/graphics/icons/astrometrics.png",
 		icon_size = 32,

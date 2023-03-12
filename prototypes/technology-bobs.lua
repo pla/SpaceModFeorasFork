@@ -15,6 +15,7 @@ local SpaceXTechs = {
 	"habitation",
 	"life-support-systems",
 	"spaceship-command",
+	"laser-cannon",
 	"astrometrics",
 	"ftl-theory-A",
 	"ftl-theory-B",
@@ -58,6 +59,7 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 	bobmods.lib.tech.add_science_pack("habitation", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("life-support-systems", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("spaceship-command", "advanced-logistic-science-pack", 1)
+	bobmods.lib.tech.add_science_pack("laser-cannon", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("astrometrics", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("ftl-propulsion", "advanced-logistic-science-pack", 1)
 

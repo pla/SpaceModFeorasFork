@@ -123,6 +123,11 @@ bobmods.lib.recipe.replace_ingredient("fuel-cell", "processing-unit", "advanced-
 bobmods.lib.recipe.replace_ingredient("habitation", "steel-plate", "titanium-plate")
 bobmods.lib.recipe.replace_ingredient("habitation", "processing-unit", "advanced-processing-unit")
 -- data.raw.recipe["habitation"].ingredients = {{"low-density-structure", 100},{"titanium-plate", 100},{"plastic-bar", 500},{"advanced-processing-unit",100}}
+-- laser-cannon
+data.raw.recipe["laser-cannon"].ingredients = {			
+	{ "arithmetic-combinator", 50 * productionCost },
+	{ "decider-combinator", 50 * productionCost },
+	{ "personal-laser-defense-equipment-6", 100 * productionCost }, }
 -- low-density-structure
 bobmods.lib.recipe.replace_ingredient("low-density-structure", "steel-plate", "titanium-plate")
 bobmods.lib.recipe.replace_ingredient("low-density-structure", "copper-plate", "nitinol-alloy")

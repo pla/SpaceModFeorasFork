@@ -145,6 +145,7 @@ local function init_stages()
 					{ item_name = "astrometrics", base_required = 1, launched = 0 },
 					{ item_name = "command", base_required = 1, launched = 0 },
 					{ item_name = "fuel-cell", base_required = 2, launched = 0 },
+					{ item_name = "laser-cannon", base_required = 2, launched = 0 },
 					{ item_name = "space-thruster", base_required = 4, launched = 0 },
 					{ item_name = "hull-component", base_required = 10, launched = 0 },
 					{ item_name = "ftl-drive", base_required = 1, launched = 0 },

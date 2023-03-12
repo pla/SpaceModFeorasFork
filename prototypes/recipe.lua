@@ -139,6 +139,20 @@ data:extend({
 	},
 	{
 		type = "recipe",
+		name = "laser-cannon",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "arithmetic-combinator", 50 * productionCost },
+			{ "decider-combinator", 50 * productionCost },
+			{ "laser-turret", 100 * productionCost },
+			{ "low-density-structure", 50 * productionCost },
+			{ "processing-unit", 50 * productionCost },
+		},
+		result = "laser-cannon",
+	},
+	{
+		type = "recipe",
 		name = "astrometrics",
 		enabled = false,
 		energy_required = 50,
