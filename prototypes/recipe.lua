@@ -90,9 +90,9 @@ data:extend({
 		energy_required = 50,
 		ingredients = {
 			{ "steel-plate", 100 * productionCost },
-			{ "rocket-fuel", 500 * productionCost },
 			{ "processing-unit", 100 * productionCost },
 			{ "low-density-structure", 100 * productionCost },
+			{ "nuclear-reactor", 1 * productionCost },
 		},
 		result = "fuel-cell",
 	},
@@ -146,6 +146,7 @@ data:extend({
 			{ "speed-module-3", 50 * productionCost },
 			{ "processing-unit", 300 * productionCost },
 			{ "low-density-structure", 100 * productionCost },
+			{ "lab", 100 * productionCost },
 		},
 		result = "astrometrics",
 	},

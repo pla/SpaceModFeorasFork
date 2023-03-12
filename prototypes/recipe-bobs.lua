@@ -52,6 +52,7 @@ if bobmods.modules.EnableGodModules == true then
 	-- astrometrics
 	bobmods.lib.recipe.replace_ingredient("astrometrics", "speed-module-3", "god-module-5")
 	bobmods.lib.recipe.replace_ingredient("astrometrics", "processing-unit", "advanced-processing-unit")
+	bobmods.lib.recipe.replace_ingredient("astrometrics", "lab", "lab-2")
 	--  data.raw.recipe["astrometrics"].ingredients = {{"god-module-5",50},{"advanced-processing-unit",300},{"low-density-structure",100}}
 	-- ftl-drive
 	bobmods.lib.recipe.replace_ingredient("ftl-drive", "speed-module-3", "god-module-5")
@@ -86,7 +87,7 @@ else
 	-- astrometrics
 	bobmods.lib.recipe.replace_ingredient("astrometrics", "speed-module-3", "speed-module-8")
 	bobmods.lib.recipe.replace_ingredient("astrometrics", "processing-unit", "advanced-processing-unit")
-
+	bobmods.lib.recipe.replace_ingredient("astrometrics", "lab", "lab-2")
 	--  data.raw.recipe["astrometrics"].ingredients = {{"speed-module-8",50},{"advanced-processing-unit",300},{"low-density-structure",100}}
 	-- ftl-drive
 	bobmods.lib.recipe.replace_ingredient("ftl-drive", "speed-module-3", "speed-module-8")
