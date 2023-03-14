@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 01.04.2023
+  Major Features:
+    - Added a new stage
+      - Requires to bring oxygen, fuel, water and ai companions to the spaceship.
+      - A space map has to be created to find a destination.
+      - Adds a few more technologies, new recipes and a new satellite that returns an item required to craft the space map.
   Features:
     - Added Laser Cannon to the already existing stage 3
     - Added Lab as ingridient to astrometrics lab

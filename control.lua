@@ -40,7 +40,7 @@ local function gui_open_spacex(player)
 	local current_stage = global.stages[global.current_stage]
 	frame.add({
 		type = "label",
-		caption = { "stage-" .. current_stage.number .. "-progress-stage" },
+		caption = { "stage-" .. current_stage.number .. "-progress-stage", table_size(global.stages) },
 		style = "caption_label",
 	})
 	local items_to_launch = frame.add({
@@ -151,6 +151,17 @@ local function init_stages()
 					{ item_name = "space-thruster", base_required = 4, launched = 0 },
 					{ item_name = "hull-component", base_required = 10, launched = 0 },
 					{ item_name = "ftl-drive", base_required = 1, launched = 0 },
+				},
+			},
+			{
+				number = 4,
+				requirements = {
+					{ item_name = "exploration-satellite", base_required = 20, launched = 0 },
+					{ item_name = "space-ai-robot", base_required = 2, launched = 0 },
+					{ item_name = "space-water-tank", base_required = 2, launched = 0 },
+					{ item_name = "space-oxygen-tank", base_required = 2, launched = 0 },
+					{ item_name = "space-fuel-tank", base_required = 2, launched = 0 },
+					{ item_name = "space-map", base_required = 1, launched = 0 },
 				},
 			},
 		}
@@ -553,6 +564,8 @@ script.on_event(defines.events.on_gui_click, function(event)
 		gui_open_stage_complete(player, 1)
 	elseif element.name == "completion_stage_2_button" then
 		gui_open_stage_complete(player, 2)
+	elseif element.name == "completion_stage_3_button" then
+		gui_open_stage_complete(player, 3)
 	elseif element.name == "notadmin_button" then
 		gui_open_spacex_completed(player)
 	elseif element.name == "continue_hint_button" then
@@ -669,7 +682,7 @@ if __DebugAdapter then
 	end
 
 	-- For every stage create a complete command
-	for i = 1, 3 do
+	for i = 1, 4 do
 		commands.add_command("SpaceX_complete_stage_" .. i, { "SpaceX_cheat_sat_help" }, function(event)
 			global.current_stage = i
 			cheat_complete_stage()
