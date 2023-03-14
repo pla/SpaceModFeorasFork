@@ -11,7 +11,7 @@ data:extend({
 		type = "item-subgroup",
 		name = "spacex-stage-1",
 		group = "spacex",
-		order = "b",
+		order = "a",
 	},
 	{
 		type = "item-subgroup",

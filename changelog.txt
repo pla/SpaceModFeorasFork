@@ -10,6 +10,7 @@ Date: 01.04.2023
     - Added a popup window after the first completion to give a hint about the auto-continue and disable popup option
     - Added more strings to translation config file
     - Added player option to display days or hours in the log
+    - Added new item group for spacex items
   Changes:
     - Changed research cost to gradually increase
     - Replaced rocket fuel with nuclear reactor for the fuel cell
