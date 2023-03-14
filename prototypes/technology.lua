@@ -24,7 +24,7 @@ data:extend({
 				recipe = "spacex-combinator",
 			},
 		},
-		prerequisites = { "rocket-silo" },
+		prerequisites = { "rocket-silo", "construction-robotics", "effectivity-module-3" },
 		unit = {
 			count = 6000 * researchCost / marathon_adj,
 			ingredients = {
@@ -52,7 +52,7 @@ data:extend({
 				recipe = "drydock-structural",
 			},
 		},
-		prerequisites = { "space-assembly" },
+		prerequisites = { "space-assembly", "solar-energy" },
 		unit = {
 			count = 12000 * researchCost / marathon_adj,
 			ingredients = {
@@ -100,7 +100,7 @@ data:extend({
 				recipe = "protection-field",
 			},
 		},
-		prerequisites = { "space-construction" },
+		prerequisites = { "space-construction", "energy-shield-mk2-equipment" },
 		unit = {
 			count = 12000 * researchCost / marathon_adj,
 			ingredients = {
@@ -125,7 +125,7 @@ data:extend({
 				recipe = "fusion-reactor",
 			},
 		},
-		prerequisites = { "space-construction" },
+		prerequisites = { "space-construction", "fusion-reactor-equipment" },
 		unit = {
 			count = 12000 * researchCost / marathon_adj,
 			ingredients = {
@@ -175,7 +175,7 @@ data:extend({
 				recipe = "fuel-cell",
 			},
 		},
-		prerequisites = { "space-construction" },
+		prerequisites = { "space-construction", "nuclear-power" },
 		unit = {
 			count = 6000 * researchCost / marathon_adj,
 			ingredients = {
@@ -299,7 +299,7 @@ data:extend({
 				recipe = "laser-cannon",
 			},
 		},
-		prerequisites = { "space-construction" },
+		prerequisites = { "space-construction", "circuit-network", "laser-turret" },
 		unit = {
 			count = 24000 * researchCost / marathon_adj,
 			ingredients = {
@@ -409,7 +409,7 @@ data:extend({
 				recipe = "ftl-drive",
 			},
 		},
-		prerequisites = { "ftl-theory-D1", "ftl-theory-D2" },
+		prerequisites = { "ftl-theory-D1", "ftl-theory-D2", "space-science-pack" },
 		unit = {
 			count = 200000 * researchCost / marathon_adj,
 			ingredients = {
@@ -435,7 +435,7 @@ data:extend({
 				recipe = "exploration-satellite",
 			},
 		},
-		prerequisites = { "ftl-propulsion" },
+		prerequisites = { "ftl-propulsion", "space-thrusters", "kovarex-enrichment-process" },
 		unit = {
 			count = 250000 * researchCost / marathon_adj,
 			ingredients = {
@@ -461,7 +461,7 @@ data:extend({
 				recipe = "space-ai-robot",
 			},
 		},
-		prerequisites = { "ftl-propulsion" },
+		prerequisites = { "ftl-propulsion", "exoskeleton-equipment", "belt-immunity-equipment", "battery-mk2-equipment", "power-armor-mk2", "fusion-reactor-equipment" },
 		unit = {
 			count = 250000 * researchCost / marathon_adj,
 			ingredients = {
@@ -470,6 +470,7 @@ data:extend({
 				{ "chemical-science-pack", 1 },
 				{ "production-science-pack", 1 },
 				{ "utility-science-pack", 1 },
+				{ "military-science-pack", 1 },
 				{ "space-science-pack", 1 },
 			},
 			time = 60,
@@ -499,7 +500,7 @@ data:extend({
 				recipe = "space-oxygen-barrel",
 			},
 		},
-		prerequisites = { "ftl-propulsion" },
+		prerequisites = { "ftl-propulsion", "kovarex-enrichment-process" },
 		unit = {
 			count = 250000 * researchCost / marathon_adj,
 			ingredients = {
@@ -555,6 +556,7 @@ if noSpace then
 			{ "utility-science-pack", 1 },
 		}
 	end
+	data.raw.technology["ftl-propulsion"].prerequisites = { "ftl-theory-D1", "ftl-theory-D2" }
 end
 
 local combinatorSplit = settings.startup["SpaceX-split-combinator"].value
