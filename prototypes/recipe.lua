@@ -202,6 +202,93 @@ data:extend({
 		},
 		result = "spacex-combinator-stage",
 	},
+	{
+		type = "recipe",
+		name = "exploration-satellite",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "satellite", 5 },
+			{ "space-thruster", 1 },
+			{ "nuclear-fuel", 10 },
+		},
+		result = "exploration-satellite",
+	},
+	{
+		type = "recipe",
+		name = "space-ai-robot",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "exoskeleton-equipment", 50 },
+			{ "belt-immunity-equipment", 50 },
+			{ "radar", 50 },
+			{ "rocket-control-unit", 100 },
+			{ "battery-mk2-equipment", 20 },
+			{ "power-armor-mk2", 5 },
+			{ "fusion-reactor-equipment", 10 },
+		},
+		result = "space-ai-robot",
+	},
+	{
+		type = "recipe",
+		name = "space-water-tank",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "water-barrel", 2000 },
+			{ "pump", 100 },
+			{ "storage-tank", 100 },
+			{ "pipe", 500 },
+		},
+		result = "space-water-tank",
+	},
+	{
+		type = "recipe",
+		name = "space-fuel-tank",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "nuclear-fuel", 500 },
+			{ "pump", 100 },
+			{ "storage-tank", 100 },
+			{ "pipe", 500 },
+		},
+		result = "space-fuel-tank",
+	},
+	{
+		type = "recipe",
+		name = "space-oxygen-tank",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "space-oxygen-barrel", 2000 },
+			{ "pump", 100 },
+			{ "storage-tank", 100 },
+			{ "pipe", 500 },
+		},
+		result = "space-oxygen-tank",
+	},
+	{
+		type = "recipe",
+		name = "space-oxygen-barrel",
+		enabled = false,
+		energy_required = 0.2,
+		ingredients = {
+			{ "empty-barrel", 1 },
+		},
+		result = "space-oxygen-barrel",
+	},
+	{
+		type = "recipe",
+		name = "space-map",
+		enabled = false,
+		energy_required = 50,
+		ingredients = {
+			{ "exploration-data-disk", 20 },
+		},
+		result = "space-map",
+	},
 })
 
 local cheapFusion = settings.startup["SpaceX-cheaper-fusion-reactor"].value

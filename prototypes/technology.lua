@@ -424,18 +424,137 @@ data:extend({
 		},
 		order = "k-q",
 	},
+	{
+		type = "technology",
+		name = "exploration-satellite",
+		icon = "__SpaceModFeoras__/graphics/technology/spacex-exploration-satellite.png",
+		icon_size = 128,
+		effects = {
+			{
+				type = "unlock-recipe",
+				recipe = "exploration-satellite",
+			},
+		},
+		prerequisites = { "ftl-propulsion" },
+		unit = {
+			count = 250000 * researchCost / marathon_adj,
+			ingredients = {
+				{ "automation-science-pack", 1 },
+				{ "logistic-science-pack", 1 },
+				{ "chemical-science-pack", 1 },
+				{ "production-science-pack", 1 },
+				{ "utility-science-pack", 1 },
+				{ "space-science-pack", 1 },
+			},
+			time = 60,
+		},
+		order = "k-r",
+	},
+	{
+		type = "technology",
+		name = "space-ai-robots",
+		icon = "__SpaceModFeoras__/graphics/technology/spacex-space-ai-robots.png",
+		icon_size = 128,
+		effects = {
+			{
+				type = "unlock-recipe",
+				recipe = "space-ai-robot",
+			},
+		},
+		prerequisites = { "ftl-propulsion" },
+		unit = {
+			count = 250000 * researchCost / marathon_adj,
+			ingredients = {
+				{ "automation-science-pack", 1 },
+				{ "logistic-science-pack", 1 },
+				{ "chemical-science-pack", 1 },
+				{ "production-science-pack", 1 },
+				{ "utility-science-pack", 1 },
+				{ "space-science-pack", 1 },
+			},
+			time = 60,
+		},
+		order = "k-s",
+	},
+	{
+		type = "technology",
+		name = "space-fluid-tanks",
+		icon = "__SpaceModFeoras__/graphics/technology/spacex-space-fluid-tanks.png",
+		icon_size = 128,
+		effects = {
+			{
+				type = "unlock-recipe",
+				recipe = "space-water-tank",
+			},
+			{
+				type = "unlock-recipe",
+				recipe = "space-oxygen-tank",
+			},
+			{
+				type = "unlock-recipe",
+				recipe = "space-fuel-tank",
+			},
+			{
+				type = "unlock-recipe",
+				recipe = "space-oxygen-barrel",
+			},
+		},
+		prerequisites = { "ftl-propulsion" },
+		unit = {
+			count = 250000 * researchCost / marathon_adj,
+			ingredients = {
+				{ "automation-science-pack", 1 },
+				{ "logistic-science-pack", 1 },
+				{ "chemical-science-pack", 1 },
+				{ "production-science-pack", 1 },
+				{ "utility-science-pack", 1 },
+				{ "space-science-pack", 1 },
+			},
+			time = 60,
+		},
+		order = "k-t",
+	},
+	{
+		type = "technology",
+		name = "space-cartography",
+		icon = "__SpaceModFeoras__/graphics/technology/spacex-space-cartography.png",
+		icon_size = 128,
+		effects = {
+			{
+				type = "unlock-recipe",
+				recipe = "space-map",
+			},
+		},
+		prerequisites = { "exploration-satellite" },
+		unit = {
+			count = 300000 * researchCost / marathon_adj,
+			ingredients = {
+				{ "automation-science-pack", 1 },
+				{ "logistic-science-pack", 1 },
+				{ "chemical-science-pack", 1 },
+				{ "production-science-pack", 1 },
+				{ "utility-science-pack", 1 },
+				{ "space-science-pack", 1 },
+			},
+			time = 60,
+		},
+		order = "k-v",
+	},
 })
 
 local noSpace = settings.startup["SpaceX-no-space-sci"].value
 if noSpace then
-	local fix = data.raw.technology["ftl-propulsion"]
-	fix.unit.ingredients = {
-		{ "automation-science-pack", 1 },
-		{ "logistic-science-pack", 1 },
-		{ "chemical-science-pack", 1 },
-		{ "production-science-pack", 1 },
-		{ "utility-science-pack", 1 },
-	}
+	local techs_with_space_science = { "ftl-propulsion", "exploration-satellite", "space-ai-robots", "space-fluid-tanks", "space-cartography" }
+	for _, tech in pairs(techs_with_space_science) do
+		local fix = data.raw.technology[tech]
+		fix.unit.ingredients = {
+			{ "automation-science-pack", 1 },
+			{ "logistic-science-pack", 1 },
+			{ "chemical-science-pack", 1 },
+			{ "production-science-pack", 1 },
+			{ "utility-science-pack", 1 },
+		}
+	end
 end
 
 local combinatorSplit = settings.startup["SpaceX-split-combinator"].value
