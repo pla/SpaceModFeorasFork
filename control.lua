@@ -14,6 +14,46 @@ local function debugp(text)
 	end
 end
 
+local function format_launch_log(ticks, player)
+	local seconds = math.floor(ticks / 60)
+	local minutes = math.floor(seconds / 60)
+	local hours = math.floor(minutes / 60)
+
+	local show_days = settings.get_player_settings(player)["SpaceX-log-days"].value or false
+	if show_days then
+		local days = math.floor(hours / 24)
+		return string.format("%dd %02dh %02dm %02ds", days, hours % 24, minutes % 60, seconds % 60)
+	else
+		return string.format("%dh %02dm %02ds", hours, minutes % 60, seconds % 60)
+	end
+end
+
+local function gui_open_log(player)
+	local gui = mod_gui.get_frame_flow(player)
+	local llog = gui.spacex_log
+	if not llog then
+		return
+	end
+	local scroll = llog.add({ type = "scroll-pane", name = "scroll" })
+	scroll.style.maximal_height = 600
+	local logtable =
+		scroll.add({ type = "table", name = "spacex_log_table", column_count = 3, style = "SpaceMod_table_style" })
+	logtable.style.column_alignments[1] = "center"
+	logtable.style.column_alignments[2] = "center"
+	logtable.draw_horizontal_lines = true
+	logtable.draw_vertical_lines = true
+	logtable.draw_horizontal_line_after_headers = true
+	logtable.add({ type = "label", caption = { "spacex-log-launch" }, style = "caption_label" })
+	logtable.add({ type = "label", caption = { "spacex-log-time" }, style = "caption_label" })
+	logtable.add({ type = "label", caption = { "spacex-log-notes" }, style = "caption_label" })
+	for i = table_size(global.launch_log), 1, -1 do
+		local launch = global.launch_log[i]
+		logtable.add({ type = "label", caption = launch.number, style = "Launch_label_style" })
+		logtable.add({ type = "label", caption = format_launch_log(launch.log, player), style = "Launch_label_style" })
+		logtable.add({ type = "textfield", name = "spacex-logdetail" .. i, enabled = player.admin, text = launch.detail })
+	end
+end
+
 local function gui_open_spacex(player)
 	local frame = mod_gui.get_frame_flow(player).space_progress_frame
 	if not frame then
@@ -62,6 +102,13 @@ local function gui_open_spacex(player)
 	for _, item in pairs(current_stage.requirements) do
 		items_to_launch.add({ type = "label", caption = { "SpaceX-Progress." .. item.item_name } })
 		items_to_launch.add({ type = "label", caption = item.launched .. "/" .. item.required })
+	end
+
+	-- Update log
+	local llog = mod_gui.get_frame_flow(player).spacex_log
+	if llog then
+		llog.clear()
+		gui_open_log(player)
 	end
 end
 
@@ -279,33 +326,17 @@ local function gui_open_spacex_completed(player)
 	gui_spacex.add({ type = "label", caption = { "spacex-launch-title" }, style = "caption_label" })
 	gui_spacex.add({ type = "label", caption = { "spacex-completion-text" }, style = "Launch_label_style" })
 	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
-	for i = 1, 4 do
+	for i = 1, 3 do
 		gui_spacex.add({ type = "label", caption = { "spacex-completion-text" .. i }, style = "Launch_label_style" })
 		gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
 	end
 	if player.admin then
-		local sctable = gui_spacex.add({
-			type = "table",
-			name = "spacex_launch_table",
-			column_count = 2,
-			style = "SpaceMod_table_style",
-		})
-		sctable.style.minimal_width = 400
-		sctable.style.horizontally_stretchable = "on"
-		sctable.style.column_alignments[2] = "right"
-		sctable.add({
+		gui_spacex.add({
 			type = "button",
-			name = "spacex_continue_button",
+			name = "spacex_completion_button",
 			style = mod_gui.button_style,
-			caption = { "spacex-continue-caption" },
-			tooltip = { "spacex-continue-tooltip" },
-		})
-		sctable.add({
-			type = "button",
-			name = "spacex_finish_button",
-			style = mod_gui.button_style,
-			caption = { "spacex-finish-caption" },
-			tooltip = { "spacex-finish-tooltip" },
+			caption = { "spacex-completion-caption" },
+			tooltip = { "spacex-completion-tooltip" },
 		})
 	else
 		gui_spacex.add({
@@ -315,46 +346,6 @@ local function gui_open_spacex_completed(player)
 			caption = { "spacex-notadmin-caption" },
 			tooltip = { "spacex-notadmin-tooltip" },
 		})
-	end
-end
-
-local function format_launch_log(ticks, player)
-	local seconds = math.floor(ticks / 60)
-	local minutes = math.floor(seconds / 60)
-	local hours = math.floor(minutes / 60)
-
-	local show_days = settings.get_player_settings(player)["SpaceX-log-days"].value or false
-	if show_days then
-		local days = math.floor(hours / 24)
-		return string.format("%dd %02dh %02dm %02ds", days, hours % 24, minutes % 60, seconds % 60)
-	else
-		return string.format("%dh %02dm %02ds", hours, minutes % 60, seconds % 60)
-	end
-end
-
-local function gui_open_log(player)
-	local gui = mod_gui.get_frame_flow(player)
-	local llog = gui.spacex_log
-	if not llog then
-		return
-	end
-	local scroll = llog.add({ type = "scroll-pane", name = "scroll" })
-	scroll.style.maximal_height = 600
-	local logtable =
-		scroll.add({ type = "table", name = "spacex_log_table", column_count = 3, style = "SpaceMod_table_style" })
-	logtable.style.column_alignments[1] = "center"
-	logtable.style.column_alignments[2] = "center"
-	logtable.draw_horizontal_lines = true
-	logtable.draw_vertical_lines = true
-	logtable.draw_horizontal_line_after_headers = true
-	logtable.add({ type = "label", caption = { "spacex-log-launch" }, style = "caption_label" })
-	logtable.add({ type = "label", caption = { "spacex-log-time" }, style = "caption_label" })
-	logtable.add({ type = "label", caption = { "spacex-log-notes" }, style = "caption_label" })
-	for i = table_size(global.launch_log), 1, -1 do
-		local launch = global.launch_log[i]
-		logtable.add({ type = "label", caption = launch.number, style = "Launch_label_style" })
-		logtable.add({ type = "label", caption = format_launch_log(launch.log, player), style = "Launch_label_style" })
-		logtable.add({ type = "textfield", name = "spacex-logdetail" .. i, enabled = player.admin, text = launch.detail })
 	end
 end
 
@@ -421,47 +412,11 @@ script.on_event(defines.events.on_entity_died, on_remove_entity, {
 	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
 })
 
-local function spacex_continue(surface)
+local function spacex_continue()
 	global.stages = nil
 	global.launch_mult = nil
 	global.current_stage = nil
 	init_spacex()
-	global.completed = global.completed + 1
-	local launch_log = { log = game.ticks_played, detail = "", number = global.completed }
-	table.insert(global.launch_log, launch_log)
-
-	-- Show hint message for auto-continue and disable popups
-	if global.completed == 1 then
-		for _, player in pairs(game.players) do
-			if player ~= nil then
-				if player.admin then
-					if settings.global["SpaceX-no-popup"].value == false then
-						local gui = mod_gui.get_frame_flow(player)
-						local gui_continue_hint = gui.continue_hint_msg
-						gui_continue_hint = gui.add({
-							type = "frame",
-							name = "continue_hint_msg",
-							direction = "vertical",
-							caption = { "continue-hint-title" },
-							style = mod_gui.frame_style,
-						})
-						gui_continue_hint.add({
-							type = "label",
-							caption = { "continue-hint-text" },
-							style = "Launch_label_style",
-						})
-						gui_continue_hint.add({
-							type = "button",
-							name = "continue_hint_button",
-							style = mod_gui.button_style,
-							caption = { "continue-hint-caption" },
-							tooltip = { "continue-hint-tooltip" },
-						})
-					end
-				end
-			end
-		end
-	end
 end
 
 local function gui_open_stage_complete(player, stage_number)
@@ -493,12 +448,21 @@ local function gui_open_stage_complete(player, stage_number)
 	})
 end
 
+local function close_all_spacex_launch_gui()
+	for _, player in pairs(game.players) do
+		local gui = mod_gui.get_frame_flow(player)
+		local gui_spacex = gui.spacex_launch
+		if gui_spacex then
+			gui_spacex.destroy()
+		end
+	end
+end
+
 script.on_event(defines.events.on_gui_click, function(event)
 	local element = event.element
 	local player = game.players[event.player_index]
 	local gui = mod_gui.get_frame_flow(player)
 	local frame = gui.space_progress_frame
-	local gui_spacex = gui.spacex_launch
 	local spacex_log = gui.spacex_log
 
 	if element.name == "space_toggle_button" then
@@ -518,35 +482,79 @@ script.on_event(defines.events.on_gui_click, function(event)
 		})
 		gui_open_spacex(player)
 	elseif element.name == "spacex_continue_button" then
-		for _, player in pairs(game.players) do
-			-- Close every launch gui
-			gui_open_spacex_completed(player)
+		close_all_spacex_launch_gui()
+		spacex_continue()
+		if frame then
+			frame.clear()
 		end
-		spacex_continue(player.surface)
+		gui_open_spacex(player)
+	elseif element.name == "spacex_finish_button" then
+		close_all_spacex_launch_gui()
 		if frame then
 			frame.destroy()
 		end
-		if gui_spacex then
-			gui_spacex.destroy()
+		if spacex_log then
+			spacex_log.destroy()
 		end
-		frame = gui.add({
-			type = "frame",
-			name = "space_progress_frame",
-			direction = "vertical",
-			caption = { "space-progress-frame-title" },
-			style = mod_gui.frame_style,
-		})
-		gui_open_spacex(player)
-	elseif element.name == "spacex_finish_button" then
-		for _, player in pairs(game.players) do
-			-- Close every launch gui
-			gui_open_spacex_completed(player)
-		end
-		if gui_spacex then
-			gui_spacex.destroy()
-		end
-		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
 		global.finished = true
+	elseif element.name == "spacex_completion_button" then
+		close_all_spacex_launch_gui()
+		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
+		-- If game continues show message if spacex should be reset or not
+		if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
+			for _, p in pairs(game.players) do
+				if p ~= nil then
+					local gui_continue = gui.spacex_launch
+					gui_continue = gui.add({
+						type = "frame",
+						name = "spacex_launch",
+						direction = "vertical",
+						caption = { "spacex-continue-title" },
+						style = mod_gui.frame_style,
+					})
+					for i = 1, 2 do
+						gui_continue.add({
+							type = "label",
+							caption = { "spacex-continue-text" .. i },
+							style = "Launch_label_style",
+						})
+					end
+					if p.admin then
+						local sctable = gui_continue.add({
+							type = "table",
+							name = "continue_msg_Table",
+							column_count = 2,
+							style = "SpaceMod_table_style",
+						})
+						sctable.style.minimal_width = 400
+						sctable.style.horizontally_stretchable = "on"
+						sctable.style.column_alignments[2] = "right"
+						sctable.add({
+							type = "button",
+							name = "spacex_continue_button",
+							style = mod_gui.button_style,
+							caption = { "spacex-continue-caption" },
+							tooltip = { "spacex-continue-tooltip" },
+						})
+						sctable.add({
+							type = "button",
+							name = "spacex_finish_button",
+							style = mod_gui.button_style,
+							caption = { "spacex-finish-caption" },
+							tooltip = { "spacex-finish-tooltip" },
+						})
+					else
+						gui_continue.add({
+							type = "button",
+							name = "notadmin_button",
+							style = mod_gui.button_style,
+							caption = { "spacex-notadmin-caption" },
+							tooltip = { "spacex-notadmin-tooltip" },
+						})
+					end
+				end
+			end
+		end
 	elseif element.name == "launch_log" then
 		if spacex_log then
 			spacex_log.destroy()
@@ -568,11 +576,6 @@ script.on_event(defines.events.on_gui_click, function(event)
 		gui_open_stage_complete(player, 3)
 	elseif element.name == "notadmin_button" then
 		gui_open_spacex_completed(player)
-	elseif element.name == "continue_hint_button" then
-		local gui_continue_hint = gui.continue_hint_msg
-		if gui_continue_hint then
-			gui_continue_hint.destroy()
-		end
 	end
 end)
 
@@ -623,19 +626,29 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 		if check_stage_completed(global.stages[i]) then
 			-- Check for spacex completion
 			if current_stage.number == table_size(global.stages) then
-				if settings.global["SpaceX-auto-continue"].value == false then
+				global.completed = global.completed + 1
+				local launch_log = { log = game.ticks_played, detail = "", number = global.completed }
+				table.insert(global.launch_log, launch_log)
+
+				if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
 					for _, player in pairs(game.players) do
 						player.print({ "spacex-completion-msg" })
+					end
+				end
+				if global.completed <= 1 or settings.global["SpaceX-auto-continue"].value == false then
+					for _, player in pairs(game.players) do
 						gui_open_spacex_completed(player)
 					end
 				else
-					spacex_continue(event.rocket.surface)
+					spacex_continue()
 				end
 			-- Stage completion
 			else
 				for _, player in pairs(game.players) do
-					player.print({ "stage-" .. current_stage.number .. "-completion-msg" })
-					if settings.global["SpaceX-no-popup"].value == false then
+					if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
+						player.print({ "stage-" .. current_stage.number .. "-completion-msg" })
+					end
+					if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
 						gui_open_stage_complete(player, current_stage.number)
 					end
 				end
@@ -647,10 +660,7 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 	end
 
 	for _, player in pairs(game.players) do
-		local frame = mod_gui.get_frame_flow(player).space_progress_frame
-		if frame then
-			gui_open_spacex(player)
-		end
+		gui_open_spacex(player)
 	end
 	update_all_combinators()
 end)
