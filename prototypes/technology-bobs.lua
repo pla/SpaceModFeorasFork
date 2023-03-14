@@ -1,8 +1,5 @@
 local bob_coefficient = 10
-local researchCost = settings.startup["SpaceX-research"].value
-if researchCost == nil then
-	researchCost = 1
-end
+local researchCost = settings.startup["SpaceX-research"].value or 1
 
 local SpaceXTechs = {
 	"space-assembly",
@@ -78,28 +75,21 @@ bobmods.lib.tech.add_prerequisite("space-assembly", "bob-robots-3")
 
 if bobmods.modules.EnableGodModules == true then
 	bobmods.lib.tech.add_prerequisite("space-assembly", "god-module-5")
---    data.raw.technology["space-assembly"].prerequisites = {"god-module-5","rocket-silo","bob-robots-3"}
 else
 	bobmods.lib.tech.add_prerequisite("space-assembly", "speed-module-8")
 	bobmods.lib.tech.add_prerequisite("space-assembly", "effectivity-module-8")
-	--    data.raw.technology["space-assembly"].prerequisites = {"speed-module-8","effectivity-module-8","rocket-silo","bob-robots-3"}
 	bobmods.lib.tech.add_prerequisite("ftl-propulsion", "productivity-module-8")
-	--    data.raw.technology["ftl-propulsion"].prerequisites = {"productivity-module-8","ftl-theory-D"}
 end
 
 bobmods.lib.tech.add_prerequisite("space-construction", "bob-robo-modular-4")
--- data.raw.technology["space-construction"].prerequisites = {"space-assembly","bob-robo-modular-4"}
 bobmods.lib.tech.add_prerequisite("protection-fields", "bob-energy-shield-equipment-6")
--- data.raw.technology["protection-fields"].prerequisites = {"space-construction","energy-shield-equipment-6"}
 bobmods.lib.tech.add_prerequisite("fusion-reactor", "fusion-reactor-equipment-4")
--- data.raw.technology["fusion-reactor"].prerequisites = {"space-construction","fusion-reactor-equipment-4"}
 
 bobmods.lib.tech.add_prerequisite("rocket-silo", "titanium-processing")
 bobmods.lib.tech.add_prerequisite("rocket-silo", "nitinol-processing")
 bobmods.lib.tech.add_prerequisite("rocket-silo", "bob-electric-energy-accumulators-4")
 bobmods.lib.tech.add_prerequisite("rocket-silo", "bob-solar-energy-4")
 bobmods.lib.tech.add_prerequisite("rocket-silo", "advanced-electronics-3")
--- bobmods.lib.tech.add_prerequisite("rocket-silo", "radars-4")
 
 -- alternate protection field recipe enabler
 bobmods.lib.tech.add_recipe_unlock("protection-fields", "protection-field-goopless")
