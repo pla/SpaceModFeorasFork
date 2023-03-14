@@ -502,10 +502,11 @@ script.on_event(defines.events.on_gui_click, function(event)
 		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
 		-- If game continues show message if spacex should be reset or not
 		if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
-			for _, p in pairs(game.players) do
+			for _,p in pairs(game.players) do
 				if p ~= nil then
-					local gui_continue = gui.spacex_launch
-					gui_continue = gui.add({
+					local gui_continue = mod_gui.get_frame_flow(p)
+					local gui_continue_launch = gui_continue.spacex_launch
+					gui_continue_launch = gui_continue.add({
 						type = "frame",
 						name = "spacex_launch",
 						direction = "vertical",
@@ -513,14 +514,14 @@ script.on_event(defines.events.on_gui_click, function(event)
 						style = mod_gui.frame_style,
 					})
 					for i = 1, 2 do
-						gui_continue.add({
+						gui_continue_launch.add({
 							type = "label",
 							caption = { "spacex-continue-text" .. i },
 							style = "Launch_label_style",
 						})
 					end
 					if p.admin then
-						local sctable = gui_continue.add({
+						local sctable = gui_continue_launch.add({
 							type = "table",
 							name = "continue_msg_Table",
 							column_count = 2,
@@ -544,7 +545,7 @@ script.on_event(defines.events.on_gui_click, function(event)
 							tooltip = { "spacex-finish-tooltip" },
 						})
 					else
-						gui_continue.add({
+						gui_continue_launch.add({
 							type = "button",
 							name = "notadmin_button",
 							style = mod_gui.button_style,
