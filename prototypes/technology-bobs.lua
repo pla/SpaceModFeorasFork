@@ -81,9 +81,13 @@ else
 	bobmods.lib.tech.add_prerequisite("ftl-propulsion", "productivity-module-8")
 end
 
+bobmods.lib.tech.add_prerequisite("drydock-assembly", "advanced-electronics-3")
+bobmods.lib.tech.add_prerequisite("astrometrics", "advanced-research")
 bobmods.lib.tech.add_prerequisite("space-construction", "bob-robo-modular-4")
 bobmods.lib.tech.add_prerequisite("protection-fields", "bob-energy-shield-equipment-6")
 bobmods.lib.tech.add_prerequisite("fusion-reactor", "fusion-reactor-equipment-4")
+bobmods.lib.tech.add_prerequisite("low-density-structure", "titanium-processing")
+bobmods.lib.tech.add_prerequisite("low-density-structure", "nitinol-processing")
 
 bobmods.lib.tech.add_prerequisite("rocket-silo", "titanium-processing")
 bobmods.lib.tech.add_prerequisite("rocket-silo", "nitinol-processing")
