@@ -461,7 +461,14 @@ data:extend({
 				recipe = "space-ai-robot",
 			},
 		},
-		prerequisites = { "ftl-propulsion", "exoskeleton-equipment", "belt-immunity-equipment", "battery-mk2-equipment", "power-armor-mk2", "fusion-reactor-equipment" },
+		prerequisites = {
+			"ftl-propulsion",
+			"exoskeleton-equipment",
+			"belt-immunity-equipment",
+			"battery-mk2-equipment",
+			"power-armor-mk2",
+			"fusion-reactor-equipment",
+		},
 		unit = {
 			count = 250000 * researchCost / marathon_adj,
 			ingredients = {
@@ -545,7 +552,8 @@ data:extend({
 
 local noSpace = settings.startup["SpaceX-no-space-sci"].value
 if noSpace then
-	local techs_with_space_science = { "ftl-propulsion", "exploration-satellite", "space-ai-robots", "space-fluid-tanks", "space-cartography" }
+	local techs_with_space_science =
+		{ "ftl-propulsion", "exploration-satellite", "space-ai-robots", "space-fluid-tanks", "space-cartography" }
 	for _, tech in pairs(techs_with_space_science) do
 		local fix = data.raw.technology[tech]
 		fix.unit.ingredients = {

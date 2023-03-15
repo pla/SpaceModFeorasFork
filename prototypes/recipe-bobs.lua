@@ -98,10 +98,11 @@ bobmods.lib.recipe.replace_ingredient("fuel-cell", "processing-unit", "advanced-
 bobmods.lib.recipe.replace_ingredient("habitation", "steel-plate", "titanium-plate")
 bobmods.lib.recipe.replace_ingredient("habitation", "processing-unit", "advanced-processing-unit")
 -- laser-cannon
-data.raw.recipe["laser-cannon"].ingredients = {			
+data.raw.recipe["laser-cannon"].ingredients = {
 	{ "arithmetic-combinator", 50 * productionCost },
 	{ "decider-combinator", 50 * productionCost },
-	{ "personal-laser-defense-equipment-6", 100 * productionCost }, }
+	{ "personal-laser-defense-equipment-6", 100 * productionCost },
+}
 -- low-density-structure
 bobmods.lib.recipe.replace_ingredient("low-density-structure", "steel-plate", "titanium-plate")
 bobmods.lib.recipe.replace_ingredient("low-density-structure", "copper-plate", "nitinol-alloy")
@@ -111,7 +112,7 @@ bobmods.lib.recipe.replace_ingredient("satellite", "solar-panel", "solar-panel-l
 bobmods.lib.recipe.replace_ingredient("satellite", "processing-unit", "advanced-processing-unit")
 bobmods.lib.recipe.replace_ingredient("satellite", "radar", "radar-5")
 -- space tanks
-for _, tech in pairs({"space-fuel-tank", "space-water-tank", "space-oxygen-tank"}) do
+for _, tech in pairs({ "space-fuel-tank", "space-water-tank", "space-oxygen-tank" }) do
 	bobmods.lib.recipe.replace_ingredient(tech, "storage-tank", "storage-tank-4")
 	bobmods.lib.recipe.replace_ingredient(tech, "pump", "bob-pump-4")
 	bobmods.lib.recipe.replace_ingredient(tech, "pipe", "titanium-pipe")

@@ -185,7 +185,7 @@ data:extend({
 		subgroup = "spacex-stage-4",
 		order = "m[satellite][exploration-satellite]",
 		stack_size = 1,
-		rocket_launch_product = { "exploration-data-disk", 1 }
+		rocket_launch_product = { "exploration-data-disk", 1 },
 	},
 	{
 		type = "item",
