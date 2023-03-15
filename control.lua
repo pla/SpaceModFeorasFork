@@ -47,7 +47,7 @@ local function gui_open_log(player)
 	logtable.add({ type = "label", caption = { "spacex-log-launch" }, style = "caption_label" })
 	logtable.add({ type = "label", caption = { "spacex-log-time" }, style = "caption_label" })
 	logtable.add({ type = "label", caption = { "spacex-log-notes" }, style = "caption_label" })
-	for i = table_size(global.launch_log), 1, -1 do
+	for i = #global.launch_log, 1, -1 do
 		local launch = global.launch_log[i]
 		logtable.add({ type = "label", caption = launch.number, style = "Launch_label_style" })
 		logtable.add({ type = "label", caption = format_launch_log(launch.log, player), style = "Launch_label_style" })
@@ -90,7 +90,7 @@ local function gui_open_spacex(player)
 	local current_stage = global.stages[global.current_stage]
 	frame.add({
 		type = "label",
-		caption = { "stage-" .. current_stage.number .. "-progress-stage", table_size(global.stages) },
+		caption = { "stage-" .. current_stage.number .. "-progress-stage", #global.stages },
 		style = "caption_label",
 	})
 	local items_to_launch = frame.add({
@@ -144,7 +144,7 @@ local function update_combinator(combinator)
 					name = "signal-S",
 				},
 				count = current_stage.number,
-				index = table_size(signals) + 1,
+				index = #signals + 1,
 			})
 		end
 		cb.parameters = signals
@@ -421,14 +421,12 @@ local function on_entity_build(event)
 	table.insert(global.combinators, { entity = event.created_entity })
 	update_combinator(event.created_entity)
 end
-script.on_event(defines.events.on_built_entity, on_entity_build, {
+local event_filter = {
 	{ filter = "name", name = "spacex-combinator", mode = "or" },
 	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-})
-script.on_event(defines.events.on_robot_built_entity, on_entity_build, {
-	{ filter = "name", name = "spacex-combinator", mode = "or" },
-	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-})
+}
+script.on_event(defines.events.on_built_entity, on_entity_build, event_filter)
+script.on_event(defines.events.on_robot_built_entity, on_entity_build, event_filter)
 
 local function on_entity_cloned(event)
 	debugp("Spacex combinator cloned")
@@ -436,10 +434,7 @@ local function on_entity_cloned(event)
 	table.insert(global.combinators, { entity = event.destination })
 	update_combinator(event.destination)
 end
-script.on_event(defines.events.on_entity_cloned, on_entity_cloned, {
-	{ filter = "name", name = "spacex-combinator", mode = "or" },
-	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-})
+script.on_event(defines.events.on_entity_cloned, on_entity_cloned, event_filter)
 
 local function on_remove_entity(event)
 	debugp("Spacex combinator removed")
@@ -451,18 +446,9 @@ local function on_remove_entity(event)
 		end
 	end
 end
-script.on_event(defines.events.on_pre_player_mined_item, on_remove_entity, {
-	{ filter = "name", name = "spacex-combinator", mode = "or" },
-	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-})
-script.on_event(defines.events.on_robot_pre_mined, on_remove_entity, {
-	{ filter = "name", name = "spacex-combinator", mode = "or" },
-	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-})
-script.on_event(defines.events.on_entity_died, on_remove_entity, {
-	{ filter = "name", name = "spacex-combinator", mode = "or" },
-	{ filter = "name", name = "spacex-combinator-stage", mode = "or" },
-})
+script.on_event(defines.events.on_pre_player_mined_item, on_remove_entity, event_filter)
+script.on_event(defines.events.on_robot_pre_mined, on_remove_entity, event_filter)
+script.on_event(defines.events.on_entity_died, on_remove_entity, event_filter)
 
 local function spacex_continue()
 	global.stages = nil
@@ -613,10 +599,10 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 		end
 	end
 
-	for i = global.current_stage, table_size(global.stages), 1 do
+	for i = global.current_stage, #global.stages, 1 do
 		if check_stage_completed(global.stages[i]) then
 			-- Check for spacex completion
-			if current_stage.number == table_size(global.stages) then
+			if current_stage.number == #global.stages then
 				global.completed = global.completed + 1
 				local launch_log = { log = game.ticks_played, detail = "", number = global.completed }
 				table.insert(global.launch_log, launch_log)
@@ -676,7 +662,7 @@ if __DebugAdapter then
 			item.launched = item.required
 		end
 		local stage_req = global.stages[global.current_stage].requirements
-		stage_req[table_size(stage_req)].launched = stage_req[table_size(stage_req)].required - 1
+		stage_req[#stage_req].launched = stage_req[#stage_req].required - 1
 		update_all_combinators()
 		for _, player in pairs(game.players) do
 			gui_open_spacex(player)

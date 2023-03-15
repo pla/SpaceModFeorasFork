@@ -174,7 +174,7 @@ data:extend({
 		icon_size = 32,
 		subgroup = "spacex-stage-1",
 		place_result = "spacex-combinator-stage",
-		order = "c[combinators]-dd[spacex-combinator-stage]",
+		order = "c[combinators]-ee[spacex-combinator-stage]",
 		stack_size = 50,
 	},
 	{
