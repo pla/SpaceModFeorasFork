@@ -30,11 +30,12 @@ end
 
 local function gui_open_log(player)
 	local gui = mod_gui.get_frame_flow(player)
-	local llog = gui.spacex_log
-	if not llog then
+	local log = gui.spacex_log
+	if not log then
 		return
 	end
-	local scroll = llog.add({ type = "scroll-pane", name = "scroll" })
+	log.clear()
+	local scroll = log.add({ type = "scroll-pane", name = "scroll" })
 	scroll.style.maximal_height = 600
 	local logtable =
 		scroll.add({ type = "table", name = "spacex_log_table", column_count = 3, style = "SpaceMod_table_style" })
@@ -60,7 +61,8 @@ local function gui_open_log(player)
 end
 
 local function gui_open_spacex(player)
-	local frame = mod_gui.get_frame_flow(player).space_progress_frame
+	local gui = mod_gui.get_frame_flow(player)
+	local frame = gui.space_progress_frame
 	if not frame then
 		return
 	end
@@ -79,6 +81,9 @@ local function gui_open_spacex(player)
 			tooltip = { "spacex-log-tooltip" },
 		})
 		log_button.style.height = 30
+
+		-- Update log only if already visibile
+		gui_open_log(player)
 	end
 
 	-- Current required items to launch
@@ -108,26 +113,18 @@ local function gui_open_spacex(player)
 		items_to_launch.add({ type = "label", caption = { "SpaceX-Progress." .. item.item_name } })
 		items_to_launch.add({ type = "label", caption = item.launched .. "/" .. item.required })
 	end
-
-	-- Update log
-	local llog = mod_gui.get_frame_flow(player).spacex_log
-	if llog then
-		llog.clear()
-		gui_open_log(player)
-	end
 end
 
 local function update_combinator(combinator)
 	if combinator.valid == true then
 		local cb = combinator.get_or_create_control_behavior()
-
 		local is_stage_combinator = combinator.name == "spacex-combinator-stage"
 		local split_signal = settings.startup["SpaceX-split-combinator"].value
 		local append_items = not is_stage_combinator
 		local append_stage = (split_signal and is_stage_combinator) or (not split_signal and not is_stage_combinator)
-
 		local current_stage = global.stages[global.current_stage]
 		local signals = {}
+
 		if append_items then
 			for i, item in pairs(current_stage.requirements) do
 				table.insert(signals, {
@@ -162,7 +159,7 @@ local function update_all_combinators()
 end
 
 local function init_launch_multiplier()
-	if global.launch_mult ~= settings.startup["SpaceX-launch-multiplier"].value then
+	if global.launch_mult == nil or global.launch_mult ~= settings.startup["SpaceX-launch-multiplier"].value then
 		global.launch_mult = settings.startup["SpaceX-launch-multiplier"].value or 1
 		for _, stage in pairs(global.stages) do
 			for _, item in pairs(stage.requirements) do
@@ -231,7 +228,7 @@ local function init_spacex()
 	update_all_combinators()
 end
 
-local function init_gui(player, after_research)
+local function init_gui(player)
 	local button = mod_gui.get_button_flow(player).space_toggle_button
 	if button then
 		if player.force.technologies["rocket-silo"].researched ~= true then
@@ -240,7 +237,7 @@ local function init_gui(player, after_research)
 		return
 	end
 
-	if player.force.technologies["rocket-silo"].researched or after_research then
+	if player.force.technologies["rocket-silo"].researched then
 		mod_gui.get_button_flow(player).add({
 			type = "button",
 			name = "space_toggle_button",
@@ -251,13 +248,10 @@ local function init_gui(player, after_research)
 end
 
 script.on_configuration_changed(function(event)
-	global.launch_mult = nil
-	init_spacex()
-	local changed = event.mod_changes
-	if changed then
+	if event.mod_changes or event.mod_startup_settings_changed then
 		debugp("Processing mod change")
-		global.combinators = {}
 		-- Add existing combinators to global
+		global.combinators = {}
 		for _, surface in pairs(game.surfaces) do
 			debugp("Surface found")
 			for _, spacexCom in
@@ -275,6 +269,10 @@ script.on_configuration_changed(function(event)
 				table.insert(global.combinators, { entity = spacexCom })
 			end
 		end
+		-- Update launch mult and combinators
+		global.launch_mult = nil
+		init_spacex()
+		-- Reset GUI
 		if game.players ~= nil then
 			for _, player in pairs(game.players) do
 				local frame = player.gui.left["space-progress-frame"]
@@ -285,10 +283,10 @@ script.on_configuration_changed(function(event)
 				if button then
 					button.destroy()
 				end
-				init_gui(player, player.force.technologies["rocket-silo"].researched)
-				debugp("Mod version changed processed")
+				init_gui(player)
 			end
 		end
+		-- Check research
 		for _, force in pairs(game.forces) do
 			if force.technologies["space-assembly"].researched then
 				-- Migration to enable recipe
@@ -313,21 +311,17 @@ end)
 
 local function gui_open_spacex_completed(player)
 	local gui = mod_gui.get_frame_flow(player)
-	local gui_spacex = gui.spacex_launch
+	local gui_spacex = gui.spacex_completed
 	if gui_spacex then
 		gui_spacex.destroy()
 		return
 	end
 	gui_spacex = gui.add({
 		type = "frame",
-		name = "spacex_launch",
+		name = "spacex_completed",
 		direction = "vertical",
 		style = mod_gui.frame_style,
 	})
-	if not gui_spacex then
-		return
-	end
-	gui_spacex.clear()
 	gui_spacex.add({ type = "label", caption = { "spacex-launch-title" }, style = "caption_label" })
 	gui_spacex.add({ type = "label", caption = { "spacex-completion-text" }, style = "Launch_label_style" })
 	gui_spacex.add({ type = "label", caption = " ", style = "Launch_label_style" })
@@ -354,26 +348,72 @@ local function gui_open_spacex_completed(player)
 	end
 end
 
-script.on_event(defines.events.on_gui_text_changed, function(event)
-	local element = event.element
-	local player = game.players[event.player_index]
-
-	if string.find(element.name, "spacex-logdetail") then
-		if player.admin then
-			local cur_log = tonumber(string.match(element.name, "%d+"))
-			global.launch_log[cur_log].detail = element.text
+local function gui_open_space_completed_after()
+	for _, p in pairs(game.players) do
+		local gui_continue = mod_gui.get_frame_flow(p)
+		local gui_continue_launch = gui_continue.spacex_completed
+		gui_continue_launch = gui_continue.add({
+			type = "frame",
+			name = "spacex_completed",
+			direction = "vertical",
+			caption = { "spacex-continue-title" },
+			style = mod_gui.frame_style,
+		})
+		for i = 1, 2 do
+			gui_continue_launch.add({
+				type = "label",
+				caption = { "spacex-continue-text" .. i },
+				style = "Launch_label_style",
+			})
 		end
-	end
-end)
-
-local function remove_combinator(entity)
-	for i, combinator in ipairs(global.combinators) do
-		if combinator.entity == entity then
-			table.remove(global.combinators, i)
-			return
+		if p.admin then
+			local sctable = gui_continue_launch.add({
+				type = "table",
+				name = "continue_msg_Table",
+				column_count = 2,
+				style = "SpaceMod_table_style",
+			})
+			sctable.style.minimal_width = 400
+			sctable.style.horizontally_stretchable = "on"
+			sctable.style.column_alignments[2] = "right"
+			sctable.add({
+				type = "button",
+				name = "spacex_continue_button",
+				style = mod_gui.button_style,
+				caption = { "spacex-continue-caption" },
+				tooltip = { "spacex-continue-tooltip" },
+			})
+			sctable.add({
+				type = "button",
+				name = "spacex_finish_button",
+				style = mod_gui.button_style,
+				caption = { "spacex-finish-caption" },
+				tooltip = { "spacex-finish-tooltip" },
+			})
+		else
+			gui_continue_launch.add({
+				type = "button",
+				name = "notadmin_button",
+				style = mod_gui.button_style,
+				caption = { "spacex-notadmin-caption" },
+				tooltip = { "spacex-notadmin-tooltip" },
+			})
 		end
 	end
 end
+
+script.on_event(defines.events.on_gui_text_changed, function(event)
+	local element = event.element
+	local player = game.players[event.player_index]
+	if not player.admin then
+		return
+	end
+
+	if string.find(element.name, "spacex-logdetail") then
+		local cur_log = tonumber(string.match(element.name, "%d+"))
+		global.launch_log[cur_log].detail = element.text
+	end
+end)
 
 local function on_entity_build(event)
 	debugp("Spacex combinator built")
@@ -402,7 +442,14 @@ script.on_event(defines.events.on_entity_cloned, on_entity_cloned, {
 })
 
 local function on_remove_entity(event)
-	remove_combinator(event.entity)
+	debugp("Spacex combinator removed")
+	local entity = event.entity
+	for i, combinator in ipairs(global.combinators) do
+		if combinator.entity == entity then
+			table.remove(global.combinators, i)
+			return
+		end
+	end
 end
 script.on_event(defines.events.on_pre_player_mined_item, on_remove_entity, {
 	{ filter = "name", name = "spacex-combinator", mode = "or" },
@@ -426,7 +473,7 @@ end
 
 local function gui_open_stage_complete(player, stage_number)
 	local gui = mod_gui.get_frame_flow(player)
-	local gui_stage = gui["completion_stage_" .. stage_number]
+	local gui_stage = gui.stage_complete
 	if gui_stage then
 		gui_stage.destroy()
 		return
@@ -434,7 +481,7 @@ local function gui_open_stage_complete(player, stage_number)
 
 	gui_stage = gui.add({
 		type = "frame",
-		name = "completion_stage_" .. stage_number,
+		name = "stage_complete",
 		direction = "vertical",
 		caption = { "stage-" .. stage_number .. "-completion-title" },
 		style = mod_gui.frame_style,
@@ -446,17 +493,17 @@ local function gui_open_stage_complete(player, stage_number)
 	})
 	gui_stage.add({
 		type = "button",
-		name = "completion_stage_" .. stage_number .. "_button",
+		name = "stage_complete_button",
 		style = mod_gui.button_style,
 		caption = { "stage-" .. stage_number .. "-completion-caption" },
 		tooltip = { "stage-" .. stage_number .. "-completion-tooltip" },
 	})
 end
 
-local function close_all_spacex_launch_gui()
+local function close_all_spacex_completed_gui()
 	for _, player in pairs(game.players) do
 		local gui = mod_gui.get_frame_flow(player)
-		local gui_spacex = gui.spacex_launch
+		local gui_spacex = gui.spacex_completed
 		if gui_spacex then
 			gui_spacex.destroy()
 		end
@@ -464,13 +511,13 @@ local function close_all_spacex_launch_gui()
 end
 
 script.on_event(defines.events.on_gui_click, function(event)
-	local element = event.element
+	local clicked_button = event.element.name
 	local player = game.players[event.player_index]
 	local gui = mod_gui.get_frame_flow(player)
 	local frame = gui.space_progress_frame
 	local spacex_log = gui.spacex_log
 
-	if element.name == "space_toggle_button" then
+	if clicked_button == "space_toggle_button" then
 		if frame then
 			frame.destroy()
 			if spacex_log then
@@ -486,15 +533,12 @@ script.on_event(defines.events.on_gui_click, function(event)
 			style = mod_gui.frame_style,
 		})
 		gui_open_spacex(player)
-	elseif element.name == "spacex_continue_button" then
-		close_all_spacex_launch_gui()
+	elseif clicked_button == "spacex_continue_button" then
+		close_all_spacex_completed_gui()
 		spacex_continue()
-		if frame then
-			frame.clear()
-		end
 		gui_open_spacex(player)
-	elseif element.name == "spacex_finish_button" then
-		close_all_spacex_launch_gui()
+	elseif clicked_button == "spacex_finish_button" then
+		close_all_spacex_completed_gui()
 		if frame then
 			frame.destroy()
 		end
@@ -502,66 +546,11 @@ script.on_event(defines.events.on_gui_click, function(event)
 			spacex_log.destroy()
 		end
 		global.finished = true
-	elseif element.name == "spacex_completion_button" then
-		close_all_spacex_launch_gui()
+	elseif clicked_button == "spacex_completion_button" then
+		close_all_spacex_completed_gui()
 		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
-		-- If game continues show message if spacex should be reset or not
-		if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
-			for _, p in pairs(game.players) do
-				if p ~= nil then
-					local gui_continue = mod_gui.get_frame_flow(p)
-					local gui_continue_launch = gui_continue.spacex_launch
-					gui_continue_launch = gui_continue.add({
-						type = "frame",
-						name = "spacex_launch",
-						direction = "vertical",
-						caption = { "spacex-continue-title" },
-						style = mod_gui.frame_style,
-					})
-					for i = 1, 2 do
-						gui_continue_launch.add({
-							type = "label",
-							caption = { "spacex-continue-text" .. i },
-							style = "Launch_label_style",
-						})
-					end
-					if p.admin then
-						local sctable = gui_continue_launch.add({
-							type = "table",
-							name = "continue_msg_Table",
-							column_count = 2,
-							style = "SpaceMod_table_style",
-						})
-						sctable.style.minimal_width = 400
-						sctable.style.horizontally_stretchable = "on"
-						sctable.style.column_alignments[2] = "right"
-						sctable.add({
-							type = "button",
-							name = "spacex_continue_button",
-							style = mod_gui.button_style,
-							caption = { "spacex-continue-caption" },
-							tooltip = { "spacex-continue-tooltip" },
-						})
-						sctable.add({
-							type = "button",
-							name = "spacex_finish_button",
-							style = mod_gui.button_style,
-							caption = { "spacex-finish-caption" },
-							tooltip = { "spacex-finish-tooltip" },
-						})
-					else
-						gui_continue_launch.add({
-							type = "button",
-							name = "notadmin_button",
-							style = mod_gui.button_style,
-							caption = { "spacex-notadmin-caption" },
-							tooltip = { "spacex-notadmin-tooltip" },
-						})
-					end
-				end
-			end
-		end
-	elseif element.name == "launch_log" then
+		gui_open_space_completed_after()
+	elseif clicked_button == "launch_log" then
 		if spacex_log then
 			spacex_log.destroy()
 			return
@@ -574,25 +563,21 @@ script.on_event(defines.events.on_gui_click, function(event)
 			style = mod_gui.frame_style,
 		})
 		gui_open_log(player)
-	elseif element.name == "completion_stage_1_button" then
-		gui_open_stage_complete(player, 1)
-	elseif element.name == "completion_stage_2_button" then
-		gui_open_stage_complete(player, 2)
-	elseif element.name == "completion_stage_3_button" then
-		gui_open_stage_complete(player, 3)
-	elseif element.name == "notadmin_button" then
+	elseif clicked_button == "stage_complete_button" then
+		gui_open_stage_complete(player, 0)
+	elseif clicked_button == "notadmin_button" then
 		gui_open_spacex_completed(player)
 	end
 end)
 
 script.on_event(defines.events.on_player_created, function(event)
-	init_gui(game.players[event.player_index], false)
+	init_gui(game.players[event.player_index])
 end)
 
 script.on_event(defines.events.on_research_finished, function(event)
 	if event.research.name == "rocket-silo" then
 		for _, player in pairs(game.players) do
-			init_gui(player, true)
+			init_gui(player)
 		end
 	end
 end)
@@ -600,7 +585,7 @@ end)
 script.on_init(function()
 	init_spacex()
 	for _, player in pairs(game.players) do
-		init_gui(player, false)
+		init_gui(player)
 	end
 end)
 
@@ -637,9 +622,7 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 				table.insert(global.launch_log, launch_log)
 
 				if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
-					for _, player in pairs(game.players) do
-						player.print({ "spacex-completion-msg" })
-					end
+					game.print({ "spacex-completion-msg" })
 				end
 				if global.completed <= 1 or settings.global["SpaceX-auto-continue"].value == false then
 					for _, player in pairs(game.players) do
@@ -650,11 +633,11 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 				end
 			-- Stage completion
 			else
-				for _, player in pairs(game.players) do
-					if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
-						player.print({ "stage-" .. current_stage.number .. "-completion-msg" })
-					end
-					if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
+				if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
+					game.print({ "stage-" .. current_stage.number .. "-completion-msg" })
+				end
+				if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
+					for _, player in pairs(game.players) do
 						gui_open_stage_complete(player, current_stage.number)
 					end
 				end
@@ -672,11 +655,14 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 end)
 
 commands.add_command("SpaceX_reset", { "resetSpaceX_help" }, function(event)
-	global.finished = false
-	global.stages = nil
-	global.current_stage = nil
-	global.launch_mult = nil
-	init_spacex()
+	local player = game.players[event.player_index]
+	if player.admin then
+		global.finished = false
+		spacex_continue()
+		game.print("SpaceX Progress reset", { r = 0.5, g = 0, b = 0, a = 0.5 })
+	else
+		player.print("Only an admin can use this command", { r = 0.5, g = 0, b = 0, a = 0.5 })
+	end
 end)
 
 commands.add_command("SpaceX_write_log_file", { "get log file help" }, function(event)
@@ -707,11 +693,5 @@ if __DebugAdapter then
 
 	commands.add_command("SpaceX_write_combinators", { "get spacex_combinator help" }, function(event)
 		game.write_file("spacex_combinator", serpent.block(global.combinators))
-	end)
-
-	commands.add_command("SpaceX_modlist", { "modlist_help" }, function(event)
-		for name, version in pairs(game.active_mods) do
-			game.player.print(name .. " version " .. version)
-		end
 	end)
 end
