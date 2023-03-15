@@ -585,3 +585,8 @@ if combinatorSplit then
 		},
 	}
 end
+
+local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value
+if replaceNuclear then
+	data.raw.technology["fuel-cells"].prerequisites = { "space-construction" }
+end

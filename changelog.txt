@@ -16,6 +16,7 @@ Date: 01.04.2023
     - Added more strings to translation config file
     - Added player option to display days or hours in the log
     - Added new item group for spacex items
+    - Added startup setting to replace nuclear with rocket fuel
   Changes:
     - Changed research cost to gradually increase
     - Replaced rocket fuel with nuclear reactor for the fuel cell

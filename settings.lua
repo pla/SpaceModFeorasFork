@@ -49,12 +49,21 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
+		name = "SpaceX-no-nuclear",
+		setting_type = "startup",
+		default_value = "false",
+		admin = true,
+		description = "SpaceX-no-nuclear",
+		order = "6",
+	},
+	{
+		type = "bool-setting",
 		name = "SpaceX-cheaper-fusion-reactor",
 		setting_type = "startup",
 		default_value = "false",
 		admin = true,
 		description = "SpaceX-cheaper-fusion-reactor",
-		order = "6",
+		order = "7",
 	},
 	{
 		type = "bool-setting",
@@ -63,7 +72,7 @@ data:extend({
 		default_value = "false",
 		admin = true,
 		description = "SpaceX-no-bob",
-		order = "7",
+		order = "8",
 	},
 	{
 		type = "bool-setting",
@@ -72,7 +81,7 @@ data:extend({
 		default_value = false,
 		admin = true,
 		description = "SpaceX-split-combinator",
-		order = "8",
+		order = "9",
 	},
 	{
 		type = "bool-setting",

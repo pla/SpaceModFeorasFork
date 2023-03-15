@@ -292,9 +292,26 @@ data:extend({
 })
 
 local cheapFusion = settings.startup["SpaceX-cheaper-fusion-reactor"].value
-if cheapFusion == true then
+if cheapFusion then
 	local fix = data.raw.recipe["fusion-reactor"]
 	fix.ingredients = {
 		{ "fusion-reactor-equipment", 40 * productionCost },
 	}
+end
+
+local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value
+if replaceNuclear then
+	for _, tech in pairs({"exploration-satellite", "space-fuel-tank"}) do
+		for _, ingridient in pairs(data.raw["recipe"][tech].ingredients) do
+			if ingridient[1] == "nuclear-fuel" then
+				ingridient[1] = "rocket-fuel"
+			end
+		end
+	end
+	for _, ingridient in pairs(data.raw["recipe"]["fuel-cell"].ingredients) do
+		if ingridient[1] == "nuclear-reactor" then
+			ingridient[1] = "rocket-fuel"
+			ingridient[2] = 500 * productionCost
+		end
+	end
 end
