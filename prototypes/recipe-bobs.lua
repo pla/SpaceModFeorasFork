@@ -3,6 +3,7 @@ if not bobmods.modules then
 end
 
 local productionCost = settings.startup["SpaceX-production"].value or 1
+local classicMode = settings.startup["SpaceX-classic-mode"].value or false
 
 data:extend({
 	{
@@ -111,13 +112,16 @@ bobmods.lib.recipe.replace_ingredient("satellite", "accumulator", "large-accumul
 bobmods.lib.recipe.replace_ingredient("satellite", "solar-panel", "solar-panel-large-3")
 bobmods.lib.recipe.replace_ingredient("satellite", "processing-unit", "advanced-processing-unit")
 bobmods.lib.recipe.replace_ingredient("satellite", "radar", "radar-5")
--- space tanks
-for _, tech in pairs({ "space-fuel-tank", "space-water-tank", "space-oxygen-tank" }) do
-	bobmods.lib.recipe.replace_ingredient(tech, "storage-tank", "storage-tank-4")
-	bobmods.lib.recipe.replace_ingredient(tech, "pump", "bob-pump-4")
-	bobmods.lib.recipe.replace_ingredient(tech, "pipe", "titanium-pipe")
+
+if not classicMode then
+	-- space tanks
+	for _, tech in pairs({ "space-fuel-tank", "space-water-tank", "space-oxygen-tank" }) do
+		bobmods.lib.recipe.replace_ingredient(tech, "storage-tank", "storage-tank-4")
+		bobmods.lib.recipe.replace_ingredient(tech, "pump", "bob-pump-4")
+		bobmods.lib.recipe.replace_ingredient(tech, "pipe", "titanium-pipe")
+	end
+	-- space ai robot
+	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "fusion-reactor-equipment", "fusion-reactor-equipment-4")
+	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "exoskeleton-equipment", "exoskeleton-equipment-3")
+	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "battery-mk2-equipment", "battery-mk6-equipment")
 end
--- space ai robot
-bobmods.lib.recipe.replace_ingredient("space-ai-robot", "fusion-reactor-equipment", "fusion-reactor-equipment-4")
-bobmods.lib.recipe.replace_ingredient("space-ai-robot", "exoskeleton-equipment", "exoskeleton-equipment-3")
-bobmods.lib.recipe.replace_ingredient("space-ai-robot", "battery-mk2-equipment", "battery-mk6-equipment")

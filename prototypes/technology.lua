@@ -1,5 +1,6 @@
 local researchCost = settings.startup["SpaceX-research"].value or 1
 local ignoreMult = settings.startup["SpaceX-ignore-tech-multiplier"].value or false
+local classicMode = settings.startup["SpaceX-classic-mode"].value or false
 
 local marathon_adj
 if ignoreMult then
@@ -424,131 +425,136 @@ data:extend({
 		},
 		order = "k-q",
 	},
-	{
-		type = "technology",
-		name = "exploration-satellite",
-		icon = "__SpaceModFeoras__/graphics/technology/spacex-exploration-satellite.png",
-		icon_size = 128,
-		effects = {
-			{
-				type = "unlock-recipe",
-				recipe = "exploration-satellite",
-			},
-		},
-		prerequisites = { "ftl-propulsion", "space-thrusters", "kovarex-enrichment-process" },
-		unit = {
-			count = 250000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-				{ "space-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-r",
-	},
-	{
-		type = "technology",
-		name = "space-ai-robots",
-		icon = "__SpaceModFeoras__/graphics/technology/spacex-space-ai-robots.png",
-		icon_size = 128,
-		effects = {
-			{
-				type = "unlock-recipe",
-				recipe = "space-ai-robot",
-			},
-		},
-		prerequisites = {
-			"ftl-propulsion",
-			"exoskeleton-equipment",
-			"belt-immunity-equipment",
-			"battery-mk2-equipment",
-			"power-armor-mk2",
-			"fusion-reactor-equipment",
-		},
-		unit = {
-			count = 250000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-				{ "military-science-pack", 1 },
-				{ "space-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-s",
-	},
-	{
-		type = "technology",
-		name = "space-fluid-tanks",
-		icon = "__SpaceModFeoras__/graphics/technology/spacex-space-fluid-tanks.png",
-		icon_size = 128,
-		effects = {
-			{
-				type = "unlock-recipe",
-				recipe = "space-water-tank",
-			},
-			{
-				type = "unlock-recipe",
-				recipe = "space-oxygen-tank",
-			},
-			{
-				type = "unlock-recipe",
-				recipe = "space-fuel-tank",
-			},
-			{
-				type = "unlock-recipe",
-				recipe = "space-oxygen-barrel",
-			},
-		},
-		prerequisites = { "ftl-propulsion", "kovarex-enrichment-process" },
-		unit = {
-			count = 250000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-				{ "space-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-t",
-	},
-	{
-		type = "technology",
-		name = "space-cartography",
-		icon = "__SpaceModFeoras__/graphics/technology/spacex-space-cartography.png",
-		icon_size = 128,
-		effects = {
-			{
-				type = "unlock-recipe",
-				recipe = "space-map",
-			},
-		},
-		prerequisites = { "exploration-satellite" },
-		unit = {
-			count = 300000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-				{ "space-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-v",
-	},
 })
+
+if not classicMode then
+	data:extend({
+		{
+			type = "technology",
+			name = "exploration-satellite",
+			icon = "__SpaceModFeoras__/graphics/technology/spacex-exploration-satellite.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "exploration-satellite",
+				},
+			},
+			prerequisites = { "ftl-propulsion", "space-thrusters", "kovarex-enrichment-process" },
+			unit = {
+				count = 250000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-r",
+		},
+		{
+			type = "technology",
+			name = "space-ai-robots",
+			icon = "__SpaceModFeoras__/graphics/technology/spacex-space-ai-robots.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "space-ai-robot",
+				},
+			},
+			prerequisites = {
+				"ftl-propulsion",
+				"exoskeleton-equipment",
+				"belt-immunity-equipment",
+				"battery-mk2-equipment",
+				"power-armor-mk2",
+				"fusion-reactor-equipment",
+			},
+			unit = {
+				count = 250000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "military-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-s",
+		},
+		{
+			type = "technology",
+			name = "space-fluid-tanks",
+			icon = "__SpaceModFeoras__/graphics/technology/spacex-space-fluid-tanks.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "space-water-tank",
+				},
+				{
+					type = "unlock-recipe",
+					recipe = "space-oxygen-tank",
+				},
+				{
+					type = "unlock-recipe",
+					recipe = "space-fuel-tank",
+				},
+				{
+					type = "unlock-recipe",
+					recipe = "space-oxygen-barrel",
+				},
+			},
+			prerequisites = { "ftl-propulsion", "kovarex-enrichment-process" },
+			unit = {
+				count = 250000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-t",
+		},
+		{
+			type = "technology",
+			name = "space-cartography",
+			icon = "__SpaceModFeoras__/graphics/technology/spacex-space-cartography.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "space-map",
+				},
+			},
+			prerequisites = { "exploration-satellite" },
+			unit = {
+				count = 300000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-v",
+		},
+	})
+end
 
 local noSpace = settings.startup["SpaceX-no-space-sci"].value
 if noSpace then
@@ -556,13 +562,15 @@ if noSpace then
 		{ "ftl-propulsion", "exploration-satellite", "space-ai-robots", "space-fluid-tanks", "space-cartography" }
 	for _, tech in pairs(techs_with_space_science) do
 		local fix = data.raw.technology[tech]
-		fix.unit.ingredients = {
-			{ "automation-science-pack", 1 },
-			{ "logistic-science-pack", 1 },
-			{ "chemical-science-pack", 1 },
-			{ "production-science-pack", 1 },
-			{ "utility-science-pack", 1 },
-		}
+		if fix ~= nil then
+			fix.unit.ingredients = {
+				{ "automation-science-pack", 1 },
+				{ "logistic-science-pack", 1 },
+				{ "chemical-science-pack", 1 },
+				{ "production-science-pack", 1 },
+				{ "utility-science-pack", 1 },
+			}
+		end
 	end
 	data.raw.technology["ftl-propulsion"].prerequisites = { "ftl-theory-D1", "ftl-theory-D2" }
 end
@@ -587,8 +595,10 @@ if combinatorSplit then
 end
 
 local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value
-if replaceNuclear then
+if replaceNuclear or classicMode then
 	data.raw.technology["fuel-cells"].prerequisites = { "space-construction" }
-	data.raw.technology["space-fluid-tanks"].prerequisites = { "ftl-propulsion" }
-	data.raw.technology["exploration-satellite"].prerequisites = { "ftl-propulsion", "space-thrusters" }
+	if not classicMode then
+		data.raw.technology["space-fluid-tanks"].prerequisites = { "ftl-propulsion" }
+		data.raw.technology["exploration-satellite"].prerequisites = { "ftl-propulsion", "space-thrusters" }
+	end
 end

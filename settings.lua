@@ -85,6 +85,15 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
+		name = "SpaceX-classic-mode",
+		setting_type = "startup",
+		default_value = false,
+		admin = true,
+		description = "SpaceX-classic-mode",
+		order = "91",
+	},
+	{
+		type = "bool-setting",
 		name = "SpaceX-no-popup",
 		setting_type = "runtime-global",
 		default_value = "true",

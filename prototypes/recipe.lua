@@ -1,4 +1,5 @@
 local productionCost = settings.startup["SpaceX-production"].value or 1
+local classicMode = settings.startup["SpaceX-classic-mode"].value or false
 
 data:extend({
 	{
@@ -202,94 +203,99 @@ data:extend({
 		},
 		result = "spacex-combinator-stage",
 	},
-	{
-		type = "recipe",
-		name = "exploration-satellite",
-		enabled = false,
-		energy_required = 50,
-		ingredients = {
-			{ "satellite", 5 },
-			{ "space-thruster", 1 },
-			{ "nuclear-fuel", 10 },
-		},
-		result = "exploration-satellite",
-	},
-	{
-		type = "recipe",
-		name = "space-ai-robot",
-		enabled = false,
-		energy_required = 50,
-		ingredients = {
-			{ "exoskeleton-equipment", 50 },
-			{ "belt-immunity-equipment", 50 },
-			{ "radar", 50 },
-			{ "rocket-control-unit", 100 },
-			{ "battery-mk2-equipment", 20 },
-			{ "power-armor-mk2", 5 },
-			{ "fusion-reactor-equipment", 10 },
-		},
-		result = "space-ai-robot",
-	},
-	{
-		type = "recipe",
-		name = "space-water-tank",
-		enabled = false,
-		energy_required = 50,
-		ingredients = {
-			{ "water-barrel", 2000 },
-			{ "pump", 100 },
-			{ "storage-tank", 100 },
-			{ "pipe", 500 },
-		},
-		result = "space-water-tank",
-	},
-	{
-		type = "recipe",
-		name = "space-fuel-tank",
-		enabled = false,
-		energy_required = 50,
-		ingredients = {
-			{ "nuclear-fuel", 500 },
-			{ "pump", 100 },
-			{ "storage-tank", 100 },
-			{ "pipe", 500 },
-		},
-		result = "space-fuel-tank",
-	},
-	{
-		type = "recipe",
-		name = "space-oxygen-tank",
-		enabled = false,
-		energy_required = 50,
-		ingredients = {
-			{ "space-oxygen-barrel", 2000 },
-			{ "pump", 100 },
-			{ "storage-tank", 100 },
-			{ "pipe", 500 },
-		},
-		result = "space-oxygen-tank",
-	},
-	{
-		type = "recipe",
-		name = "space-oxygen-barrel",
-		enabled = false,
-		energy_required = 0.2,
-		ingredients = {
-			{ "empty-barrel", 1 },
-		},
-		result = "space-oxygen-barrel",
-	},
-	{
-		type = "recipe",
-		name = "space-map",
-		enabled = false,
-		energy_required = 50,
-		ingredients = {
-			{ "exploration-data-disk", 20 },
-		},
-		result = "space-map",
-	},
 })
+
+if not classicMode then
+	data:extend({
+		{
+			type = "recipe",
+			name = "exploration-satellite",
+			enabled = false,
+			energy_required = 50,
+			ingredients = {
+				{ "satellite", 5 },
+				{ "space-thruster", 1 },
+				{ "nuclear-fuel", 10 },
+			},
+			result = "exploration-satellite",
+		},
+		{
+			type = "recipe",
+			name = "space-ai-robot",
+			enabled = false,
+			energy_required = 50,
+			ingredients = {
+				{ "exoskeleton-equipment", 50 },
+				{ "belt-immunity-equipment", 50 },
+				{ "radar", 50 },
+				{ "rocket-control-unit", 100 },
+				{ "battery-mk2-equipment", 20 },
+				{ "power-armor-mk2", 5 },
+				{ "fusion-reactor-equipment", 10 },
+			},
+			result = "space-ai-robot",
+		},
+		{
+			type = "recipe",
+			name = "space-water-tank",
+			enabled = false,
+			energy_required = 50,
+			ingredients = {
+				{ "water-barrel", 2000 },
+				{ "pump", 100 },
+				{ "storage-tank", 100 },
+				{ "pipe", 500 },
+			},
+			result = "space-water-tank",
+		},
+		{
+			type = "recipe",
+			name = "space-fuel-tank",
+			enabled = false,
+			energy_required = 50,
+			ingredients = {
+				{ "nuclear-fuel", 500 },
+				{ "pump", 100 },
+				{ "storage-tank", 100 },
+				{ "pipe", 500 },
+			},
+			result = "space-fuel-tank",
+		},
+		{
+			type = "recipe",
+			name = "space-oxygen-tank",
+			enabled = false,
+			energy_required = 50,
+			ingredients = {
+				{ "space-oxygen-barrel", 2000 },
+				{ "pump", 100 },
+				{ "storage-tank", 100 },
+				{ "pipe", 500 },
+			},
+			result = "space-oxygen-tank",
+		},
+		{
+			type = "recipe",
+			name = "space-oxygen-barrel",
+			enabled = false,
+			energy_required = 0.2,
+			ingredients = {
+				{ "empty-barrel", 1 },
+			},
+			result = "space-oxygen-barrel",
+		},
+		{
+			type = "recipe",
+			name = "space-map",
+			enabled = false,
+			energy_required = 50,
+			ingredients = {
+				{ "exploration-data-disk", 20 },
+			},
+			result = "space-map",
+		},
+	})
+end
 
 local cheapFusion = settings.startup["SpaceX-cheaper-fusion-reactor"].value
 if cheapFusion then
@@ -300,18 +306,21 @@ if cheapFusion then
 end
 
 local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value
-if replaceNuclear then
-	for _, tech in pairs({"exploration-satellite", "space-fuel-tank"}) do
-		for _, ingridient in pairs(data.raw["recipe"][tech].ingredients) do
-			if ingridient[1] == "nuclear-fuel" then
-				ingridient[1] = "rocket-fuel"
-			end
-		end
-	end
+if replaceNuclear or classicMode then
 	for _, ingridient in pairs(data.raw["recipe"]["fuel-cell"].ingredients) do
 		if ingridient[1] == "nuclear-reactor" then
 			ingridient[1] = "rocket-fuel"
 			ingridient[2] = 500 * productionCost
+		end
+	end
+	for _, tech in pairs({"exploration-satellite", "space-fuel-tank"}) do
+		local rootTech = data.raw["recipe"][tech]
+		if rootTech ~= nil then
+			for _, ingridient in pairs(rootTech.ingredients) do
+				if ingridient[1] == "nuclear-fuel" then
+					ingridient[1] = "rocket-fuel"
+				end
+			end
 		end
 	end
 end

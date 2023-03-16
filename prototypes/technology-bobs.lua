@@ -1,5 +1,6 @@
 local bob_coefficient = 10
 local researchCost = settings.startup["SpaceX-research"].value or 1
+local classicMode = settings.startup["SpaceX-classic-mode"].value or false
 
 local SpaceXTechs = {
 	"space-assembly",
@@ -63,10 +64,12 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 	bobmods.lib.tech.add_science_pack("laser-cannon", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("astrometrics", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("ftl-propulsion", "advanced-logistic-science-pack", 1)
-	bobmods.lib.tech.add_science_pack("exploration-satellite", "advanced-logistic-science-pack", 1)
-	bobmods.lib.tech.add_science_pack("space-ai-robots", "advanced-logistic-science-pack", 1)
-	bobmods.lib.tech.add_science_pack("space-fluid-tanks", "advanced-logistic-science-pack", 1)
-	bobmods.lib.tech.add_science_pack("space-cartography", "advanced-logistic-science-pack", 1)
+	if not classicMode then
+		bobmods.lib.tech.add_science_pack("exploration-satellite", "advanced-logistic-science-pack", 1)
+		bobmods.lib.tech.add_science_pack("space-ai-robots", "advanced-logistic-science-pack", 1)
+		bobmods.lib.tech.add_science_pack("space-fluid-tanks", "advanced-logistic-science-pack", 1)
+		bobmods.lib.tech.add_science_pack("space-cartography", "advanced-logistic-science-pack", 1)
+	end
 
 	data.raw.technology["ftl-theory-A"].unit.count = 25000 * researchCost
 	data.raw.technology["ftl-theory-B"].unit.count = 50000 * researchCost
@@ -74,10 +77,12 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 	data.raw.technology["ftl-theory-D1"].unit.count = 150000 * researchCost
 	data.raw.technology["ftl-theory-D2"].unit.count = 150000 * researchCost
 	data.raw.technology["ftl-propulsion"].unit.count = 200000 * researchCost
-	data.raw.technology["exploration-satellite"].unit.count = 250000 * researchCost
-	data.raw.technology["space-ai-robots"].unit.count = 250000 * researchCost
-	data.raw.technology["space-fluid-tanks"].unit.count = 250000 * researchCost
-	data.raw.technology["space-cartography"].unit.count = 300000 * researchCost
+	if not classicMode then
+		data.raw.technology["exploration-satellite"].unit.count = 250000 * researchCost
+		data.raw.technology["space-ai-robots"].unit.count = 250000 * researchCost
+		data.raw.technology["space-fluid-tanks"].unit.count = 250000 * researchCost
+		data.raw.technology["space-cartography"].unit.count = 300000 * researchCost
+	end
 
 	bobmods.lib.tech.replace_prerequisite("ftl-theory-D1", "ftl-theory-C", "ftl-theory-D")
 	bobmods.lib.tech.replace_prerequisite("ftl-theory-D2", "ftl-theory-C", "ftl-theory-D")
@@ -109,11 +114,13 @@ bobmods.lib.tech.add_prerequisite("rocket-silo", "advanced-electronics-3")
 
 bobmods.lib.tech.add_prerequisite("laser-cannon", "personal-laser-defense-equipment-6")
 
-bobmods.lib.tech.add_prerequisite("space-fluid-tanks", "bob-fluid-handling-4")
+if not classicMode then
+	bobmods.lib.tech.add_prerequisite("space-fluid-tanks", "bob-fluid-handling-4")
 
-bobmods.lib.tech.add_prerequisite("space-ai-robots", "bob-robots-4")
-bobmods.lib.tech.add_prerequisite("space-ai-robots", "exoskeleton-equipment-3")
-bobmods.lib.tech.add_prerequisite("space-ai-robots", "bob-battery-equipment-6")
+	bobmods.lib.tech.add_prerequisite("space-ai-robots", "bob-robots-4")
+	bobmods.lib.tech.add_prerequisite("space-ai-robots", "exoskeleton-equipment-3")
+	bobmods.lib.tech.add_prerequisite("space-ai-robots", "bob-battery-equipment-6")
+end
 
 -- alternate protection field recipe enabler
 bobmods.lib.tech.add_recipe_unlock("protection-fields", "protection-field-goopless")

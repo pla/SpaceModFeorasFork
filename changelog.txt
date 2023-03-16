@@ -17,6 +17,7 @@ Date: 01.04.2023
     - Added player option to display days or hours in the log
     - Added new item group for spacex items
     - Added startup setting to replace nuclear with rocket fuel
+    - Added startup setting "Classic Mode" which disables the new stage 4 additions
   Changes:
     - Changed research cost to gradually increase
     - Replaced rocket fuel with nuclear reactor for the fuel cell

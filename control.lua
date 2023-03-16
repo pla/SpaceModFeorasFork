@@ -202,18 +202,21 @@ local function init_stages()
 					{ item_name = "ftl-drive", base_required = 1, launched = 0 },
 				},
 			},
-			{
-				number = 4,
-				requirements = {
-					{ item_name = "exploration-satellite", base_required = 20, launched = 0 },
-					{ item_name = "space-ai-robot", base_required = 2, launched = 0 },
-					{ item_name = "space-water-tank", base_required = 2, launched = 0 },
-					{ item_name = "space-oxygen-tank", base_required = 2, launched = 0 },
-					{ item_name = "space-fuel-tank", base_required = 2, launched = 0 },
-					{ item_name = "space-map", base_required = 1, launched = 0 },
-				},
-			},
 		}
+	end
+	if not settings.startup["SpaceX-classic-mode"].value and #global.stages == 3 then
+		table.insert(global.stages,
+		{
+			number = 4,
+			requirements = {
+				{ item_name = "exploration-satellite", base_required = 20, launched = 0 },
+				{ item_name = "space-ai-robot", base_required = 2, launched = 0 },
+				{ item_name = "space-water-tank", base_required = 2, launched = 0 },
+				{ item_name = "space-oxygen-tank", base_required = 2, launched = 0 },
+				{ item_name = "space-fuel-tank", base_required = 2, launched = 0 },
+				{ item_name = "space-map", base_required = 1, launched = 0 },
+			},
+		})
 	end
 end
 
@@ -272,20 +275,6 @@ script.on_configuration_changed(function(event)
 		-- Update launch mult and combinators
 		global.launch_mult = nil
 		init_spacex()
-		-- Reset GUI
-		if game.players ~= nil then
-			for _, player in pairs(game.players) do
-				local frame = player.gui.left["space-progress-frame"]
-				if frame then
-					frame.destroy()
-				end
-				local button = player.gui.top["space-toggle-button"]
-				if button then
-					button.destroy()
-				end
-				init_gui(player)
-			end
-		end
 		-- Check research
 		for _, force in pairs(game.forces) do
 			if force.technologies["space-assembly"].researched then
@@ -304,6 +293,40 @@ script.on_configuration_changed(function(event)
 						update_all_combinators()
 					end
 				end
+			end
+		end
+		-- Check classic mode
+		if global.stages then
+			if settings.startup["SpaceX-classic-mode"].value then
+				if #global.stages == 4 then
+					table.remove(global.stages, #global.stages)
+				end
+				if global.current_stage == 4 then
+					global.current_stage = 3
+				end
+			else
+				if #global.stages == 3 then
+					init_stages()
+				end
+			end
+		end
+		-- Reset GUI
+		if game.players ~= nil then
+			for _, player in pairs(game.players) do
+				local gui = mod_gui.get_frame_flow(player)
+				local frame = gui.space_progress_frame
+				if frame then
+					frame.destroy()
+				end
+				local button = gui.space_toggle_button
+				if button then
+					button.destroy()
+				end
+				local log = gui.spacex_log
+				if log then
+					log.destroy()
+				end
+				init_gui(player)
 			end
 		end
 	end
