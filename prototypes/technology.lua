@@ -314,121 +314,234 @@ data:extend({
 			time = 60,
 		},
 		order = "k-m",
-	},
-	{
-		type = "technology",
-		name = "ftl-theory-A",
-		icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
-		icon_size = 128,
-		prerequisites = { "space-construction" },
-		unit = {
-			count = 25000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-n",
-	},
-	{
-		type = "technology",
-		name = "ftl-theory-B",
-		icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
-		icon_size = 128,
-		prerequisites = { "ftl-theory-A" },
-		unit = {
-			count = 50000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-o",
-	},
-	{
-		type = "technology",
-		name = "ftl-theory-C",
-		icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
-		icon_size = 128,
-		prerequisites = { "ftl-theory-B" },
-		unit = {
-			count = 100000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-p",
-	},
-	{
-		type = "technology",
-		name = "ftl-theory-D1",
-		icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
-		icon_size = 128,
-		prerequisites = { "ftl-theory-C" },
-		unit = {
-			count = 150000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-p",
-	},
-	{
-		type = "technology",
-		name = "ftl-theory-D2",
-		icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
-		icon_size = 128,
-		prerequisites = { "ftl-theory-C" },
-		unit = {
-			count = 150000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-p",
-	},
-	{
-		type = "technology",
-		name = "ftl-propulsion",
-		icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
-		icon_size = 128,
-		effects = {
-			{
-				type = "unlock-recipe",
-				recipe = "ftl-drive",
-			},
-		},
-		prerequisites = { "ftl-theory-D1", "ftl-theory-D2", "space-science-pack" },
-		unit = {
-			count = 200000 * researchCost / marathon_adj,
-			ingredients = {
-				{ "automation-science-pack", 1 },
-				{ "logistic-science-pack", 1 },
-				{ "chemical-science-pack", 1 },
-				{ "production-science-pack", 1 },
-				{ "utility-science-pack", 1 },
-				{ "space-science-pack", 1 },
-			},
-			time = 60,
-		},
-		order = "k-q",
-	},
+	}
 })
 
-if not classicMode then
+if classicMode then
 	data:extend({
+		{
+			type = "technology",
+			name = "ftl-theory-A",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "space-construction" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-n",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-B",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-A" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-o",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-C",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-B" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-D1",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-C" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-D2",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-C" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-propulsion",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "ftl-drive",
+				},
+			},
+			prerequisites = { "ftl-theory-D1", "ftl-theory-D2", "space-science-pack" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-q",
+		},
+	})
+else
+	data:extend({
+		{
+			type = "technology",
+			name = "ftl-theory-A",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "space-construction" },
+			unit = {
+				count = 25000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-n",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-B",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-A" },
+			unit = {
+				count = 50000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-o",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-C",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-B" },
+			unit = {
+				count = 100000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-D1",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-C" },
+			unit = {
+				count = 150000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-D2",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-C" },
+			unit = {
+				count = 150000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-propulsion",
+			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "ftl-drive",
+				},
+			},
+			prerequisites = { "ftl-theory-D1", "ftl-theory-D2", "space-science-pack" },
+			unit = {
+				count = 200000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-q",
+		},
 		{
 			type = "technology",
 			name = "exploration-satellite",
