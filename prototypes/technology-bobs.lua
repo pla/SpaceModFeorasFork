@@ -1,4 +1,4 @@
-local bob_coefficient = 10
+local bob_coefficient = 1
 local researchCost = settings.startup["SpaceX-research"].value or 1
 local classicMode = settings.startup["SpaceX-classic-mode"].value or false
 
