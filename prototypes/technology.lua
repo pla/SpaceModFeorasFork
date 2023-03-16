@@ -589,4 +589,6 @@ end
 local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value
 if replaceNuclear then
 	data.raw.technology["fuel-cells"].prerequisites = { "space-construction" }
+	data.raw.technology["space-fluid-tanks"].prerequisites = { "ftl-propulsion" }
+	data.raw.technology["exploration-satellite"].prerequisites = { "ftl-propulsion", "space-thrusters" }
 end
