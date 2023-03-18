@@ -159,7 +159,7 @@ local function init_launch_multiplier()
 		global.launch_mult = settings.startup["SpaceX-launch-multiplier"].value or 1
 		for _, stage in pairs(global.stages) do
 			for _, item in pairs(stage.requirements) do
-				item.required = item.base_required * global.launch_mult
+				item.required = math.floor(item.base_required * global.launch_mult + 0.5)
 			end
 		end
 		for _, player in pairs(game.players) do
