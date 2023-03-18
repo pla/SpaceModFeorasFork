@@ -1,9 +1,6 @@
 require("util")
 require("milestones")
-
 local mod_gui = require("mod-gui")
-
-MOD_NAME = "SpaceMod"
 
 global = global or {}
 
