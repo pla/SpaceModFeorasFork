@@ -566,7 +566,7 @@ else
 			},
 			prerequisites = { "ftl-propulsion", "space-thrusters", "kovarex-enrichment-process" },
 			unit = {
-				count = 200000 * researchCost / marathon_adj,
+				count = 175000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -598,7 +598,7 @@ else
 				"fusion-reactor-equipment",
 			},
 			unit = {
-				count = 200000 * researchCost / marathon_adj,
+				count = 175000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -636,7 +636,7 @@ else
 			},
 			prerequisites = { "ftl-propulsion", "kovarex-enrichment-process" },
 			unit = {
-				count = 200000 * researchCost / marathon_adj,
+				count = 175000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -661,7 +661,7 @@ else
 			},
 			prerequisites = { "exploration-satellite" },
 			unit = {
-				count = 225000 * researchCost / marathon_adj,
+				count = 200000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },

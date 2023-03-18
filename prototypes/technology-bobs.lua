@@ -78,10 +78,10 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 		data.raw.technology["ftl-theory-D1"].unit.count = 100000 * researchCost
 		data.raw.technology["ftl-theory-D2"].unit.count = 100000 * researchCost
 		data.raw.technology["ftl-propulsion"].unit.count = 150000 * researchCost
-		data.raw.technology["exploration-satellite"].unit.count = 200000 * researchCost
-		data.raw.technology["space-ai-robots"].unit.count = 200000 * researchCost
-		data.raw.technology["space-fluid-tanks"].unit.count = 200000 * researchCost
-		data.raw.technology["space-cartography"].unit.count = 225000 * researchCost
+		data.raw.technology["exploration-satellite"].unit.count = 175000 * researchCost
+		data.raw.technology["space-ai-robots"].unit.count = 175000 * researchCost
+		data.raw.technology["space-fluid-tanks"].unit.count = 175000 * researchCost
+		data.raw.technology["space-cartography"].unit.count = 200000 * researchCost
 	else
 		for _, tech in pairs({"ftl-theory-A", "ftl-theory-B", "ftl-theory-C", "ftl-theory-D1", "ftl-theory-D2", "ftl-propulsion"}) do
 			local rootTech = data.raw.technology[tech]
