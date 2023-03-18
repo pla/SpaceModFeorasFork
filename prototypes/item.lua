@@ -245,7 +245,7 @@ if not classicMode then
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-oxygen-barrel]",
-			stack_size = 1,
+			stack_size = 10,
 		},
 		{
 			type = "item",
