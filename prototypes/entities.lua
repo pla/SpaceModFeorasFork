@@ -1,5 +1,3 @@
-require("util")
-
 local combinator = {
 	type = "constant-combinator",
 	name = "spacex-combinator",

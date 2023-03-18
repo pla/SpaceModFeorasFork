@@ -1,5 +1,4 @@
-require("util")
-require("milestones")
+require("__SpaceModFeorasFork__/milestones")
 local mod_gui = require("mod-gui")
 
 global = global or {}
