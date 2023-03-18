@@ -106,8 +106,12 @@ local function gui_open_spacex(player)
 	})
 	items_to_launch.add({ type = "label", caption = { "progress-title" }, style = "caption_label" })
 	for _, item in pairs(current_stage.requirements) do
-		items_to_launch.add({ type = "label", caption = { "SpaceX-Progress." .. item.item_name } })
-		items_to_launch.add({ type = "label", caption = item.launched .. "/" .. item.required })
+		local item_name = items_to_launch.add({ type = "label", caption = { "SpaceX-Progress." .. item.item_name } })
+		local item_prog = items_to_launch.add({ type = "label", caption = item.launched .. "/" .. item.required })
+		if item.launched == item.required then
+			item_name.style.font_color = {r = 0.7, g = 0.7, b = 0.7, a = 1.0}
+			item_prog.style.font_color = {r = 0.7, g = 0.7, b = 0.7, a = 1.0}
+		end
 	end
 end
 
