@@ -3,7 +3,7 @@ require("util")
 local combinator = {
 	type = "constant-combinator",
 	name = "spacex-combinator",
-	icon = "__SpaceModFeoras__/graphics/icons/spacex-combinator.png",
+	icon = "__SpaceModFeorasFork__/graphics/icons/spacex-combinator.png",
 	icon_size = 32,
 	icon_mipmaps = 1,
 	flags = { "placeable-neutral", "player-creation" },
@@ -36,14 +36,14 @@ local combinator = {
 	sprites = make_4way_animation_from_spritesheet({
 		layers = {
 			{
-				filename = "__SpaceModFeoras__/graphics/entity/spacex-combinator.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/spacex-combinator.png",
 				width = 58,
 				height = 52,
 				frame_count = 1,
 				shift = util.by_pixel(0, 5),
 				hr_version = {
 					scale = 0.5,
-					filename = "__SpaceModFeoras__/graphics/entity/hr-spacex-combinator.png",
+					filename = "__SpaceModFeorasFork__/graphics/entity/hr-spacex-combinator.png",
 					width = 114,
 					height = 102,
 					frame_count = 1,
@@ -51,7 +51,7 @@ local combinator = {
 				},
 			},
 			{
-				filename = "__SpaceModFeoras__/graphics/entity/constant-combinator-shadow.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/constant-combinator-shadow.png",
 				width = 50,
 				height = 34,
 				frame_count = 1,
@@ -59,7 +59,7 @@ local combinator = {
 				draw_as_shadow = true,
 				hr_version = {
 					scale = 0.5,
-					filename = "__SpaceModFeoras__/graphics/entity/hr-constant-combinator-shadow.png",
+					filename = "__SpaceModFeorasFork__/graphics/entity/hr-constant-combinator-shadow.png",
 					width = 98,
 					height = 66,
 					frame_count = 1,
@@ -71,14 +71,14 @@ local combinator = {
 	}),
 	activity_led_sprites = {
 		north = {
-			filename = "__SpaceModFeoras__/graphics/entity/activity-leds/constant-combinator-LED-N.png",
+			filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/constant-combinator-LED-N.png",
 			width = 8,
 			height = 6,
 			frame_count = 1,
 			shift = util.by_pixel(9, -12),
 			hr_version = {
 				scale = 0.5,
-				filename = "__SpaceModFeoras__/graphics/entity/activity-leds/hr-constant-combinator-LED-N.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/hr-constant-combinator-LED-N.png",
 				width = 14,
 				height = 12,
 				frame_count = 1,
@@ -86,14 +86,14 @@ local combinator = {
 			},
 		},
 		east = {
-			filename = "__SpaceModFeoras__/graphics/entity/activity-leds/constant-combinator-LED-E.png",
+			filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/constant-combinator-LED-E.png",
 			width = 8,
 			height = 8,
 			frame_count = 1,
 			shift = util.by_pixel(8, 0),
 			hr_version = {
 				scale = 0.5,
-				filename = "__SpaceModFeoras__/graphics/entity/activity-leds/hr-constant-combinator-LED-E.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/hr-constant-combinator-LED-E.png",
 				width = 14,
 				height = 14,
 				frame_count = 1,
@@ -101,14 +101,14 @@ local combinator = {
 			},
 		},
 		south = {
-			filename = "__SpaceModFeoras__/graphics/entity/activity-leds/constant-combinator-LED-S.png",
+			filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/constant-combinator-LED-S.png",
 			width = 8,
 			height = 8,
 			frame_count = 1,
 			shift = util.by_pixel(-9, 2),
 			hr_version = {
 				scale = 0.5,
-				filename = "__SpaceModFeoras__/graphics/entity/activity-leds/hr-constant-combinator-LED-S.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/hr-constant-combinator-LED-S.png",
 				width = 14,
 				height = 16,
 				frame_count = 1,
@@ -116,14 +116,14 @@ local combinator = {
 			},
 		},
 		west = {
-			filename = "__SpaceModFeoras__/graphics/entity/activity-leds/constant-combinator-LED-W.png",
+			filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/constant-combinator-LED-W.png",
 			width = 8,
 			height = 8,
 			frame_count = 1,
 			shift = util.by_pixel(-7, -15),
 			hr_version = {
 				scale = 0.5,
-				filename = "__SpaceModFeoras__/graphics/entity/activity-leds/hr-constant-combinator-LED-W.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/activity-leds/hr-constant-combinator-LED-W.png",
 				width = 14,
 				height = 16,
 				frame_count = 1,
@@ -178,18 +178,18 @@ local combinator = {
 local combinator_stage = table.deepcopy(combinator)
 combinator_stage.name = "spacex-combinator-stage"
 combinator_stage.minable.result = "spacex-combinator-stage"
-combinator_stage.icon = "__SpaceModFeoras__/graphics/icons/spacex-combinator-stage.png"
+combinator_stage.icon = "__SpaceModFeorasFork__/graphics/icons/spacex-combinator-stage.png"
 combinator_stage.sprites = make_4way_animation_from_spritesheet({
 	layers = {
 		{
-			filename = "__SpaceModFeoras__/graphics/entity/spacex-combinator-stage.png",
+			filename = "__SpaceModFeorasFork__/graphics/entity/spacex-combinator-stage.png",
 			width = 58,
 			height = 52,
 			frame_count = 1,
 			shift = util.by_pixel(0, 5),
 			hr_version = {
 				scale = 0.5,
-				filename = "__SpaceModFeoras__/graphics/entity/hr-spacex-combinator-stage.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/hr-spacex-combinator-stage.png",
 				width = 114,
 				height = 102,
 				frame_count = 1,
@@ -197,7 +197,7 @@ combinator_stage.sprites = make_4way_animation_from_spritesheet({
 			},
 		},
 		{
-			filename = "__SpaceModFeoras__/graphics/entity/constant-combinator-shadow.png",
+			filename = "__SpaceModFeorasFork__/graphics/entity/constant-combinator-shadow.png",
 			width = 50,
 			height = 34,
 			frame_count = 1,
@@ -205,7 +205,7 @@ combinator_stage.sprites = make_4way_animation_from_spritesheet({
 			draw_as_shadow = true,
 			hr_version = {
 				scale = 0.5,
-				filename = "__SpaceModFeoras__/graphics/entity/hr-constant-combinator-shadow.png",
+				filename = "__SpaceModFeorasFork__/graphics/entity/hr-constant-combinator-shadow.png",
 				width = 98,
 				height = 66,
 				frame_count = 1,

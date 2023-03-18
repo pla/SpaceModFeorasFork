@@ -13,7 +13,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "space-assembly",
-		icon = "__SpaceModFeoras__/graphics/technology/space-assembly.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/space-assembly.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -41,7 +41,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "space-construction",
-		icon = "__SpaceModFeoras__/graphics/technology/space-construction.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/space-construction.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -69,7 +69,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "space-casings",
-		icon = "__SpaceModFeoras__/graphics/technology/space-casings.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/space-casings.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -93,7 +93,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "protection-fields",
-		icon = "__SpaceModFeoras__/graphics/technology/protection-fields.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/protection-fields.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -118,7 +118,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "fusion-reactor",
-		icon = "__SpaceModFeoras__/graphics/technology/fusion-reactor.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/fusion-reactor.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -144,7 +144,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "space-thrusters",
-		icon = "__SpaceModFeoras__/graphics/technology/space-thrusters.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/space-thrusters.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -168,7 +168,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "fuel-cells",
-		icon = "__SpaceModFeoras__/graphics/technology/fuel-cells.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/fuel-cells.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -192,7 +192,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "habitation",
-		icon = "__SpaceModFeoras__/graphics/technology/habitation.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/habitation.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -217,7 +217,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "life-support-systems",
-		icon = "__SpaceModFeoras__/graphics/technology/life-support.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/life-support.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -242,7 +242,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "astrometrics",
-		icon = "__SpaceModFeoras__/graphics/technology/astrometrics.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/astrometrics.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -267,7 +267,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "spaceship-command",
-		icon = "__SpaceModFeoras__/graphics/technology/command.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/command.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -292,7 +292,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "laser-cannon",
-		icon = "__SpaceModFeoras__/graphics/technology/spacex-laser-cannon.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/spacex-laser-cannon.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -322,7 +322,7 @@ if classicMode then
 		{
 			type = "technology",
 			name = "ftl-theory-A",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "space-construction" },
 			unit = {
@@ -337,7 +337,7 @@ if classicMode then
 		{
 			type = "technology",
 			name = "ftl-theory-B",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-A" },
 			unit = {
@@ -353,7 +353,7 @@ if classicMode then
 		{
 			type = "technology",
 			name = "ftl-theory-C",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-B" },
 			unit = {
@@ -370,7 +370,7 @@ if classicMode then
 		{
 			type = "technology",
 			name = "ftl-theory-D1",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
@@ -388,7 +388,7 @@ if classicMode then
 		{
 			type = "technology",
 			name = "ftl-theory-D2",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
@@ -406,7 +406,7 @@ if classicMode then
 		{
 			type = "technology",
 			name = "ftl-propulsion",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -435,7 +435,7 @@ else
 		{
 			type = "technology",
 			name = "ftl-theory-A",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "space-construction" },
 			unit = {
@@ -454,7 +454,7 @@ else
 		{
 			type = "technology",
 			name = "ftl-theory-B",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-A" },
 			unit = {
@@ -473,7 +473,7 @@ else
 		{
 			type = "technology",
 			name = "ftl-theory-C",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-B" },
 			unit = {
@@ -492,7 +492,7 @@ else
 		{
 			type = "technology",
 			name = "ftl-theory-D1",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
@@ -511,7 +511,7 @@ else
 		{
 			type = "technology",
 			name = "ftl-theory-D2",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
@@ -530,7 +530,7 @@ else
 		{
 			type = "technology",
 			name = "ftl-propulsion",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -556,7 +556,7 @@ else
 		{
 			type = "technology",
 			name = "exploration-satellite",
-			icon = "__SpaceModFeoras__/graphics/technology/spacex-exploration-satellite.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-exploration-satellite.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -582,7 +582,7 @@ else
 		{
 			type = "technology",
 			name = "space-ai-robots",
-			icon = "__SpaceModFeoras__/graphics/technology/spacex-space-ai-robots.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-space-ai-robots.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -616,7 +616,7 @@ else
 		{
 			type = "technology",
 			name = "space-fluid-tanks",
-			icon = "__SpaceModFeoras__/graphics/technology/spacex-space-fluid-tanks.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-space-fluid-tanks.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -654,7 +654,7 @@ else
 		{
 			type = "technology",
 			name = "space-cartography",
-			icon = "__SpaceModFeoras__/graphics/technology/spacex-space-cartography.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-space-cartography.png",
 			icon_size = 128,
 			effects = {
 				{

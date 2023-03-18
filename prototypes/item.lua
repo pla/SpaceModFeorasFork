@@ -6,7 +6,7 @@ data:extend({
 		name = "spacex",
 		order = "i",
 		inventory_order = "z",
-		icon = "__SpaceModFeoras__/graphics/technology/astrometrics.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/astrometrics.png",
 		icon_size = 128,
 	},
 	{
@@ -36,7 +36,7 @@ data:extend({
 	{
 		type = "item",
 		name = "assembly-robot",
-		icon = "__SpaceModFeoras__/graphics/icons/assembly-robot.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/assembly-robot.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-2",
 		order = "p[assembly-robot]",
@@ -45,7 +45,7 @@ data:extend({
 	{
 		type = "item",
 		name = "drydock-assembly",
-		icon = "__SpaceModFeoras__/graphics/icons/drydock-assembly.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/drydock-assembly.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-2",
 		order = "q[drydock-assembly]",
@@ -54,7 +54,7 @@ data:extend({
 	{
 		type = "item",
 		name = "drydock-structural",
-		icon = "__SpaceModFeoras__/graphics/icons/drydock-structural.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/drydock-structural.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-2",
 		order = "r[drydock-structural]",
@@ -63,7 +63,7 @@ data:extend({
 	{
 		type = "item",
 		name = "fusion-reactor",
-		icon = "__SpaceModFeoras__/graphics/icons/fusion-reactor.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/fusion-reactor.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "s[fusion-reactor]",
@@ -72,7 +72,7 @@ data:extend({
 	{
 		type = "item",
 		name = "hull-component",
-		icon = "__SpaceModFeoras__/graphics/icons/hull-component.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/hull-component.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "t[hull-component]",
@@ -81,7 +81,7 @@ data:extend({
 	{
 		type = "item",
 		name = "protection-field",
-		icon = "__SpaceModFeoras__/graphics/icons/protection-field.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/protection-field.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "u[protection-field]",
@@ -90,7 +90,7 @@ data:extend({
 	{
 		type = "item",
 		name = "space-thruster",
-		icon = "__SpaceModFeoras__/graphics/icons/space-thruster.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/space-thruster.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "v[space-thruster]",
@@ -99,7 +99,7 @@ data:extend({
 	{
 		type = "item",
 		name = "fuel-cell",
-		icon = "__SpaceModFeoras__/graphics/icons/fuel-cell.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/fuel-cell.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "w[fuel-cell]",
@@ -108,7 +108,7 @@ data:extend({
 	{
 		type = "item",
 		name = "habitation",
-		icon = "__SpaceModFeoras__/graphics/icons/habitation.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/habitation.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "x[habitation]",
@@ -117,7 +117,7 @@ data:extend({
 	{
 		type = "item",
 		name = "life-support",
-		icon = "__SpaceModFeoras__/graphics/icons/life-support.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/life-support.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "y[life-support]",
@@ -126,7 +126,7 @@ data:extend({
 	{
 		type = "item",
 		name = "command",
-		icon = "__SpaceModFeoras__/graphics/icons/command.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/command.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "z-a[command]",
@@ -135,7 +135,7 @@ data:extend({
 	{
 		type = "item",
 		name = "laser-cannon",
-		icon = "__SpaceModFeoras__/graphics/icons/spacex-laser-cannon.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/spacex-laser-cannon.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "z-a[laser]",
@@ -144,7 +144,7 @@ data:extend({
 	{
 		type = "item",
 		name = "astrometrics",
-		icon = "__SpaceModFeoras__/graphics/icons/astrometrics.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/astrometrics.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "z-b[astrometrics]",
@@ -153,7 +153,7 @@ data:extend({
 	{
 		type = "item",
 		name = "ftl-drive",
-		icon = "__SpaceModFeoras__/graphics/icons/ftl-drive.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/ftl-drive.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "z-c[ftl-drive]",
@@ -162,7 +162,7 @@ data:extend({
 	{
 		type = "item",
 		name = "spacex-combinator",
-		icon = "__SpaceModFeoras__/graphics/icons/spacex-combinator.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/spacex-combinator.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-1",
 		place_result = "spacex-combinator",
@@ -172,7 +172,7 @@ data:extend({
 	{
 		type = "item",
 		name = "spacex-combinator-stage",
-		icon = "__SpaceModFeoras__/graphics/icons/spacex-combinator-stage.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/spacex-combinator-stage.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-1",
 		place_result = "spacex-combinator-stage",
@@ -186,7 +186,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "exploration-satellite",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-exploration-satellite.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-exploration-satellite.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "m[satellite][exploration-satellite]",
@@ -196,7 +196,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "exploration-data-disk",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-exploration-data-disk.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-exploration-data-disk.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "m[satellite][exploration-satellite][exploration-data-disk]",
@@ -205,7 +205,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-ai-robot",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-space-ai-robot.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-ai-robot.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-d[space-ai-robot]",
@@ -214,7 +214,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-water-tank",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-space-water-tank.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-water-tank.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-water-tank]",
@@ -223,7 +223,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-oxygen-tank",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-space-oxygen-tank.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-oxygen-tank.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-oxygen-tank]",
@@ -232,7 +232,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-fuel-tank",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-space-fuel-tank.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-fuel-tank.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-fuel-tank]",
@@ -241,7 +241,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-oxygen-barrel",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-space-oxygen-barrel.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-oxygen-barrel.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-oxygen-barrel]",
@@ -250,7 +250,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-map",
-			icon = "__SpaceModFeoras__/graphics/icons/spacex-space-map.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-map.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-f[space-map]",

@@ -34,7 +34,7 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 		{
 			type = "technology",
 			name = "ftl-theory-D",
-			icon = "__SpaceModFeoras__/graphics/technology/ftl.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {

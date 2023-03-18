@@ -1,8 +1,8 @@
-remote.add_interface("spacex-feoras", {
+remote.add_interface("spacex-feoras-fork", {
 	milestones_preset_addons = function()
 		return {
-			["Space Extension Feoras (SpaceX)"] = {
-				required_mods = { "SpaceModFeoras" },
+			["Space Extension (SpaceX) (Feoras Fork)"] = {
+				required_mods = { "SpaceModFeorasFork" },
 				forbidden_mods = {},
 				milestones = {
 					{ type = "group", name = "SpaceX" },
