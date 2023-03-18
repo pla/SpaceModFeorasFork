@@ -477,7 +477,7 @@ else
 			icon_size = 128,
 			prerequisites = { "ftl-theory-B" },
 			unit = {
-				count = 100000 * researchCost / marathon_adj,
+				count = 75000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -496,7 +496,7 @@ else
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
-				count = 150000 * researchCost / marathon_adj,
+				count = 100000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -515,7 +515,7 @@ else
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
-				count = 150000 * researchCost / marathon_adj,
+				count = 100000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -540,7 +540,7 @@ else
 			},
 			prerequisites = { "ftl-theory-D1", "ftl-theory-D2", "space-science-pack" },
 			unit = {
-				count = 200000 * researchCost / marathon_adj,
+				count = 150000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -566,7 +566,7 @@ else
 			},
 			prerequisites = { "ftl-propulsion", "space-thrusters", "kovarex-enrichment-process" },
 			unit = {
-				count = 250000 * researchCost / marathon_adj,
+				count = 200000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -599,7 +599,7 @@ else
 				"fusion-reactor-equipment",
 			},
 			unit = {
-				count = 250000 * researchCost / marathon_adj,
+				count = 200000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -607,7 +607,6 @@ else
 					{ "production-science-pack", 1 },
 					{ "utility-science-pack", 1 },
 					{ "military-science-pack", 1 },
-					{ "space-science-pack", 1 },
 				},
 				time = 60,
 			},
@@ -638,14 +637,13 @@ else
 			},
 			prerequisites = { "ftl-propulsion", "kovarex-enrichment-process" },
 			unit = {
-				count = 250000 * researchCost / marathon_adj,
+				count = 200000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
 					{ "chemical-science-pack", 1 },
 					{ "production-science-pack", 1 },
 					{ "utility-science-pack", 1 },
-					{ "space-science-pack", 1 },
 				},
 				time = 60,
 			},
@@ -664,7 +662,7 @@ else
 			},
 			prerequisites = { "exploration-satellite" },
 			unit = {
-				count = 300000 * researchCost / marathon_adj,
+				count = 250000 * researchCost / marathon_adj,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },
@@ -683,7 +681,7 @@ end
 local noSpace = settings.startup["SpaceX-no-space-sci"].value
 if noSpace then
 	local techs_with_space_science =
-		{ "ftl-propulsion", "exploration-satellite", "space-ai-robots", "space-fluid-tanks", "space-cartography" }
+		{ "ftl-propulsion", "exploration-satellite", "space-cartography" }
 	for _, tech in pairs(techs_with_space_science) do
 		local fix = data.raw.technology[tech]
 		if fix ~= nil then

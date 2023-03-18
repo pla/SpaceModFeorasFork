@@ -74,14 +74,14 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 	if not classicMode then
 		data.raw.technology["ftl-theory-A"].unit.count = 25000 * researchCost
 		data.raw.technology["ftl-theory-B"].unit.count = 50000 * researchCost
-		data.raw.technology["ftl-theory-C"].unit.count = 100000 * researchCost
-		data.raw.technology["ftl-theory-D1"].unit.count = 150000 * researchCost
-		data.raw.technology["ftl-theory-D2"].unit.count = 150000 * researchCost
-		data.raw.technology["ftl-propulsion"].unit.count = 200000 * researchCost
-		data.raw.technology["exploration-satellite"].unit.count = 250000 * researchCost
-		data.raw.technology["space-ai-robots"].unit.count = 250000 * researchCost
-		data.raw.technology["space-fluid-tanks"].unit.count = 250000 * researchCost
-		data.raw.technology["space-cartography"].unit.count = 300000 * researchCost
+		data.raw.technology["ftl-theory-C"].unit.count = 75000 * researchCost
+		data.raw.technology["ftl-theory-D1"].unit.count = 100000 * researchCost
+		data.raw.technology["ftl-theory-D2"].unit.count = 100000 * researchCost
+		data.raw.technology["ftl-propulsion"].unit.count = 150000 * researchCost
+		data.raw.technology["exploration-satellite"].unit.count = 200000 * researchCost
+		data.raw.technology["space-ai-robots"].unit.count = 200000 * researchCost
+		data.raw.technology["space-fluid-tanks"].unit.count = 200000 * researchCost
+		data.raw.technology["space-cartography"].unit.count = 250000 * researchCost
 	else
 		for _, tech in pairs({"ftl-theory-A", "ftl-theory-B", "ftl-theory-C", "ftl-theory-D1", "ftl-theory-D2", "ftl-propulsion"}) do
 			local rootTech = data.raw.technology[tech]
