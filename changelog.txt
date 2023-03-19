@@ -7,18 +7,18 @@ Date: 01.04.2023
       - A space map has to be created to find a destination.
       - Adds a few more technologies, new recipes and a new satellite that returns an item required to craft the space map.
   Features:
-    - Added Laser Cannon to the already existing stage 3
-    - Added Lab as ingridient to astrometrics lab
     - Added startup option to split combinator signal output. If enabled:
       - Exisiting combinator will output the required item for the current stage only
       - New combinator will output the current stage as special signal S only
-    - Added a popup window after the first completion to give a hint about the auto-continue and disable popup option
-    - Added more strings to translation config file
     - Added player option to display days or hours in the log
     - Added new item group for spacex items
     - Added startup setting to replace nuclear with rocket fuel
     - Added startup setting "Classic Mode" which disables the new stage 4 additions
+    - Added Laser Cannon to the already existing stage 3
+    - Added Lab as ingridient to astrometrics lab
+    - Added more strings to translation config file
   Changes:
+    - Changed game completion logic. Finish screen will be shown after first SpaceX completion. Game and SpaceX can be continued afterwards
     - Changed research cost to gradually increase
     - Replaced rocket fuel with nuclear reactor for the fuel cell
     - Changed GUI to only display the required items for the current stage
@@ -28,13 +28,15 @@ Date: 01.04.2023
       - Log GUI
     - Slightly changed color of combinator graphics
     - Changed launch profile startup settings to launch multiplier and added a few more multipliers
+    - Removed pcalls
   Bugfixes:
     - Fixed a bug that caused the GUI button to not be added when a mod change occures
     - Fixed the "/resetSpaceX" command to properly reset the launch progress
+    - Fixed Log being increased if rockets are launched while SpaceX is already finished and waiting for user input
     - Fixed Bob Mods compatibility when robo ports are disabled. Will use personal roboport instead
     - Fixed closing Log window as well as main window when SpaceX button is pressed
-    - Fixed correct days/hours in Log
-    - Fixed technology unlock requirements
+    - Fixed correct display days/hours of playtime in Log
+    - Fixed correctly setting technology unlock requirements
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.1
   Changes:
