@@ -209,11 +209,11 @@ local function init_stages()
 		{
 			number = 4,
 			requirements = {
-				{ item_name = "exploration-satellite", base_required = 20, launched = 0 },
+				{ item_name = "exploration-satellite", base_required = 25, launched = 0 },
 				{ item_name = "space-ai-robot", base_required = 2, launched = 0 },
 				{ item_name = "space-water-tank", base_required = 2, launched = 0 },
 				{ item_name = "space-oxygen-tank", base_required = 2, launched = 0 },
-				{ item_name = "space-fuel-tank", base_required = 2, launched = 0 },
+				{ item_name = "space-fuel-tank", base_required = 4, launched = 0 },
 				{ item_name = "space-map", base_required = 1, launched = 0 },
 			},
 		})
