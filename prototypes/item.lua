@@ -213,6 +213,15 @@ if not classicMode then
 		},
 		{
 			type = "item",
+			name = "space-ai-robot-frame",
+			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-ai-robot-frame.png",
+			icon_size = 32,
+			subgroup = "spacex-stage-4",
+			order = "z-c[space-ai-robot-frame]",
+			stack_size = 1,
+		},
+		{
+			type = "item",
 			name = "space-water-tank",
 			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-water-tank.png",
 			icon_size = 32,

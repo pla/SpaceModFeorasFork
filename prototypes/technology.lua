@@ -588,6 +588,10 @@ else
 					type = "unlock-recipe",
 					recipe = "space-ai-robot",
 				},
+				{
+					type = "unlock-recipe",
+					recipe = "space-ai-robot-frame",
+				},
 			},
 			prerequisites = {
 				"ftl-propulsion",
