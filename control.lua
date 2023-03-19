@@ -478,6 +478,7 @@ local function spacex_continue()
 	global.launch_mult = nil
 	global.current_stage = nil
 	init_spacex()
+	global.finished = false
 end
 
 local function gui_open_stage_complete(player, stage_number)
@@ -611,6 +612,9 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 	if remote.interfaces["silo_script"] then
 		remote.call("silo_script", "set_no_victory", true)
 	end
+	if global.finished then
+		return
+	end
 	game.set_game_state({ game_finished = false, player_won = false, can_continue = true })
 
 	local current_stage = global.stages[global.current_stage]
@@ -626,6 +630,7 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 		if check_stage_completed(global.stages[i]) then
 			-- Check for spacex completion
 			if current_stage.number == #global.stages then
+				global.finished = true
 				global.completed = global.completed + 1
 				local launch_log = { log = game.ticks_played, detail = "", number = global.completed }
 				table.insert(global.launch_log, launch_log)
@@ -666,7 +671,6 @@ end)
 commands.add_command("SpaceX_reset", { "resetSpaceX_help" }, function(event)
 	local player = game.players[event.player_index]
 	if player.admin then
-		global.finished = false
 		spacex_continue()
 		game.print("SpaceX Progress reset", { r = 0.5, g = 0, b = 0, a = 0.5 })
 	else
