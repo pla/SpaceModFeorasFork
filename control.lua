@@ -109,8 +109,8 @@ local function gui_open_spacex(player)
 		local item_name = items_to_launch.add({ type = "label", caption = { "SpaceX-Progress." .. item.item_name } })
 		local item_prog = items_to_launch.add({ type = "label", caption = item.launched .. "/" .. item.required })
 		if item.launched == item.required then
-			item_name.style.font_color = {r = 0.7, g = 0.7, b = 0.7, a = 1.0}
-			item_prog.style.font_color = {r = 0.7, g = 0.7, b = 0.7, a = 1.0}
+			item_name.style.font_color = { r = 0.7, g = 0.7, b = 0.7, a = 1.0 }
+			item_prog.style.font_color = { r = 0.7, g = 0.7, b = 0.7, a = 1.0 }
 		end
 	end
 end
@@ -205,8 +205,7 @@ local function init_stages()
 		}
 	end
 	if not settings.startup["SpaceX-classic-mode"].value and #global.stages == 3 then
-		table.insert(global.stages,
-		{
+		table.insert(global.stages, {
 			number = 4,
 			requirements = {
 				{ item_name = "exploration-satellite", base_required = 25, launched = 0 },

@@ -314,7 +314,7 @@ data:extend({
 			time = 60,
 		},
 		order = "k-m",
-	}
+	},
 })
 
 if classicMode then
@@ -683,8 +683,7 @@ end
 
 local noSpace = settings.startup["SpaceX-no-space-sci"].value
 if noSpace then
-	local techs_with_space_science =
-		{ "ftl-propulsion", "space-cartography" }
+	local techs_with_space_science = { "ftl-propulsion", "space-cartography" }
 	for _, tech in pairs(techs_with_space_science) do
 		local fix = data.raw.technology[tech]
 		if fix ~= nil then

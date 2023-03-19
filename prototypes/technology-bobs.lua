@@ -83,9 +83,16 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 		data.raw.technology["space-fluid-tanks"].unit.count = 175000 * researchCost
 		data.raw.technology["space-cartography"].unit.count = 200000 * researchCost
 	else
-		for _, tech in pairs({"ftl-theory-A", "ftl-theory-B", "ftl-theory-C", "ftl-theory-D1", "ftl-theory-D2", "ftl-propulsion"}) do
+		for _, tech in pairs({
+			"ftl-theory-A",
+			"ftl-theory-B",
+			"ftl-theory-C",
+			"ftl-theory-D1",
+			"ftl-theory-D2",
+			"ftl-propulsion",
+		}) do
 			local rootTech = data.raw.technology[tech]
-			if rootTech ~=nil then
+			if rootTech ~= nil then
 				rootTech.unit.count = 200000 * researchCost
 			end
 		end

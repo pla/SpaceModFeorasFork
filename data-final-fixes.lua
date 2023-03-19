@@ -15,7 +15,7 @@ if settings.startup["SpaceX-no-bob"].value == false then
 end
 
 if mods["IndustrialRevolution"] or mods["IndustrialRevolution3"] then
-	for _, tech in pairs({"space-ai-robots", "space-fluid-tanks", "exploration-satellite"}) do
+	for _, tech in pairs({ "space-ai-robots", "space-fluid-tanks", "exploration-satellite" }) do
 		data.raw.technology[tech].unit.ingredients = {
 			{ "automation-science-pack", 1 },
 			{ "logistic-science-pack", 1 },

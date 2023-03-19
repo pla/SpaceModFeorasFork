@@ -125,8 +125,16 @@ if not classicMode then
 	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "exoskeleton-equipment", "exoskeleton-equipment-3")
 	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "battery-mk2-equipment", "battery-mk6-equipment")
 	-- space ai robot frame
-	bobmods.lib.recipe.replace_ingredient("space-ai-robot-frame", "personal-roboport-mk2-equipment", "personal-roboport-mk4-equipment")
-	bobmods.lib.recipe.replace_ingredient("space-ai-robot-frame", "personal-laser-defense-equipment", "personal-laser-defense-equipment-6")
+	bobmods.lib.recipe.replace_ingredient(
+		"space-ai-robot-frame",
+		"personal-roboport-mk2-equipment",
+		"personal-roboport-mk4-equipment"
+	)
+	bobmods.lib.recipe.replace_ingredient(
+		"space-ai-robot-frame",
+		"personal-laser-defense-equipment",
+		"personal-laser-defense-equipment-6"
+	)
 	bobmods.lib.recipe.replace_ingredient("space-ai-robot-frame", "construction-robot", "bob-construction-robot-4")
 	bobmods.lib.recipe.replace_ingredient("space-ai-robot-frame", "logisitc-robot", "bob-logisitc-robot-4")
 end

@@ -11,7 +11,7 @@ data:extend({
 			{ "construction-robot", 5 * productionCost },
 			{ "speed-module-3", math.ceil(1 * productionCost) },
 			{ "effectivity-module-3", math.ceil(1 * productionCost) },
-			{ "low-density-structure", 5 * productionCost},
+			{ "low-density-structure", 5 * productionCost },
 		},
 		result = "assembly-robot",
 	},
@@ -230,7 +230,7 @@ if not classicMode then
 				{ "radar", 50 * productionCost },
 				{ "rocket-control-unit", 100 * productionCost },
 				{ "battery-mk2-equipment", 50 * productionCost },
-				{ "space-ai-robot-frame" , 5 * productionCost },
+				{ "space-ai-robot-frame", 5 * productionCost },
 				{ "fusion-reactor-equipment", 20 * productionCost },
 			},
 			result = "space-ai-robot",
@@ -327,7 +327,7 @@ if replaceNuclear or classicMode then
 			ingridient[2] = 500 * productionCost
 		end
 	end
-	for _, tech in pairs({"exploration-satellite", "space-fuel-tank"}) do
+	for _, tech in pairs({ "exploration-satellite", "space-fuel-tank" }) do
 		local rootTech = data.raw["recipe"][tech]
 		if rootTech ~= nil then
 			for _, ingridient in pairs(rootTech.ingredients) do
