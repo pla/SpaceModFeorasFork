@@ -557,6 +557,12 @@ script.on_event(defines.events.on_gui_click, function(event)
 		global.finished = true
 	elseif clicked_button == "spacex_completion_button" then
 		close_all_spacex_completed_gui()
+		for _, mod in pairs({ "exotic-industries", "Krastorio2", "248k" }) do
+			if game.active_mods[mod] then
+				gui_open_space_completed_after()
+				return
+			end
+		end
 		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
 		gui_open_space_completed_after()
 	elseif clicked_button == "launch_log" then
