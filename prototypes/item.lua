@@ -135,7 +135,7 @@ data:extend({
 	{
 		type = "item",
 		name = "laser-cannon",
-		icon = "__SpaceModFeorasFork__/graphics/icons/spacex-laser-cannon.png",
+		icon = "__SpaceModFeorasFork__/graphics/icons/laser-cannon.png",
 		icon_size = 32,
 		subgroup = "spacex-stage-3",
 		order = "z-a[laser]",
@@ -186,7 +186,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "exploration-satellite",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-exploration-satellite.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/exploration-satellite.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "m[satellite][exploration-satellite]",
@@ -196,7 +196,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "exploration-data-disk",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-exploration-data-disk.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/exploration-data-disk.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "m[satellite][exploration-satellite][exploration-data-disk]",
@@ -205,7 +205,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-ai-robot",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-ai-robot.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-ai-robot.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-d[space-ai-robot]",
@@ -214,7 +214,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-ai-robot-frame",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-ai-robot-frame.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-ai-robot-frame.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-c[space-ai-robot-frame]",
@@ -223,7 +223,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-water-tank",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-water-tank.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-water-tank.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-water-tank]",
@@ -232,7 +232,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-oxygen-tank",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-oxygen-tank.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-oxygen-tank.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-oxygen-tank]",
@@ -241,7 +241,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-fuel-tank",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-fuel-tank.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-fuel-tank.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-fuel-tank]",
@@ -250,7 +250,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-oxygen-barrel",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-oxygen-barrel.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-oxygen-barrel.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-oxygen-barrel]",
@@ -259,7 +259,7 @@ if not classicMode then
 		{
 			type = "item",
 			name = "space-map",
-			icon = "__SpaceModFeorasFork__/graphics/icons/spacex-space-map.png",
+			icon = "__SpaceModFeorasFork__/graphics/icons/space-map.png",
 			icon_size = 32,
 			subgroup = "spacex-stage-4",
 			order = "z-f[space-map]",

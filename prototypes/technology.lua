@@ -292,7 +292,7 @@ data:extend({
 	{
 		type = "technology",
 		name = "laser-cannon",
-		icon = "__SpaceModFeorasFork__/graphics/technology/spacex-laser-cannon.png",
+		icon = "__SpaceModFeorasFork__/graphics/technology/laser-cannon.png",
 		icon_size = 128,
 		effects = {
 			{
@@ -556,7 +556,7 @@ else
 		{
 			type = "technology",
 			name = "exploration-satellite",
-			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-exploration-satellite.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/exploration-satellite.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -581,7 +581,7 @@ else
 		{
 			type = "technology",
 			name = "space-ai-robots",
-			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-space-ai-robots.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/space-ai-robots.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -618,7 +618,7 @@ else
 		{
 			type = "technology",
 			name = "space-fluid-tanks",
-			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-space-fluid-tanks.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/space-fluid-tanks.png",
 			icon_size = 128,
 			effects = {
 				{
@@ -655,7 +655,7 @@ else
 		{
 			type = "technology",
 			name = "space-cartography",
-			icon = "__SpaceModFeorasFork__/graphics/technology/spacex-space-cartography.png",
+			icon = "__SpaceModFeorasFork__/graphics/technology/space-cartography.png",
 			icon_size = 128,
 			effects = {
 				{
