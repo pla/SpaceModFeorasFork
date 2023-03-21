@@ -29,6 +29,7 @@ Date: 01.04.2023
     - Slightly changed color of combinator graphics
     - Changed launch profile startup settings to launch multiplier and added a few more multipliers
     - Removed pcalls
+    - Removed ru translation because too many string changes
   Bugfixes:
     - Fixed a bug that caused the GUI button to not be added when a mod change occures
     - Fixed the "/resetSpaceX" command to properly reset the launch progress
