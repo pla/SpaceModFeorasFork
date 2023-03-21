@@ -3,13 +3,6 @@ local mod_gui = require("mod-gui")
 
 global = global or {}
 
--- DEBUG
-local function debugp(text)
-	if __DebugAdapter then
-		__DebugAdapter.print("[SPACEX] " .. text)
-	end
-end
-
 local function format_launch_log(ticks, player)
 	local seconds = math.floor(ticks / 60)
 	local minutes = math.floor(seconds / 60)
@@ -153,7 +146,6 @@ end
 
 local function update_all_combinators()
 	for _, spacexCom in pairs(global.combinators) do
-		debugp("spacex combinator found")
 		update_combinator(spacexCom.entity)
 	end
 end
@@ -251,15 +243,12 @@ end
 
 script.on_configuration_changed(function(event)
 	if event.mod_changes or event.mod_startup_settings_changed then
-		debugp("Processing mod change")
 		-- Add existing combinators to global
 		global.combinators = {}
 		for _, surface in pairs(game.surfaces) do
-			debugp("Surface found")
 			for _, spacexCom in
 				pairs(surface.find_entities_filtered({ type = "constant-combinator", name = "spacex-combinator" }))
 			do
-				debugp("Found an old spacex combinator")
 				table.insert(global.combinators, { entity = spacexCom })
 			end
 			for _, spacexCom in
@@ -267,7 +256,6 @@ script.on_configuration_changed(function(event)
 					surface.find_entities_filtered({ type = "constant-combinator", name = "spacex-combinator-stage" })
 				)
 			do
-				debugp("Found an old spacex combinator stage")
 				table.insert(global.combinators, { entity = spacexCom })
 			end
 		end
@@ -438,7 +426,6 @@ script.on_event(defines.events.on_gui_text_changed, function(event)
 end)
 
 local function on_entity_build(event)
-	debugp("Spacex combinator built")
 	event.created_entity.operable = false
 	table.insert(global.combinators, { entity = event.created_entity })
 	update_combinator(event.created_entity)
@@ -451,7 +438,6 @@ script.on_event(defines.events.on_built_entity, on_entity_build, event_filter)
 script.on_event(defines.events.on_robot_built_entity, on_entity_build, event_filter)
 
 local function on_entity_cloned(event)
-	debugp("Spacex combinator cloned")
 	event.destination.operable = false
 	table.insert(global.combinators, { entity = event.destination })
 	update_combinator(event.destination)
@@ -459,7 +445,6 @@ end
 script.on_event(defines.events.on_entity_cloned, on_entity_cloned, event_filter)
 
 local function on_remove_entity(event)
-	debugp("Spacex combinator removed")
 	local entity = event.entity
 	for i, combinator in ipairs(global.combinators) do
 		if combinator.entity == entity then
