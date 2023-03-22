@@ -2,6 +2,7 @@
 Version: 1.2.0
 Date: 01.04.2023
   Major Features:
+    - First release of the forked version
     - Added a new stage
       - Requires to bring oxygen, fuel, water and ai companions to the spaceship.
       - A space map has to be created to find a destination.
@@ -193,7 +194,7 @@ Version: 0.2.2
   Changes:
     - Graphics update courtesy of Steinerrr
     - New technology icons for all 15 techs (counting ftl as 4 techs)
-    - New item icons for Assembly robot, Drydock Structural Component, Drydock Assembly Component, Hull Component, Protection Field, Fusion Reactor, Spaceship Thruster, Fuel Cell, Command Center, FTL Drive 
+    - New item icons for Assembly robot, Drydock Structural Component, Drydock Assembly Component, Hull Component, Protection Field, Fusion Reactor, Spaceship Thruster, Fuel Cell, Command Center, FTL Drive
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.1
   Changes:
