@@ -38,7 +38,7 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 			icon_size = 128,
 			prerequisites = { "ftl-theory-C" },
 			unit = {
-				count = 150000 * researchCost,
+				count = 100000 * researchCost,
 				ingredients = {
 					{ "automation-science-pack", 1 },
 					{ "logistic-science-pack", 1 },

@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.1
+Date: .2023
+  Changes:
+    - Adapted bob technology FTL D research cost to new curve
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
-Date: 01.04.2023
+Date: 22.03.2023
   Major Features:
     - First release of the forked version
     - Added a new stage
