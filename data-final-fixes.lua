@@ -25,3 +25,20 @@ if mods["IndustrialRevolution"] or mods["IndustrialRevolution3"] then
 		}
 	end
 end
+
+if settings.startup["SpaceX-no-pyanodons"].value == false then
+	if
+		mods["pyalienlife"]
+		and mods["pyalternativeenergy"]
+		and mods["pycoalprocessing"]
+		and mods["pyfusionenergy"]
+		and mods["pyhightech"]
+		and mods["pyindustry"]
+		and mods["pypetroleumhandling"]
+		and mods["pyrawores"]
+		and mods["pypostprocessing"]
+	then
+		require("__SpaceModFeorasFork__/prototypes/recipe-pyanodons")
+		require("__SpaceModFeorasFork__/prototypes/technology-pyanodons")
+	end
+end
