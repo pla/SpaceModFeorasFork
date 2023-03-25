@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.1
-Date: .2023
+Date: 26.03.2023
   Features:
     - Added all 5 basic science packs to SpaceX techs
     - Added Krastorio2 integration
