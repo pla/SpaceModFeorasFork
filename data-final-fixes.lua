@@ -26,6 +26,13 @@ if mods["IndustrialRevolution"] or mods["IndustrialRevolution3"] then
 	end
 end
 
+if settings.startup["SpaceX-no-krastorio"].value == false then
+	if mods["Krastorio2"] then
+		require("__SpaceModFeorasFork__/prototypes/recipe-krastorio")
+		require("__SpaceModFeorasFork__/prototypes/technology-krastorio")
+	end
+end
+
 if settings.startup["SpaceX-no-pyanodons"].value == false then
 	if
 		mods["pyalienlife"]

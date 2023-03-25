@@ -76,12 +76,21 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
+		name = "SpaceX-no-krastorio",
+		setting_type = "startup",
+		default_value = "false",
+		admin = true,
+		description = "SpaceX-no-krastorio",
+		order = "9",
+	},
+	{
+		type = "bool-setting",
 		name = "SpaceX-no-pyanodons",
 		setting_type = "startup",
 		default_value = "false",
 		admin = true,
 		description = "SpaceX-no-pyanodons",
-		order = "9",
+		order = "91",
 	},
 	{
 		type = "bool-setting",
@@ -90,7 +99,7 @@ data:extend({
 		default_value = false,
 		admin = true,
 		description = "SpaceX-split-combinator",
-		order = "91",
+		order = "92",
 	},
 	{
 		type = "bool-setting",
@@ -99,7 +108,7 @@ data:extend({
 		default_value = false,
 		admin = true,
 		description = "SpaceX-classic-mode",
-		order = "92",
+		order = "93",
 	},
 	{
 		type = "bool-setting",
