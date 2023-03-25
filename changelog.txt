@@ -2,10 +2,10 @@
 Version: 1.2.1
 Date: 26.03.2023
   Features:
-    - Added all 5 basic science packs to SpaceX techs
     - Added Krastorio2 integration
     - Added Pyanodons integration
   Changes:
+    - Added all 5 basic science packs to SpaceX techs
     - Adapted bob technology FTL D research cost to new curve
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
