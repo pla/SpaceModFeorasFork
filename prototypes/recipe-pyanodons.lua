@@ -35,19 +35,34 @@ for _, r in pairs(SpaceXRecipes) do
 	end
 end
 
-local function replace(recipe_name, old, new)
-	local recipe = data.raw["recipe"][recipe_name]
+local function replace_ingredient(ingredients, old, new, new_amount)
 	local amount = 0
-	if recipe then
-		for i, ingredient in pairs(recipe.ingredients) do
-			if ingredient[1] == old or ingredient.name == old then
-				amount = ingredient[2] or ingredient.amount
-				table.remove(recipe.ingredients, i)
-				break
-			end
+	for i, ingredient in pairs(ingredients) do
+		if ingredient[1] == old or ingredient.name == old then
+			amount = ingredient[2] or ingredient.amount
+			table.remove(ingredients, i)
+			break
 		end
-		if amount ~= 0 then
-			table.insert(recipe.ingredients, { new, amount })
+	end
+	if new_amount then
+		table.insert(ingredients, { new, new_amount })
+	elseif amount ~= 0 then
+		table.insert(ingredients, { new, amount })
+	end
+end
+
+local function replace(recipe_name, old, new, new_amount)
+	local recipe = data.raw["recipe"][recipe_name]
+
+	if recipe then
+		if recipe.ingredients then
+			replace_ingredient(recipe.ingredients, old, new, new_amount)
+		end
+		if recipe.normal and recipe.normal.ingredients then
+			replace_ingredient(recipe.normal.ingredients, old, new, new_amount)
+		end
+		if recipe.expensive and recipe.expensive.ingredients then
+			replace_ingredient(recipe.expensive.ingredients, old, new, new_amount)
 		end
 	end
 end
