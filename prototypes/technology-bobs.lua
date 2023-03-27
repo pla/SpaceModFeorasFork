@@ -87,6 +87,7 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 			"ftl-theory-A",
 			"ftl-theory-B",
 			"ftl-theory-C",
+			"ftl-theory-D",
 			"ftl-theory-D1",
 			"ftl-theory-D2",
 			"ftl-propulsion",
