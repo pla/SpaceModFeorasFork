@@ -24,7 +24,7 @@ end
 local function replace(recipe_name, old, new, new_amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs {recipe, recipe.normal, recipe.expensive} do
+		for _, diff in pairs({ recipe, recipe.normal, recipe.expensive }) do
 			if diff then
 				if diff.ingredients then
 					replace_ingredient(diff.ingredients, old, new, new_amount)
@@ -37,7 +37,7 @@ end
 local function insert_ingredient(recipe_name, ingredient, amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs {recipe, recipe.normal, recipe.expensive} do
+		for _, diff in pairs({ recipe, recipe.normal, recipe.expensive }) do
 			if diff then
 				if diff.ingredients then
 					table.insert(diff.ingredients, { ingredient, amount })
