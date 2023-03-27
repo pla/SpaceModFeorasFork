@@ -2,7 +2,7 @@
 Version: 1.2.2
 Date: 27.03.2023
   Bugfixes:
-    - Fixed a crash in recipe replacements for Krastorio2/Pyanodons compatibility
+    - Fixed a crash in recipe replacements in Krastorio2/Pyanodons compatibility
     - Fixed technology FTL D research costs for classic mode when using Bob mods
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.1
