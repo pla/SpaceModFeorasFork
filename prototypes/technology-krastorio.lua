@@ -1,5 +1,5 @@
 local classicMode = settings.startup["SpaceX-classic-mode"].value or false
-local noSpace = settings.startup["SpaceX-no-space-sci"].value
+local noSpace = settings.startup["SpaceX-no-space-sci"].value or false
 
 if not noSpace then
 	local ftl = data.raw.technology["ftl-propulsion"]

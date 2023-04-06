@@ -687,7 +687,7 @@ else
 	})
 end
 
-local noSpace = settings.startup["SpaceX-no-space-sci"].value
+local noSpace = settings.startup["SpaceX-no-space-sci"].value or false
 if noSpace then
 	local techs_with_space_science = { "ftl-propulsion", "space-cartography" }
 	for _, tech in pairs(techs_with_space_science) do
@@ -705,7 +705,7 @@ if noSpace then
 	data.raw.technology["ftl-propulsion"].prerequisites = { "ftl-theory-D1", "ftl-theory-D2" }
 end
 
-local combinatorSplit = settings.startup["SpaceX-split-combinator"].value
+local combinatorSplit = settings.startup["SpaceX-split-combinator"].value or false
 if combinatorSplit then
 	local fix = data.raw.technology["space-assembly"]
 	fix.effects = {
@@ -724,7 +724,7 @@ if combinatorSplit then
 	}
 end
 
-local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value
+local replaceNuclear = settings.startup["SpaceX-no-nuclear"].value or false
 if replaceNuclear or classicMode then
 	data.raw.technology["fuel-cells"].prerequisites = { "space-construction" }
 	if not classicMode then
