@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.3
+Date: 06.04.2023
+  Changes:
+    - IR3 compatibility: Changed oxygen barrel recipe to require oxygen as well
+  Bugfixes:
+    - Fixed IR3 compatibility with nuclear fuel by adding a new recipe called "Spaceship Fuel"
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 27.03.2023
   Bugfixes:

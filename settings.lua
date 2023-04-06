@@ -94,12 +94,21 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
+		name = "SpaceX-no-ir",
+		setting_type = "startup",
+		default_value = "false",
+		admin = true,
+		description = "SpaceX-no-ir",
+		order = "92",
+	},
+	{
+		type = "bool-setting",
 		name = "SpaceX-split-combinator",
 		setting_type = "startup",
 		default_value = false,
 		admin = true,
 		description = "SpaceX-split-combinator",
-		order = "92",
+		order = "93",
 	},
 	{
 		type = "bool-setting",
@@ -108,7 +117,7 @@ data:extend({
 		default_value = false,
 		admin = true,
 		description = "SpaceX-classic-mode",
-		order = "93",
+		order = "94",
 	},
 	{
 		type = "bool-setting",
