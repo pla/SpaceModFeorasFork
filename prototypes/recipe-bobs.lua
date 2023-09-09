@@ -104,14 +104,6 @@ data.raw.recipe["laser-cannon"].ingredients = {
 	{ "decider-combinator", 50 * productionCost },
 	{ "personal-laser-defense-equipment-6", 100 * productionCost },
 }
--- low-density-structure
-bobmods.lib.recipe.replace_ingredient("low-density-structure", "steel-plate", "titanium-plate")
-bobmods.lib.recipe.replace_ingredient("low-density-structure", "copper-plate", "nitinol-alloy")
--- satellite
-bobmods.lib.recipe.replace_ingredient("satellite", "accumulator", "large-accumulator-3")
-bobmods.lib.recipe.replace_ingredient("satellite", "solar-panel", "solar-panel-large-3")
-bobmods.lib.recipe.replace_ingredient("satellite", "processing-unit", "advanced-processing-unit")
-bobmods.lib.recipe.replace_ingredient("satellite", "radar", "radar-5")
 
 if not classicMode then
 	-- space tanks

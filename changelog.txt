@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.4
+Date: 09.09.2023
+  Bugfixes:
+    - Fixed Bobs compatibility: Removed obsolete recipe and technology changes which did not apply to recent bob versions anymore.
+    - Fixed Bobs compatibility: Fixed many technology dependencies.
+    - Fixed Bobs + Angels compatibility: Fixed low density technology dependency.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.3
 Date: 06.04.2023
   Changes:
