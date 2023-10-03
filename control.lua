@@ -637,10 +637,10 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 				end
 			-- Stage completion
 			else
-				if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
+				if global.completed < 1 or settings.global["SpaceX-no-chat-msg"].value == false then
 					game.print({ "stage-" .. current_stage.number .. "-completion-msg" })
 				end
-				if global.completed <= 1 or settings.global["SpaceX-no-popup"].value == false then
+				if global.completed < 1 or settings.global["SpaceX-no-popup"].value == false then
 					for _, player in pairs(game.players) do
 						gui_open_stage_complete(player, current_stage.number)
 					end
