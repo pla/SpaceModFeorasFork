@@ -1,6 +1,7 @@
 local researchCost = settings.startup["SpaceX-research"].value or 1
 local ignoreMult = settings.startup["SpaceX-ignore-tech-multiplier"].value or false
 local classicMode = settings.startup["SpaceX-classic-mode"].value or false
+local ftlRampUp = settings.startup["SpaceX-ftl-ramp-up"].value or false
 
 local marathon_adj
 if ignoreMult then
@@ -436,6 +437,119 @@ if classicMode then
 			order = "k-q",
 		},
 	})
+elseif ftlRampUp then
+	data:extend({
+		{
+			type = "technology",
+			name = "ftl-theory-A",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "space-construction" },
+			unit = {
+				count = 50000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-n",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-B",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-A" },
+			unit = {
+				count = 65000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-o",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-C",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-B" },
+			unit = {
+				count = 80000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-D1",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-C" },
+			unit = {
+				count = 100000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-theory-D2",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+			icon_size = 128,
+			prerequisites = { "ftl-theory-C" },
+			unit = {
+				count = 100000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-p",
+		},
+		{
+			type = "technology",
+			name = "ftl-propulsion",
+			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+			icon_size = 128,
+			effects = {
+				{
+					type = "unlock-recipe",
+					recipe = "ftl-drive",
+				},
+			},
+			prerequisites = { "ftl-theory-D1", "ftl-theory-D2", "space-science-pack" },
+			unit = {
+				count = 150000 * researchCost / marathon_adj,
+				ingredients = {
+					{ "automation-science-pack", 1 },
+					{ "logistic-science-pack", 1 },
+					{ "chemical-science-pack", 1 },
+					{ "production-science-pack", 1 },
+					{ "utility-science-pack", 1 },
+					{ "space-science-pack", 1 },
+				},
+				time = 60,
+			},
+			order = "k-q",
+		},
+	})
 else
 	data:extend({
 		{
@@ -559,6 +673,11 @@ else
 			},
 			order = "k-q",
 		},
+	})
+end
+
+if not classicMode then
+	data:extend({
 		{
 			type = "technology",
 			name = "exploration-satellite",

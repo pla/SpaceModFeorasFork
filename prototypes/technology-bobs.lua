@@ -1,6 +1,7 @@
 local bob_coefficient = 1
 local researchCost = settings.startup["SpaceX-research"].value or 1
 local classicMode = settings.startup["SpaceX-classic-mode"].value or false
+local ftlRampUp = settings.startup["SpaceX-ftl-ramp-up"].value or false
 
 local SpaceXTechs = {
 	"space-assembly",
@@ -72,16 +73,31 @@ if data.raw.tool["advanced-logistic-science-pack"] then
 	end
 
 	if not classicMode then
-		data.raw.technology["ftl-theory-A"].unit.count = 25000 * researchCost
-		data.raw.technology["ftl-theory-B"].unit.count = 50000 * researchCost
-		data.raw.technology["ftl-theory-C"].unit.count = 75000 * researchCost
-		data.raw.technology["ftl-theory-D1"].unit.count = 100000 * researchCost
-		data.raw.technology["ftl-theory-D2"].unit.count = 100000 * researchCost
-		data.raw.technology["ftl-propulsion"].unit.count = 150000 * researchCost
-		data.raw.technology["exploration-satellite"].unit.count = 175000 * researchCost
-		data.raw.technology["space-ai-robots"].unit.count = 175000 * researchCost
-		data.raw.technology["space-fluid-tanks"].unit.count = 175000 * researchCost
-		data.raw.technology["space-cartography"].unit.count = 200000 * researchCost
+		if not ftlRampUp then
+			data.raw.technology["ftl-theory-A"].unit.count = 25000 * researchCost
+			data.raw.technology["ftl-theory-B"].unit.count = 50000 * researchCost
+			data.raw.technology["ftl-theory-C"].unit.count = 75000 * researchCost
+			data.raw.technology["ftl-theory-D"].unit.count = 75000 * researchCost
+			data.raw.technology["ftl-theory-D1"].unit.count = 100000 * researchCost
+			data.raw.technology["ftl-theory-D2"].unit.count = 100000 * researchCost
+			data.raw.technology["ftl-propulsion"].unit.count = 150000 * researchCost
+			data.raw.technology["exploration-satellite"].unit.count = 175000 * researchCost
+			data.raw.technology["space-ai-robots"].unit.count = 175000 * researchCost
+			data.raw.technology["space-fluid-tanks"].unit.count = 175000 * researchCost
+			data.raw.technology["space-cartography"].unit.count = 200000 * researchCost
+		else
+			data.raw.technology["ftl-theory-A"].unit.count = 50000 * researchCost
+			data.raw.technology["ftl-theory-B"].unit.count = 65000 * researchCost
+			data.raw.technology["ftl-theory-C"].unit.count = 80000 * researchCost
+			data.raw.technology["ftl-theory-D"].unit.count = 90000 * researchCost
+			data.raw.technology["ftl-theory-D1"].unit.count = 100000 * researchCost
+			data.raw.technology["ftl-theory-D2"].unit.count = 100000 * researchCost
+			data.raw.technology["ftl-propulsion"].unit.count = 150000 * researchCost
+			data.raw.technology["exploration-satellite"].unit.count = 175000 * researchCost
+			data.raw.technology["space-ai-robots"].unit.count = 175000 * researchCost
+			data.raw.technology["space-fluid-tanks"].unit.count = 175000 * researchCost
+			data.raw.technology["space-cartography"].unit.count = 200000 * researchCost
+		end
 	else
 		for _, tech in pairs({
 			"ftl-theory-A",

@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.6
+Date: 28.10.2023
+  Changes:
+    - Changed FTL research to gradually ramp up the required science packs and not all at once (can be changed via startup settings)
+---------------------------------------------------------------------------------------------------
 Version: 1.2.5
 Date: 03.10.2023
   Bugfixes:

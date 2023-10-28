@@ -112,12 +112,21 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
+		name = "SpaceX-ftl-ramp-up",
+		setting_type = "startup",
+		default_value = true,
+		admin = true,
+		description = "SpaceX-ftl-ramp-up",
+		order = "94",
+	},
+	{
+		type = "bool-setting",
 		name = "SpaceX-classic-mode",
 		setting_type = "startup",
 		default_value = false,
 		admin = true,
 		description = "SpaceX-classic-mode",
-		order = "94",
+		order = "95",
 	},
 	{
 		type = "bool-setting",
