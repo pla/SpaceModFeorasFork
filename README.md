@@ -9,7 +9,7 @@ Among other things this fork adds to the existing SpaceX experience:
 - Updated GUI
 - Tweaked science requirements for technologies
 - Various new settings for better customization and compatibility
-- Ability use all science packs for FTL research (see startup setttings)
+- Ability to use all science packs for FTL research (see startup settings)
 - More mod compatibility integration
 - Bugfixes  
 
