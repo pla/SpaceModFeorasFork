@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.7
+Date: 11.11.2023
+  Bugfixes:
+    - Fixed IR3 compatibility with spaceship fuel not showing up in logistics.
+    - Fixed IR3 compatibility paired with Extended Descriptions to show correct info.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.6
 Date: 28.10.2023
   Changes:

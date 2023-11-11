@@ -57,6 +57,12 @@ if not classicMode then
 		spaceship_fuel.subgroup = "spacex-stage-4"
 		spaceship_fuel.order = "l[spaceship-fuel]"
 		spaceship_fuel.stack_size = 10
+		spaceship_fuel.fuel_value = "0J"
+		spaceship_fuel.fuel_acceleration_multiplier = 1.0
+		spaceship_fuel.fuel_top_speed_multiplier = 1.0
+		spaceship_fuel.fuel_emissions_multiplier = 1.0
+		spaceship_fuel.fuel_glow_color = nil
+		spaceship_fuel.flags = {}
 
 		data:extend({
 			spaceship_fuel,
