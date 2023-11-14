@@ -29,28 +29,52 @@ local SpaceXTechs = {
 }
 
 if data.raw.tool["advanced-logistic-science-pack"] then
-	table.insert(SpaceXTechs, "ftl-theory-D")
 
-	data:extend({
-		{
-			type = "technology",
-			name = "ftl-theory-D",
-			icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
-			icon_size = 128,
-			prerequisites = { "ftl-theory-C" },
-			unit = {
-				count = 100000 * researchCost,
-				ingredients = {
-					{ "automation-science-pack", 1 },
-					{ "logistic-science-pack", 1 },
-					{ "chemical-science-pack", 1 },
-					{ "advanced-logistic-science-pack", 1 },
+	-- Bob exclusive FTL Theory D
+	table.insert(SpaceXTechs, "ftl-theory-D")
+	if ftlRampUp then
+		data:extend({
+			{
+				type = "technology",
+				name = "ftl-theory-D",
+				icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+				icon_size = 128,
+				prerequisites = { "ftl-theory-C" },
+				unit = {
+					count = 100000 * researchCost,
+					ingredients = {
+						{ "automation-science-pack", 1 },
+						{ "logistic-science-pack", 1 },
+						{ "chemical-science-pack", 1 },
+					},
+					time = 60,
 				},
-				time = 60,
+				order = "k-o-a",
 			},
-			order = "k-o-a",
-		},
-	})
+		})
+	else
+		data:extend({
+			{
+				type = "technology",
+				name = "ftl-theory-D",
+				icon = "__SpaceModFeorasFork__/graphics/technology/ftl.png",
+				icon_size = 128,
+				prerequisites = { "ftl-theory-C" },
+				unit = {
+					count = 100000 * researchCost,
+					ingredients = {
+						{ "automation-science-pack", 1 },
+						{ "logistic-science-pack", 1 },
+						{ "chemical-science-pack", 1 },
+						{ "advanced-logistic-science-pack", 1 },
+						{ "utility-science-pack", 1 },
+					},
+					time = 60,
+				},
+				order = "k-o-a",
+			},
+		})
+	end
 
 	bobmods.lib.tech.add_science_pack("space-assembly", "advanced-logistic-science-pack", 1)
 	bobmods.lib.tech.add_science_pack("space-construction", "advanced-logistic-science-pack", 1)

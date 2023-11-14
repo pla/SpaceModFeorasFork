@@ -1,5 +1,6 @@
 local classicMode = settings.startup["SpaceX-classic-mode"].value or false
 local noSpace = settings.startup["SpaceX-no-space-sci"].value or false
+local rampUp = settings.startup["SpaceX-ftl-ramp-up"].value or false
 
 if not noSpace then
 	local ftl = data.raw.technology["ftl-propulsion"]
@@ -57,6 +58,43 @@ if data.raw.technology["laser-cannon"] then
 end
 if data.raw.technology["protection-fields"] then
 	data.raw.technology["protection-fields"].prerequisites = { "space-construction", "kr-energy-shield-mk3-equipment" }
+end
+
+if rampUp then
+	data.raw.technology["ftl-theory-A"].unit.ingredients = {
+		{ "automation-science-pack", 1 },
+	}
+	data.raw.technology["ftl-theory-B"].unit.ingredients = {
+		{ "automation-science-pack", 1 },
+		{ "logistic-science-pack", 1 },
+	}
+	data.raw.technology["ftl-theory-C"].unit.ingredients = {
+		{ "automation-science-pack", 1 },
+		{ "logistic-science-pack", 1 },
+		{ "chemical-science-pack", 1 },
+	}
+	data.raw.technology["ftl-theory-D1"].unit.ingredients = {
+		{ "automation-science-pack", 1 },
+		{ "logistic-science-pack", 1 },
+		{ "chemical-science-pack", 1 },
+		{ "production-science-pack", 1 },
+	}
+	data.raw.technology["ftl-theory-D2"].unit.ingredients = {
+		{ "automation-science-pack", 1 },
+		{ "logistic-science-pack", 1 },
+		{ "chemical-science-pack", 1 },
+		{ "utility-science-pack", 1 },
+	}
+	if noSpace then
+		data.raw.technology["ftl-propulsion"].unit.ingredients = {
+			{ "automation-science-pack", 1 },
+			{ "logistic-science-pack", 1 },
+			{ "chemical-science-pack", 1 },
+			{ "production-science-pack", 1 },
+			{ "utility-science-pack", 1 },
+			{ "space-science-pack", 1 },
+		}
+	end
 end
 
 if not classicMode then
