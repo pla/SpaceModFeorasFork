@@ -1,5 +1,10 @@
 ---------------------------------------------------------------------------------------------------
-Version: 1.2.7
+Version: 1.2.9
+Date: 14.11.2023
+  Bugfixes:
+    - Fixed changelog parsing error
+---------------------------------------------------------------------------------------------------
+Version: 1.2.8
 Date: 14.11.2023
   Bugfixes:
     - Fixed "Ramp Up" startup option not working correctly with some mods
