@@ -56,4 +56,8 @@ if settings.startup["SpaceX-no-ir"].value == false then
 		require("__SpaceModFeorasFork__/prototypes/recipe-ir3")
 		require("__SpaceModFeorasFork__/prototypes/technology-ir3")
 	end
+
+	if mods["janky-quality"] and jq_entity_mods then
+		jq_entity_mods.no_quality["spacex-combinator"] = true
+	end
 end
