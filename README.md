@@ -1,4 +1,4 @@
-https://mods.factorio.com/mod/SpaceModFeorasFork/
+https://mods.factorio.com/mod/SpaceModFeorasFork
 
 Greatly extend the end game requiring multiple launches, massively increased science and item production. Requires a few hundred launches with a variety of new components. The goal is to build a vessel capable of getting you off the planet and home safely.
 
