@@ -221,6 +221,13 @@ local function init_spacex()
 	global.completed = global.completed or 0
 	global.launch_log = global.launch_log or {}
 	update_all_combinators()
+
+	-- Set no victory via rocket launch
+	for _, interface in pairs{ "silo_script", "better-victory-screen" } do
+		if remote.interfaces[interface] and remote.interfaces[interface]["set_no_victory"] then
+			remote.call(interface, "set_no_victory", true)
+		end
+	end
 end
 
 local function init_gui(player)
@@ -549,7 +556,11 @@ script.on_event(defines.events.on_gui_click, function(event)
 				return
 			end
 		end
-		game.set_game_state({ game_finished = true, player_won = true, can_continue = true })
+		if remote.interfaces["better-victory-screen"] and remote.interfaces["better-victory-screen"]["trigger_victory"] then
+			remote.call("better-victory-screen", "trigger_victory", player.force)
+		else
+			game.set_game_state{ game_finished = true, player_won = true, can_continue = true, victorious_force = player.force }
+		end
 		gui_open_space_completed_after()
 	elseif clicked_button == "launch_log" then
 		if spacex_log then
@@ -600,9 +611,6 @@ local function check_stage_completed(stage)
 end
 
 script.on_event(defines.events.on_rocket_launched, function(event)
-	if remote.interfaces["silo_script"] then
-		remote.call("silo_script", "set_no_victory", true)
-	end
 	if global.finished then
 		return
 	end
