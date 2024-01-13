@@ -28,23 +28,23 @@ The aim of this mod is to provide a significantly longer end game experience. In
 - Requires your factory to grow even more to be able to have enough resources for researching and building the spacecraft
 
 # Mods Integrations
-- Milestones
-- (Angel +) Bob
-- Industrial Revolution 2/3
-- Krastorio 2
-- Better Victory Screen
-- Janky Quality
+- [Milestones](https://mods.factorio.com/mod/Milestones)
+- ([Angel](https://mods.factorio.com/mod/angelsrefining) +) [Bob](https://mods.factorio.com/mod/boblogistics)
+- [Industrial Revolution 2](https://mods.factorio.com/mod/IndustrialRevolution)/[Industrial Revolution 3](https://mods.factorio.com/mod/IndustrialRevolution3)
+- [Krastorio 2](https://mods.factorio.com/mod/Krastorio2)
+- [Better Victory Screen](https://mods.factorio.com/mod/better-victory-screen)
+- [Janky Quality](https://mods.factorio.com/mod/janky-quality)
 
 # Mods Experimental Integration
 The recipes and technologies have been adjust for following mods. However, the balance/difficulty is not yet tested completely. If it is too easy or too difficult please provide some feedback. The difficulty can also be adjusted via the map settings (research/ingredient/launch multiplier)  
 
-- Pyanodons
+- [Pyanodons](https://mods.factorio.com/mod/pyindustry)
 
 # Mods Compatibility 
 Quickly tested, it should work with following mods (proper integration planned)  
 
-- AAI Industry
-- Exotic Industries
+- [AAI Industry](https://mods.factorio.com/mod/aai-industry)
+- [Exotic Industries](https://mods.factorio.com/mod/exotic-industries)
 
 # Locale Support
 - English
