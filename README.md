@@ -32,6 +32,8 @@ The aim of this mod is to provide a significantly longer end game experience. In
 - (Angel +) Bob
 - Industrial Revolution 2/3
 - Krastorio 2
+- Better Victory Screen
+- Janky Quality
 
 # Mods Experimental Integration
 The recipes and technologies have been adjust for following mods. However, the balance/difficulty is not yet tested completely. If it is too easy or too difficult please provide some feedback. The difficulty can also be adjusted via the map settings (research/ingredient/launch multiplier)  
