@@ -1,5 +1,6 @@
 require("__SpaceModFeorasFork__/milestones")
 local mod_gui = require("mod-gui")
+local mod_janky_quality_req = settings.startup["SpaceX-janky-quality-req"].value or 1
 
 global = global or {}
 
@@ -609,7 +610,11 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 
 	local current_stage = global.stages[global.current_stage]
 	for _, item in pairs(current_stage.requirements) do
-		if event.rocket.get_item_count(item.item_name) > 0 then
+		local item_name = item.item_name
+		if game.active_mods["janky-quality"] and not settings.startup["SpaceX-no-janky-quality"].value then
+			item_name = item_name .. "-quality-" .. mod_janky_quality_req
+		end
+		if event.rocket.get_item_count(item_name) > 0 then
 			if item.launched < item.required then
 				item.launched = item.launched + 1
 			end
