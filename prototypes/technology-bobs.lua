@@ -28,7 +28,7 @@ local SpaceXTechs = {
 	"space-cartography",
 }
 
-if data.raw.tool["advanced-logistic-science-pack"] then
+if bobmods.tech and bobmods.tech.advanced_logistic_science then
 
 	-- Bob exclusive FTL Theory D
 	table.insert(SpaceXTechs, "ftl-theory-D")
