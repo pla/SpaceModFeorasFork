@@ -1,8 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.11
-Date: ???
+Date: 15.07.2024
   Bugfixes:
-    - Fixed compatibility issue with Bob's Technology mod and Technology Overhaul setting from Angel's Industries mod
+    - Fixed compatibility issue with Bob's Technology mod and Technology Overhaul setting from Angel's Industries mod (by KiwiHawk)
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.10
 Date: 13.01.2024
