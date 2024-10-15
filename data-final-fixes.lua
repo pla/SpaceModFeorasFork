@@ -38,6 +38,12 @@ if settings.startup["SpaceX-no-pyanodons"].value == false then
 	end
 end
 
+if mods["angelsindustries"] then
+	if settings.startup["angels-enable-tech"].value then
+		require("__SpaceModFeorasFork__/prototypes/technology-angel-techoverhaul")
+	end
+end
+
 if settings.startup["SpaceX-no-ir"].value == false then
 	if mods["IndustrialRevolution"] or mods["IndustrialRevolution3"] then
 		for _, tech in pairs({ "space-ai-robots", "space-fluid-tanks", "exploration-satellite" }) do
