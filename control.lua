@@ -2,7 +2,7 @@ require("__SpaceModFeorasFork__/milestones")
 local mod_gui = require("mod-gui")
 local mod_janky_quality_req = settings.startup["SpaceX-janky-quality-req"].value or 1
 
-global = global or {}
+storage = storage or {}
 
 local function format_launch_log(ticks, player)
 	local seconds = math.floor(ticks / 60)
@@ -37,8 +37,8 @@ local function gui_open_log(player)
 	logtable.add({ type = "label", caption = { "spacex-log-launch" }, style = "caption_label" })
 	logtable.add({ type = "label", caption = { "spacex-log-time" }, style = "caption_label" })
 	logtable.add({ type = "label", caption = { "spacex-log-notes" }, style = "caption_label" })
-	for i = #global.launch_log, 1, -1 do
-		local launch = global.launch_log[i]
+	for i = #storage.launch_log, 1, -1 do
+		local launch = storage.launch_log[i]
 		logtable.add({ type = "label", caption = launch.number, style = "Launch_label_style" })
 		logtable.add({ type = "label", caption = format_launch_log(launch.log, player), style = "Launch_label_style" })
 		logtable.add({
@@ -59,10 +59,10 @@ local function gui_open_spacex(player)
 	frame.clear()
 
 	-- Launch history, if any
-	if global.completed > 0 then
+	if storage.completed > 0 then
 		local launch =
 			frame.add({ type = "table", name = "launch_info", column_count = 2, style = "SpaceMod_item_table_style" })
-		launch.add({ type = "label", caption = { "instellar-launch", global.completed }, style = "caption_label" })
+		launch.add({ type = "label", caption = { "instellar-launch", storage.completed }, style = "caption_label" })
 		local log_button = launch.add({
 			type = "button",
 			name = "launch_log",
@@ -77,10 +77,10 @@ local function gui_open_spacex(player)
 	end
 
 	-- Current required items to launch
-	local current_stage = global.stages[global.current_stage]
+	local current_stage = storage.stages[storage.current_stage]
 	frame.add({
 		type = "label",
-		caption = { "stage-" .. current_stage.number .. "-progress-stage", #global.stages },
+		caption = { "stage-" .. current_stage.number .. "-progress-stage", #storage.stages },
 		style = "caption_label",
 	})
 	local items_to_launch = frame.add({
@@ -116,7 +116,7 @@ local function update_combinator(combinator)
 		local split_signal = settings.startup["SpaceX-split-combinator"].value
 		local append_items = not is_stage_combinator
 		local append_stage = (split_signal and is_stage_combinator) or (not split_signal and not is_stage_combinator)
-		local current_stage = global.stages[global.current_stage]
+		local current_stage = storage.stages[storage.current_stage]
 		local signals = {}
 
 		if append_items then
@@ -146,17 +146,17 @@ local function update_combinator(combinator)
 end
 
 local function update_all_combinators()
-	for _, spacexCom in pairs(global.combinators) do
+	for _, spacexCom in pairs(storage.combinators) do
 		update_combinator(spacexCom.entity)
 	end
 end
 
 local function init_launch_multiplier()
-	if global.launch_mult == nil or global.launch_mult ~= settings.startup["SpaceX-launch-multiplier"].value then
-		global.launch_mult = settings.startup["SpaceX-launch-multiplier"].value or 1
-		for _, stage in pairs(global.stages) do
+	if storage.launch_mult == nil or storage.launch_mult ~= settings.startup["SpaceX-launch-multiplier"].value then
+		storage.launch_mult = settings.startup["SpaceX-launch-multiplier"].value or 1
+		for _, stage in pairs(storage.stages) do
 			for _, item in pairs(stage.requirements) do
-				item.required = math.max(math.floor(item.base_required * global.launch_mult + 0.5), 1)
+				item.required = math.max(math.floor(item.base_required * storage.launch_mult + 0.5), 1)
 			end
 		end
 		for _, player in pairs(game.players) do
@@ -166,8 +166,8 @@ local function init_launch_multiplier()
 end
 
 local function init_stages()
-	if global.stages == nil then
-		global.stages = {
+	if storage.stages == nil then
+		storage.stages = {
 			{
 				number = 1,
 				requirements = { { item_name = "satellite", base_required = 7, launched = 0 } },
@@ -197,8 +197,8 @@ local function init_stages()
 			},
 		}
 	end
-	if not settings.startup["SpaceX-classic-mode"].value and #global.stages == 3 then
-		table.insert(global.stages, {
+	if not settings.startup["SpaceX-classic-mode"].value and #storage.stages == 3 then
+		table.insert(storage.stages, {
 			number = 4,
 			requirements = {
 				{ item_name = "exploration-satellite", base_required = 25, launched = 0 },
@@ -214,12 +214,12 @@ end
 
 local function init_spacex()
 	init_stages()
-	global.current_stage = global.current_stage or 1
+	storage.current_stage = storage.current_stage or 1
 	init_launch_multiplier()
-	global.finished = global.finished or false
-	global.combinators = global.combinators or {}
-	global.completed = global.completed or 0
-	global.launch_log = global.launch_log or {}
+	storage.finished = storage.finished or false
+	storage.combinators = storage.combinators or {}
+	storage.completed = storage.completed or 0
+	storage.launch_log = storage.launch_log or {}
 	update_all_combinators()
 
 	-- Set no victory via rocket launch
@@ -252,23 +252,23 @@ end
 script.on_configuration_changed(function(event)
 	if event.mod_changes or event.mod_startup_settings_changed then
 		-- Add existing combinators to global
-		global.combinators = {}
+		storage.combinators = {}
 		for _, surface in pairs(game.surfaces) do
 			for _, spacexCom in
 				pairs(surface.find_entities_filtered({ type = "constant-combinator", name = "spacex-combinator" }))
 			do
-				table.insert(global.combinators, { entity = spacexCom })
+				table.insert(storage.combinators, { entity = spacexCom })
 			end
 			for _, spacexCom in
 				pairs(
 					surface.find_entities_filtered({ type = "constant-combinator", name = "spacex-combinator-stage" })
 				)
 			do
-				table.insert(global.combinators, { entity = spacexCom })
+				table.insert(storage.combinators, { entity = spacexCom })
 			end
 		end
 		-- Update launch mult and combinators
-		global.launch_mult = nil
+		storage.launch_mult = nil
 		init_spacex()
 		-- Check research
 		for _, force in pairs(game.forces) do
@@ -291,16 +291,16 @@ script.on_configuration_changed(function(event)
 			end
 		end
 		-- Check classic mode
-		if global.stages then
+		if storage.stages then
 			if settings.startup["SpaceX-classic-mode"].value then
-				if #global.stages == 4 then
-					table.remove(global.stages, #global.stages)
+				if #storage.stages == 4 then
+					table.remove(storage.stages, #storage.stages)
 				end
-				if global.current_stage == 4 then
-					global.current_stage = 3
+				if storage.current_stage == 4 then
+					storage.current_stage = 3
 				end
 			else
-				if #global.stages == 3 then
+				if #storage.stages == 3 then
 					init_stages()
 				end
 			end
@@ -429,13 +429,13 @@ script.on_event(defines.events.on_gui_text_changed, function(event)
 
 	if string.find(element.name, "spacex-logdetail") then
 		local cur_log = tonumber(string.match(element.name, "%d+"))
-		global.launch_log[cur_log].detail = element.text
+		storage.launch_log[cur_log].detail = element.text
 	end
 end)
 
 local function on_entity_build(event)
 	event.created_entity.operable = false
-	table.insert(global.combinators, { entity = event.created_entity })
+	table.insert(storage.combinators, { entity = event.created_entity })
 	update_combinator(event.created_entity)
 end
 local event_filter = {
@@ -447,16 +447,16 @@ script.on_event(defines.events.on_robot_built_entity, on_entity_build, event_fil
 
 local function on_entity_cloned(event)
 	event.destination.operable = false
-	table.insert(global.combinators, { entity = event.destination })
+	table.insert(storage.combinators, { entity = event.destination })
 	update_combinator(event.destination)
 end
 script.on_event(defines.events.on_entity_cloned, on_entity_cloned, event_filter)
 
 local function on_remove_entity(event)
 	local entity = event.entity
-	for i, combinator in ipairs(global.combinators) do
+	for i, combinator in ipairs(storage.combinators) do
 		if combinator.entity == entity then
-			table.remove(global.combinators, i)
+			table.remove(storage.combinators, i)
 			return
 		end
 	end
@@ -466,11 +466,11 @@ script.on_event(defines.events.on_robot_pre_mined, on_remove_entity, event_filte
 script.on_event(defines.events.on_entity_died, on_remove_entity, event_filter)
 
 local function spacex_continue()
-	global.stages = nil
-	global.launch_mult = nil
-	global.current_stage = nil
+	storage.stages = nil
+	storage.launch_mult = nil
+	storage.current_stage = nil
 	init_spacex()
-	global.finished = false
+	storage.finished = false
 end
 
 local function gui_open_stage_complete(player, stage_number)
@@ -547,7 +547,7 @@ script.on_event(defines.events.on_gui_click, function(event)
 		if spacex_log then
 			spacex_log.destroy()
 		end
-		global.finished = true
+		storage.finished = true
 	elseif clicked_button == "spacex_completion_button" then
 		close_all_spacex_completed_gui()
 		for _, mod in pairs({ "exotic-industries", "Krastorio2", "248k" }) do
@@ -611,12 +611,12 @@ local function check_stage_completed(stage)
 end
 
 script.on_event(defines.events.on_rocket_launched, function(event)
-	if global.finished then
+	if storage.finished then
 		return
 	end
 	game.set_game_state({ game_finished = false, player_won = false, can_continue = true })
 
-	local current_stage = global.stages[global.current_stage]
+	local current_stage = storage.stages[storage.current_stage]
 	for _, item in pairs(current_stage.requirements) do
 		local item_name = item.item_name
 		if game.active_mods["janky-quality"] and not settings.startup["SpaceX-no-janky-quality"].value then
@@ -629,19 +629,19 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 		end
 	end
 
-	for i = global.current_stage, #global.stages, 1 do
-		if check_stage_completed(global.stages[i]) then
+	for i = storage.current_stage, #storage.stages, 1 do
+		if check_stage_completed(storage.stages[i]) then
 			-- Check for spacex completion
-			if current_stage.number == #global.stages then
-				global.finished = true
-				global.completed = global.completed + 1
-				local launch_log = { log = game.ticks_played, detail = "", number = global.completed }
-				table.insert(global.launch_log, launch_log)
+			if current_stage.number == #storage.stages then
+				storage.finished = true
+				storage.completed = storage.completed + 1
+				local launch_log = { log = game.ticks_played, detail = "", number = storage.completed }
+				table.insert(storage.launch_log, launch_log)
 
-				if global.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
+				if storage.completed <= 1 or settings.global["SpaceX-no-chat-msg"].value == false then
 					game.print({ "spacex-completion-msg" })
 				end
-				if global.completed <= 1 or settings.global["SpaceX-auto-continue"].value == false then
+				if storage.completed <= 1 or settings.global["SpaceX-auto-continue"].value == false then
 					for _, player in pairs(game.players) do
 						gui_open_spacex_completed(player)
 					end
@@ -650,15 +650,15 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 				end
 			-- Stage completion
 			else
-				if global.completed < 1 or settings.global["SpaceX-no-chat-msg"].value == false then
+				if storage.completed < 1 or settings.global["SpaceX-no-chat-msg"].value == false then
 					game.print({ "stage-" .. current_stage.number .. "-completion-msg" })
 				end
-				if global.completed < 1 or settings.global["SpaceX-no-popup"].value == false then
+				if storage.completed < 1 or settings.global["SpaceX-no-popup"].value == false then
 					for _, player in pairs(game.players) do
 						gui_open_stage_complete(player, current_stage.number)
 					end
 				end
-				global.current_stage = global.stages[i].number + 1
+				storage.current_stage = storage.stages[i].number + 1
 			end
 		else
 			break
@@ -682,16 +682,16 @@ commands.add_command("SpaceX_reset", { "resetSpaceX_help" }, function(event)
 end)
 
 commands.add_command("SpaceX_write_log_file", { "get log file help" }, function(event)
-	game.write_file("spacex_log", serpent.block(global.launch_log))
+	game.write_file("spacex_log", serpent.block(storage.launch_log))
 end)
 
 -- Cheat commands
 if __DebugAdapter then
 	local function cheat_complete_stage()
-		for _, item in pairs(global.stages[global.current_stage].requirements) do
+		for _, item in pairs(storage.stages[storage.current_stage].requirements) do
 			item.launched = item.required
 		end
-		local stage_req = global.stages[global.current_stage].requirements
+		local stage_req = storage.stages[storage.current_stage].requirements
 		stage_req[#stage_req].launched = stage_req[#stage_req].required - 1
 		update_all_combinators()
 		for _, player in pairs(game.players) do
@@ -702,12 +702,12 @@ if __DebugAdapter then
 	-- For every stage create a complete command
 	for i = 1, 4 do
 		commands.add_command("SpaceX_complete_stage_" .. i, { "SpaceX_cheat_sat_help" }, function(event)
-			global.current_stage = i
+			storage.current_stage = i
 			cheat_complete_stage()
 		end)
 	end
 
 	commands.add_command("SpaceX_write_combinators", { "get spacex_combinator help" }, function(event)
-		game.write_file("spacex_combinator", serpent.block(global.combinators))
+		game.write_file("spacex_combinator", serpent.block(storage.combinators))
 	end)
 end
