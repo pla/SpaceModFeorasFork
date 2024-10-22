@@ -149,7 +149,7 @@ if bobmods.modules.EnableGodModules == true then
 	bobmods.lib.tech.add_prerequisite("space-assembly", "god-module-5")
 else
 	bobmods.lib.tech.add_prerequisite("space-assembly", "speed-module-8")
-	bobmods.lib.tech.replace_prerequisite("space-assembly", "effectivity-module-3", "effectivity-module-8")
+	bobmods.lib.tech.replace_prerequisite("space-assembly", "efficiency-module-3", "efficiency-module-8")
 	bobmods.lib.tech.add_prerequisite("ftl-propulsion", "productivity-module-8")
 	bobmods.lib.tech.add_prerequisite("life-support-systems", "productivity-module-8")
 	bobmods.lib.tech.add_prerequisite("spaceship-command", "productivity-module-8")
@@ -160,7 +160,7 @@ bobmods.lib.tech.add_prerequisite("astrometrics", "advanced-research")
 bobmods.lib.tech.add_prerequisite("space-construction", "bob-robo-modular-4")
 bobmods.lib.tech.replace_prerequisite("space-construction", "solar-energy", "bob-solar-energy-3")
 bobmods.lib.tech.replace_prerequisite("protection-fields", "energy-shield-mk2-equipment", "bob-energy-shield-equipment-6")
-bobmods.lib.tech.replace_prerequisite("fusion-reactor", "fusion-reactor-equipment", "fusion-reactor-equipment-4")
+bobmods.lib.tech.replace_prerequisite("fusion-reactor", "fission-reactor-equipment", "fission-reactor-equipment-4")
 
 bobmods.lib.tech.replace_prerequisite("laser-cannon", "laser-turret", "personal-laser-defense-equipment-6")
 

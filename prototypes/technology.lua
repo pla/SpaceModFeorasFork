@@ -26,7 +26,7 @@ data:extend({
 				recipe = "spacex-combinator",
 			},
 		},
-		prerequisites = { "rocket-silo", "construction-robotics", "effectivity-module-3" },
+		prerequisites = { "rocket-silo", "construction-robotics", "efficiency-module-3" },
 		unit = {
 			count = 6000 * researchCost / marathon_adj,
 			ingredients = {
@@ -131,7 +131,7 @@ data:extend({
 				recipe = "fusion-reactor",
 			},
 		},
-		prerequisites = { "space-construction", "fusion-reactor-equipment" },
+		prerequisites = { "space-construction", "fission-reactor-equipment" },
 		unit = {
 			count = 12000 * researchCost / marathon_adj,
 			ingredients = {
@@ -724,7 +724,7 @@ if not classicMode then
 				"belt-immunity-equipment",
 				"battery-mk2-equipment",
 				"power-armor-mk2",
-				"fusion-reactor-equipment",
+				"fission-reactor-equipment",
 			},
 			unit = {
 				count = 175000 * researchCost / marathon_adj,

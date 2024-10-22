@@ -8,12 +8,15 @@ data:extend({
 		enabled = false,
 		energy_required = 10,
 		ingredients = {
-			{ "construction-robot", 5 * productionCost },
-			{ "speed-module-3", math.ceil(1 * productionCost) },
-			{ "effectivity-module-3", math.ceil(1 * productionCost) },
-			{ "low-density-structure", 5 * productionCost },
+			{ type = "item", name = "construction-robot", amount = 5 * productionCost },
+			{ type = "item", name = "speed-module-3", amount = math.ceil(1 * productionCost) },
+			{ type = "item", name = "efficiency-module-3", amount = math.ceil(1 * productionCost) },
+			{ type = "item", name = "low-density-structure", amount = 5 * productionCost },
 		},
-		result = "assembly-robot",
+		results = {
+			{ type = "item", name = "assembly-robot", amount = 1 }
+		},
+		main_product = "assembly-robot",
 	},
 	{
 		type = "recipe",
@@ -21,13 +24,16 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "assembly-robot", 50 * productionCost },
-			{ "roboport", 10 * productionCost },
-			{ "processing-unit", 200 * productionCost },
-			{ "solar-panel", 200 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
+			{ type = "item", name = "assembly-robot", amount = 50 * productionCost },
+			{ type = "item", name = "roboport", amount = 10 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 200 * productionCost },
+			{ type = "item", name = "solar-panel", amount = 200 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
 		},
-		result = "drydock-assembly",
+		results = {
+			{ type = "item", name = "drydock-assembly", amount = 1 }
+		},
+		main_product = "drydock-assembly",
 	},
 	{
 		type = "recipe",
@@ -35,9 +41,12 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "low-density-structure", 200 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 200 * productionCost },
 		},
-		result = "drydock-structural",
+		results = {
+			{ type = "item", name = "drydock-structural", amount = 1 }
+		},
+		main_product = "drydock-structural",
 	},
 	{
 		type = "recipe",
@@ -45,9 +54,12 @@ data:extend({
 		enabled = false,
 		energy_required = 100,
 		ingredients = {
-			{ "fusion-reactor-equipment", 100 * productionCost },
+			{ type = "item", name = "fission-reactor-equipment", amount = 100 * productionCost },
 		},
-		result = "fusion-reactor",
+		results = {
+			{ type = "item", name = "fusion-reactor", amount = 1 }
+		},
+		main_product = "fusion-reactor",
 	},
 	{
 		type = "recipe",
@@ -55,10 +67,13 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "low-density-structure", 250 * productionCost },
-			{ "steel-plate", 100 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 250 * productionCost },
+			{ type = "item", name = "steel-plate", amount = 100 * productionCost },
 		},
-		result = "hull-component",
+		results = {
+			{ type = "item", name = "hull-component", amount = 1 }
+		},
+		main_product = "hull-component",
 	},
 	{
 		type = "recipe",
@@ -66,9 +81,12 @@ data:extend({
 		enabled = false,
 		energy_required = 100,
 		ingredients = {
-			{ "energy-shield-mk2-equipment", 100 * productionCost },
+			{ type = "item", name = "energy-shield-mk2-equipment", amount = 100 * productionCost },
 		},
-		result = "protection-field",
+		results = {
+			{ type = "item", name = "protection-field", amount = 1 }
+		},
+		main_product = "protection-field",
 	},
 	{
 		type = "recipe",
@@ -76,13 +94,16 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "speed-module-3", 50 * productionCost },
-			{ "pipe", 100 * productionCost },
-			{ "processing-unit", 100 * productionCost },
-			{ "electric-engine-unit", 100 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
+			{ type = "item", name = "speed-module-3", amount = 50 * productionCost },
+			{ type = "item", name = "pipe", amount = 100 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 100 * productionCost },
+			{ type = "item", name = "electric-engine-unit", amount = 100 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
 		},
-		result = "space-thruster",
+		results = {
+			{ type = "item", name = "space-thruster", amount = 1 }
+		},
+		main_product = "space-thruster",
 	},
 	{
 		type = "recipe",
@@ -90,12 +111,15 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "steel-plate", 100 * productionCost },
-			{ "processing-unit", 100 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
-			{ "nuclear-reactor", math.ceil(1 * productionCost) },
+			{ type = "item", name = "steel-plate", amount = 100 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 100 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
+			{ type = "item", name = "nuclear-reactor", amount = math.ceil(1 * productionCost) },
 		},
-		result = "fuel-cell",
+		results = {
+			{ type = "item", name = "fuel-cell", amount = 1 }
+		},
+		main_product = "fuel-cell",
 	},
 	{
 		type = "recipe",
@@ -103,12 +127,15 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "steel-plate", 100 * productionCost },
-			{ "plastic-bar", 500 * productionCost },
-			{ "processing-unit", 100 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
+			{ type = "item", name = "steel-plate", amount = 100 * productionCost },
+			{ type = "item", name = "plastic-bar", amount = 500 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 100 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
 		},
-		result = "habitation",
+		results = {
+			{ type = "item", name = "habitation", amount = 1 }
+		},
+		main_product = "habitation",
 	},
 	{
 		type = "recipe",
@@ -116,12 +143,15 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "productivity-module-3", 50 * productionCost },
-			{ "pipe", 200 * productionCost },
-			{ "processing-unit", 100 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
+			{ type = "item", name = "productivity-module-3", amount = 50 * productionCost },
+			{ type = "item", name = "pipe", amount = 200 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 100 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
 		},
-		result = "life-support",
+		results = {
+			{ type = "item", name = "life-support", amount = 1 }
+		},
+		main_product = "life-support",
 	},
 	{
 		type = "recipe",
@@ -129,14 +159,17 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "speed-module-3", 50 * productionCost },
-			{ "effectivity-module-3", 50 * productionCost },
-			{ "productivity-module-3", 50 * productionCost },
-			{ "plastic-bar", 200 * productionCost },
-			{ "processing-unit", 100 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
+			{ type = "item", name = "speed-module-3", amount = 50 * productionCost },
+			{ type = "item", name = "efficiency-module-3", amount = 50 * productionCost },
+			{ type = "item", name = "productivity-module-3", amount = 50 * productionCost },
+			{ type = "item", name = "plastic-bar", amount = 200 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 100 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
 		},
-		result = "command",
+		results = {
+			{ type = "item", name = "command", amount = 1 }
+		},
+		main_product = "command",
 	},
 	{
 		type = "recipe",
@@ -144,13 +177,16 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "arithmetic-combinator", 100 * productionCost },
-			{ "decider-combinator", 100 * productionCost },
-			{ "laser-turret", 200 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
-			{ "processing-unit", 100 * productionCost },
+			{ type = "item", name = "arithmetic-combinator", amount = 100 * productionCost },
+			{ type = "item", name = "decider-combinator", amount = 100 * productionCost },
+			{ type = "item", name = "laser-turret", amount = 200 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 100 * productionCost },
 		},
-		result = "laser-cannon",
+		results = {
+			{ type = "item", name = "laser-cannon", amount = 1 }
+		},
+		main_product = "laser-cannon",
 	},
 	{
 		type = "recipe",
@@ -158,12 +194,15 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "speed-module-3", 50 * productionCost },
-			{ "processing-unit", 300 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
-			{ "lab", 100 * productionCost },
+			{ type = "item", name = "speed-module-3", amount = 50 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 300 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
+			{ type = "item", name = "lab", amount = 100 * productionCost },
 		},
-		result = "astrometrics",
+		results = {
+			{ type = "item", name = "astrometrics", amount = 1 }
+		},
+		main_product = "astrometrics",
 	},
 	{
 		type = "recipe",
@@ -171,13 +210,16 @@ data:extend({
 		enabled = false,
 		energy_required = 50,
 		ingredients = {
-			{ "productivity-module-3", 500 * productionCost },
-			{ "speed-module-3", 500 * productionCost },
-			{ "effectivity-module-3", 500 * productionCost },
-			{ "low-density-structure", 100 * productionCost },
-			{ "processing-unit", 500 * productionCost },
+			{ type = "item", name = "productivity-module-3", amount = 500 * productionCost },
+			{ type = "item", name = "speed-module-3", amount = 500 * productionCost },
+			{ type = "item", name = "efficiency-module-3", amount = 500 * productionCost },
+			{ type = "item", name = "low-density-structure", amount = 100 * productionCost },
+			{ type = "item", name = "processing-unit", amount = 500 * productionCost },
 		},
-		result = "ftl-drive",
+		results = {
+			{ type = "item", name = "ftl-drive", amount = 1 }
+		},
+		main_product = "ftl-drive",
 	},
 	{
 		type = "recipe",
@@ -185,11 +227,14 @@ data:extend({
 		enabled = false,
 		energy_required = 5,
 		ingredients = {
-			{ "copper-cable", 5 },
-			{ "electronic-circuit", 5 },
-			{ "advanced-circuit", 1 },
+			{ type = "item", name = "copper-cable", amount = 5 },
+			{ type = "item", name = "electronic-circuit", amount = 5 },
+			{ type = "item", name = "advanced-circuit", amount = 1 },
 		},
-		result = "spacex-combinator",
+		results = {
+			{ type = "item", name = "spacex-combinator", amount = 1 }
+		},
+		main_product = "spacex-combinator",
 	},
 	{
 		type = "recipe",
@@ -197,11 +242,14 @@ data:extend({
 		enabled = false,
 		energy_required = 5,
 		ingredients = {
-			{ "copper-cable", 5 },
-			{ "electronic-circuit", 5 },
-			{ "advanced-circuit", 1 },
+			{ type = "item", name = "copper-cable", amount = 5 },
+			{ type = "item", name = "electronic-circuit", amount = 5 },
+			{ type = "item", name = "advanced-circuit", amount = 1 },
 		},
-		result = "spacex-combinator-stage",
+		results = {
+			{ type = "item", name = "spacex-combinator-stage", amount = 1 }
+		},
+		main_product = "spacex-combinator-stage",
 	},
 })
 
@@ -213,11 +261,14 @@ if not classicMode then
 			enabled = false,
 			energy_required = 50,
 			ingredients = {
-				{ "satellite", 5 * productionCost },
-				{ "space-thruster", math.ceil(1 * productionCost) },
-				{ "nuclear-fuel", 10 * productionCost },
+				{ type = "item", name = "satellite", amount = 5 * productionCost },
+				{ type = "item", name = "space-thruster", amount = math.ceil(1 * productionCost) },
+				{ type = "item", name = "nuclear-fuel", amount = 10 * productionCost },
 			},
-			result = "exploration-satellite",
+			results = {
+				{ type = "item", name = "exploration-satellite", amount = 1 }
+			},
+			main_product = "exploration-satellite",
 		},
 		{
 			type = "recipe",
@@ -225,15 +276,19 @@ if not classicMode then
 			enabled = false,
 			energy_required = 50,
 			ingredients = {
-				{ "exoskeleton-equipment", 75 * productionCost },
-				{ "belt-immunity-equipment", 75 * productionCost },
-				{ "radar", 50 * productionCost },
-				{ "rocket-control-unit", 100 * productionCost },
-				{ "battery-mk2-equipment", 50 * productionCost },
-				{ "space-ai-robot-frame", 5 * productionCost },
-				{ "fusion-reactor-equipment", 20 * productionCost },
+				{ type = "item", name = "exoskeleton-equipment", amount = 75 * productionCost },
+				{ type = "item", name = "belt-immunity-equipment", amount = 75 * productionCost },
+				{ type = "item", name = "radar", amount = 50 * productionCost },
+				{ type = "item", name = "processing-unit", amount = 100 * productionCost },
+				{ type = "item", name = "productivity-module-3", amount = 100 * productionCost },
+				{ type = "item", name = "battery-mk2-equipment", amount = 50 * productionCost },
+				{ type = "item", name = "space-ai-robot-frame", amount = 5 * productionCost },
+				{ type = "item", name = "fission-reactor-equipment", amount = 20 * productionCost },
 			},
-			result = "space-ai-robot",
+			results = {
+				{ type = "item", name = "space-ai-robot", amount = 1 }
+			},
+			main_product = "space-ai-robot",
 		},
 		{
 			type = "recipe",
@@ -241,13 +296,16 @@ if not classicMode then
 			enabled = false,
 			energy_required = 20,
 			ingredients = {
-				{ "power-armor-mk2", 1 },
-				{ "construction-robot", 50 * productionCost },
-				{ "logistic-robot", 50 * productionCost },
-				{ "personal-roboport-mk2-equipment", math.ceil(1 * productionCost) },
-				{ "personal-laser-defense-equipment", math.ceil(1 * productionCost) },
+				{ type = "item", name = "power-armor-mk2", amount = 1 },
+				{ type = "item", name = "construction-robot", amount = 50 * productionCost },
+				{ type = "item", name = "logistic-robot", amount = 50 * productionCost },
+				{ type = "item", name = "personal-roboport-mk2-equipment", amount = math.ceil(1 * productionCost) },
+				{ type = "item", name = "personal-laser-defense-equipment", amount = math.ceil(1 * productionCost) },
 			},
-			result = "space-ai-robot-frame",
+			results = {
+				{ type = "item", name = "space-ai-robot-frame", amount = 1 }
+			},
+			main_product = "space-ai-robot-frame",
 		},
 		{
 			type = "recipe",
@@ -255,12 +313,15 @@ if not classicMode then
 			enabled = false,
 			energy_required = 50,
 			ingredients = {
-				{ "water-barrel", 2000 * productionCost },
-				{ "pump", 100 * productionCost },
-				{ "storage-tank", 100 * productionCost },
-				{ "pipe", 500 * productionCost },
+				{ type = "item", name = "water-barrel", amount = 2000 * productionCost },
+				{ type = "item", name = "pump", amount = 100 * productionCost },
+				{ type = "item", name = "storage-tank", amount = 100 * productionCost },
+				{ type = "item", name = "pipe", amount = 500 * productionCost },
 			},
-			result = "space-water-tank",
+			results = {
+				{ type = "item", name = "space-water-tank", amount = 1 }
+			},
+			main_product = "space-water-tank",
 		},
 		{
 			type = "recipe",
@@ -268,12 +329,15 @@ if not classicMode then
 			enabled = false,
 			energy_required = 50,
 			ingredients = {
-				{ "nuclear-fuel", 500 * productionCost },
-				{ "pump", 100 * productionCost },
-				{ "storage-tank", 100 * productionCost },
-				{ "pipe", 500 * productionCost },
+				{ type = "item", name = "nuclear-fuel", amount = 500 * productionCost },
+				{ type = "item", name = "pump", amount = 100 * productionCost },
+				{ type = "item", name = "storage-tank", amount = 100 * productionCost },
+				{ type = "item", name = "pipe", amount = 500 * productionCost },
 			},
-			result = "space-fuel-tank",
+			results = {
+				{ type = "item", name = "space-fuel-tank", amount = 1 }
+			},
+			main_product = "space-fuel-tank",
 		},
 		{
 			type = "recipe",
@@ -281,12 +345,15 @@ if not classicMode then
 			enabled = false,
 			energy_required = 50,
 			ingredients = {
-				{ "space-oxygen-barrel", 2000 * productionCost },
-				{ "pump", 100 * productionCost },
-				{ "storage-tank", 100 * productionCost },
-				{ "pipe", 500 * productionCost },
+				{ type = "item", name = "space-oxygen-barrel", amount = 2000 * productionCost },
+				{ type = "item", name = "pump", amount = 100 * productionCost },
+				{ type = "item", name = "storage-tank", amount = 100 * productionCost },
+				{ type = "item", name = "pipe", amount = 500 * productionCost },
 			},
-			result = "space-oxygen-tank",
+			results = {
+				{ type = "item", name = "space-oxygen-tank", amount = 1 }
+			},
+			main_product = "space-oxygen-tank",
 		},
 		{
 			type = "recipe",
@@ -294,9 +361,12 @@ if not classicMode then
 			enabled = false,
 			energy_required = 0.2,
 			ingredients = {
-				{ "empty-barrel", 1 },
+				{ type = "item", name = "barrel", amount = 1 },
 			},
-			result = "space-oxygen-barrel",
+			results = {
+				{ type = "item", name = "space-oxygen-barrel", amount = 1 }
+			},
+			main_product = "space-oxygen-barrel",
 		},
 		{
 			type = "recipe",
@@ -304,9 +374,12 @@ if not classicMode then
 			enabled = false,
 			energy_required = 50,
 			ingredients = {
-				{ "exploration-data-disk", 25 * productionCost },
+				{ type = "item", name = "exploration-data-disk", amount = 25 * productionCost },
 			},
-			result = "space-map",
+			results = {
+				{ type = "item", name = "space-map", amount = 1 }
+			},
+			main_product = "space-map",
 		},
 	})
 end
@@ -315,7 +388,7 @@ local cheapFusion = settings.startup["SpaceX-cheaper-fusion-reactor"].value
 if cheapFusion then
 	local fix = data.raw.recipe["fusion-reactor"]
 	fix.ingredients = {
-		{ "fusion-reactor-equipment", 40 * productionCost },
+		{ type = "item", name = "fission-reactor-equipment", amount = 40 * productionCost },
 	}
 end
 

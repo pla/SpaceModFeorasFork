@@ -47,7 +47,7 @@ if data.raw.technology["space-ai-robots"] then
 		"belt-immunity-equipment",
 		"kr-battery-mk3-equipment",
 		"kr-power-armor-mk3",
-		"fusion-reactor-equipment",
+		"fission-reactor-equipment",
 		"advanced-radar",
 		"kr-personal-laser-defense-mk3-equipment",
 		"personal-roboport-mk2-equipment",

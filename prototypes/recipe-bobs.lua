@@ -12,23 +12,26 @@ data:extend({
 		enabled = false,
 		energy_required = 100,
 		ingredients = {
-			{ "energy-shield-mk3-equipment", 1000 * productionCost },
-			{ "advanced-processing-unit", 3500 * productionCost },
-			{ "effectivity-module-4", 400 * productionCost },
-			{ "productivity-module-4", 400 * productionCost },
-			{ "effectivity-module-6", 200 * productionCost },
-			{ "productivity-module-6", 200 * productionCost },
-			{ "effectivity-module-8", 100 * productionCost },
-			{ "productivity-module-8", 100 * productionCost },
+			{ type = "item", name = "energy-shield-mk3-equipment", amount = 1000 * productionCost },
+			{ type = "item", name = "advanced-processing-unit", amount = 3500 * productionCost },
+			{ type = "item", name = "efficiency-module-4", amount = 400 * productionCost },
+			{ type = "item", name = "productivity-module-4", amount = 400 * productionCost },
+			{ type = "item", name = "efficiency-module-6", amount = 200 * productionCost },
+			{ type = "item", name = "productivity-module-6", amount = 200 * productionCost },
+			{ type = "item", name = "efficiency-module-8", amount = 100 * productionCost },
+			{ type = "item", name = "productivity-module-8", amount = 100 * productionCost },
 		},
-		result = "protection-field",
+		results = {
+			{ type = "item", name = "protection-field", amount = 1 }
+		},
+		main_product = "protection-field",
 	},
 })
 
 if bobmods.modules.EnableGodModules == true then
 	-- assembly-robot
 	bobmods.lib.recipe.replace_ingredient("assembly-robot", "speed-module-3", "god-module-5")
-	bobmods.lib.recipe.replace_ingredient("assembly-robot", "effectivity-module-3", "god-module-5")
+	bobmods.lib.recipe.replace_ingredient("assembly-robot", "efficiency-module-3", "god-module-5")
 	-- space-thruster
 	bobmods.lib.recipe.replace_ingredient("space-thruster", "speed-module-3", "god-module-5")
 
@@ -36,31 +39,31 @@ if bobmods.modules.EnableGodModules == true then
 	bobmods.lib.recipe.replace_ingredient("life-support", "productivity-module-3", "god-module-5")
 	-- command
 	bobmods.lib.recipe.replace_ingredient("command", "speed-module-3", "god-module-5")
-	bobmods.lib.recipe.replace_ingredient("command", "effectivity-module-3", "god-module-5")
+	bobmods.lib.recipe.replace_ingredient("command", "efficiency-module-3", "god-module-5")
 	bobmods.lib.recipe.replace_ingredient("command", "productivity-module-3", "god-module-5")
 	-- astrometrics
 	bobmods.lib.recipe.replace_ingredient("astrometrics", "speed-module-3", "god-module-5")
 	-- ftl-drive
 	bobmods.lib.recipe.replace_ingredient("ftl-drive", "speed-module-3", "god-module-5")
-	bobmods.lib.recipe.replace_ingredient("ftl-drive", "effectivity-module-3", "god-module-5")
+	bobmods.lib.recipe.replace_ingredient("ftl-drive", "efficiency-module-3", "god-module-5")
 	bobmods.lib.recipe.replace_ingredient("ftl-drive", "productivity-module-3", "god-module-5")
 else
 	-- assembly-robot
 	bobmods.lib.recipe.replace_ingredient("assembly-robot", "speed-module-3", "speed-module-8")
-	bobmods.lib.recipe.replace_ingredient("assembly-robot", "effectivity-module-3", "effectivity-module-8")
+	bobmods.lib.recipe.replace_ingredient("assembly-robot", "efficiency-module-3", "efficiency-module-8")
 	-- space-thruster
 	bobmods.lib.recipe.replace_ingredient("space-thruster", "speed-module-3", "speed-module-8")
 	-- life-support
 	bobmods.lib.recipe.replace_ingredient("life-support", "productivity-module-3", "productivity-module-8")
 	-- command
 	bobmods.lib.recipe.replace_ingredient("command", "speed-module-3", "speed-module-8")
-	bobmods.lib.recipe.replace_ingredient("command", "effectivity-module-3", "effectivity-module-8")
+	bobmods.lib.recipe.replace_ingredient("command", "efficiency-module-3", "efficiency-module-8")
 	bobmods.lib.recipe.replace_ingredient("command", "productivity-module-3", "productivity-module-8")
 	-- astrometrics
 	bobmods.lib.recipe.replace_ingredient("astrometrics", "speed-module-3", "speed-module-8")
 	-- ftl-drive
 	bobmods.lib.recipe.replace_ingredient("ftl-drive", "speed-module-3", "speed-module-8")
-	bobmods.lib.recipe.replace_ingredient("ftl-drive", "effectivity-module-3", "effectivity-module-8")
+	bobmods.lib.recipe.replace_ingredient("ftl-drive", "efficiency-module-3", "efficiency-module-8")
 	bobmods.lib.recipe.replace_ingredient("ftl-drive", "productivity-module-3", "productivity-module-8")
 end
 -- assembly-robot
@@ -87,7 +90,7 @@ else
 	bobmods.lib.recipe.replace_ingredient("drydock-assembly", "roboport", "bob-roboport-4")
 end
 -- fusion-reactor
-bobmods.lib.recipe.replace_ingredient("fusion-reactor", "fusion-reactor-equipment", "fusion-reactor-equipment-4")
+bobmods.lib.recipe.replace_ingredient("fusion-reactor", "fission-reactor-equipment", "fission-reactor-equipment-4")
 -- hull-component
 bobmods.lib.recipe.replace_ingredient("hull-component", "steel-plate", "titanium-plate")
 -- protection-field
@@ -100,9 +103,9 @@ bobmods.lib.recipe.replace_ingredient("habitation", "steel-plate", "titanium-pla
 bobmods.lib.recipe.replace_ingredient("habitation", "processing-unit", "advanced-processing-unit")
 -- laser-cannon
 data.raw.recipe["laser-cannon"].ingredients = {
-	{ "arithmetic-combinator", 50 * productionCost },
-	{ "decider-combinator", 50 * productionCost },
-	{ "personal-laser-defense-equipment-6", 100 * productionCost },
+	{ type = "item", name = "arithmetic-combinator", amount = 50 * productionCost },
+	{ type = "item", name = "decider-combinator", amount = 50 * productionCost },
+	{ type = "item", name = "personal-laser-defense-equipment-6", amount = 100 * productionCost },
 }
 
 if not classicMode then
@@ -113,7 +116,7 @@ if not classicMode then
 		bobmods.lib.recipe.replace_ingredient(tech, "pipe", "titanium-pipe")
 	end
 	-- space ai robot
-	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "fusion-reactor-equipment", "fusion-reactor-equipment-4")
+	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "fission-reactor-equipment", "fission-reactor-equipment-4")
 	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "exoskeleton-equipment", "exoskeleton-equipment-3")
 	bobmods.lib.recipe.replace_ingredient("space-ai-robot", "battery-mk2-equipment", "battery-mk6-equipment")
 	-- space ai robot frame

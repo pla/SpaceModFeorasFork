@@ -72,10 +72,13 @@ if not classicMode then
 				enabled = false,
 				energy_required = 90,
 				ingredients = {
-					{ "rocket-fuel", math.ceil(1 * productionCost) },
-					{ "uranium-235", math.ceil(1 * productionCost) },
+					{ type = "item", name = "rocket-fuel", amount = math.ceil(1 * productionCost) },
+					{ type = "item", name = "uranium-235", amount = math.ceil(1 * productionCost) },
 				},
-				result = "spaceship-fuel",
+				results = {
+					{ type = "item", name = "spaceship-fuel", amount = 1 }
+				},
+				main_product = "spaceship-fuel",
 			},
 		})
 
