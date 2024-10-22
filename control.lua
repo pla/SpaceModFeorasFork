@@ -550,7 +550,7 @@ script.on_event(defines.events.on_gui_click, function(event)
 	elseif clicked_button == "spacex_completion_button" then
 		close_all_spacex_completed_gui()
 		for _, mod in pairs({ "exotic-industries", "Krastorio2", "248k" }) do
-			if game.active_mods[mod] then
+			if script.active_mods[mod] then
 				gui_open_space_completed_after()
 				return
 			end
@@ -678,7 +678,7 @@ commands.add_command("SpaceX_reset", { "resetSpaceX_help" }, function(event)
 end)
 
 commands.add_command("SpaceX_write_log_file", { "get log file help" }, function(event)
-	game.write_file("spacex_log", serpent.block(storage.launch_log))
+	helpers.write_file("spacex_log", serpent.block(storage.launch_log))
 end)
 
 -- Cheat commands
@@ -704,6 +704,6 @@ if __DebugAdapter then
 	end
 
 	commands.add_command("SpaceX_write_combinators", { "get spacex_combinator help" }, function(event)
-		game.write_file("spacex_combinator", serpent.block(storage.combinators))
+		helpers.write_file("spacex_combinator", serpent.block(storage.combinators))
 	end)
 end

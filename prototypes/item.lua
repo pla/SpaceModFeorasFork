@@ -208,7 +208,10 @@ if not classicMode then
 			subgroup = "spacex-stage-4",
 			order = "m[satellite][exploration-satellite]",
 			stack_size = 1,
-			rocket_launch_product = { "exploration-data-disk", 1 },
+			rocket_launch_products = { { type = "item", name = "exploration-data-disk", amount = 1 } },
+			weight = 1000000,
+			ingredient_to_weight_coefficient = 0.5,
+			send_to_orbit_mode = "automated",
 		},
 		{
 			type = "item",
