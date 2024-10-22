@@ -52,6 +52,9 @@ data:extend({
 		subgroup = "spacex-stage-2",
 		order = "q[drydock-assembly]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -62,6 +65,9 @@ data:extend({
 		subgroup = "spacex-stage-2",
 		order = "r[drydock-structural]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -72,6 +78,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "s[fusion-reactor]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -82,6 +91,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "t[hull-component]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -92,6 +104,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "u[protection-field]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -102,6 +117,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "v[space-thruster]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -112,6 +130,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "w[fuel-cell]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -122,6 +143,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "x[habitation]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -132,6 +156,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "y[life-support]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -142,6 +169,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "z-a[command]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -152,6 +182,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "z-a[laser]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -162,6 +195,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "z-b[astrometrics]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -172,6 +208,9 @@ data:extend({
 		subgroup = "spacex-stage-3",
 		order = "z-c[ftl-drive]",
 		stack_size = 1,
+		weight = 1000000,
+		ingredient_to_weight_coefficient = 0.5,
+		send_to_orbit_mode = "automated",
 	},
 	{
 		type = "item",
@@ -232,6 +271,9 @@ if not classicMode then
 			subgroup = "spacex-stage-4",
 			order = "z-d[space-ai-robot]",
 			stack_size = 1,
+			weight = 1000000,
+			ingredient_to_weight_coefficient = 0.5,
+			send_to_orbit_mode = "automated",
 		},
 		{
 			type = "item",
@@ -252,6 +294,9 @@ if not classicMode then
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-water-tank]",
 			stack_size = 1,
+			weight = 1000000,
+			ingredient_to_weight_coefficient = 0.5,
+			send_to_orbit_mode = "automated",
 		},
 		{
 			type = "item",
@@ -262,6 +307,9 @@ if not classicMode then
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-oxygen-tank]",
 			stack_size = 1,
+			weight = 1000000,
+			ingredient_to_weight_coefficient = 0.5,
+			send_to_orbit_mode = "automated",
 		},
 		{
 			type = "item",
@@ -272,6 +320,9 @@ if not classicMode then
 			subgroup = "spacex-stage-4",
 			order = "z-e[space-fuel-tank]",
 			stack_size = 1,
+			weight = 1000000,
+			ingredient_to_weight_coefficient = 0.5,
+			send_to_orbit_mode = "automated",
 		},
 		{
 			type = "item",
@@ -292,6 +343,9 @@ if not classicMode then
 			subgroup = "spacex-stage-4",
 			order = "z-f[space-map]",
 			stack_size = 1,
+			weight = 1000000,
+			ingredient_to_weight_coefficient = 0.5,
+			send_to_orbit_mode = "automated",
 		},
 	})
 end

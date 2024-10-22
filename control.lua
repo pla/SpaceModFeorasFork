@@ -121,10 +121,7 @@ local function update_combinator(combinator)
 		if append_items then
 			for i, item in pairs(current_stage.requirements) do
 				table.insert(signals, {
-					signal = {
-						type = "item",
-						name = item.item_name,
-					},
+					name = item.item_name,
 					count = item.required - item.launched,
 					index = i,
 				})
@@ -132,15 +129,18 @@ local function update_combinator(combinator)
 		end
 		if append_stage then
 			table.insert(signals, {
-				signal = {
-					type = "virtual",
-					name = "signal-S",
-				},
+				name = "signal-S",
 				count = current_stage.number,
 				index = #signals + 1,
 			})
 		end
-		cb.parameters = signals
+		local cb_section = cb.get_section(1)
+		for i = 1, cb_section.filters_count, 1 do
+			cb_section.clear_slot(i)
+		end
+		for _, signal in pairs(signals) do
+			cb_section.set_slot(signal.index, { value = signal.name, min = signal.count, max = signal.count })
+		end
 	end
 end
 
@@ -391,7 +391,7 @@ local function gui_open_space_completed_after()
 				style = "SpaceMod_table_style",
 			})
 			sctable.style.minimal_width = 400
-			sctable.style.horizontally_stretchable = "on"
+			sctable.style.horizontally_stretchable = true
 			sctable.style.column_alignments[2] = "right"
 			sctable.add({
 				type = "button",
@@ -433,9 +433,9 @@ script.on_event(defines.events.on_gui_text_changed, function(event)
 end)
 
 local function on_entity_build(event)
-	event.created_entity.operable = false
-	table.insert(storage.combinators, { entity = event.created_entity })
-	update_combinator(event.created_entity)
+	event.entity.operable = false
+	table.insert(storage.combinators, { entity = event.entity })
+	update_combinator(event.entity)
 end
 local event_filter = {
 	{ filter = "name", name = "spacex-combinator", mode = "or" },
@@ -618,7 +618,7 @@ script.on_event(defines.events.on_rocket_launched, function(event)
 	local current_stage = storage.stages[storage.current_stage]
 	for _, item in pairs(current_stage.requirements) do
 		local item_name = item.item_name
-		if event.rocket.get_item_count(item_name) > 0 then
+		if event.rocket.cargo_pod.get_item_count(item_name) > 0 then
 			if item.launched < item.required then
 				item.launched = item.launched + 1
 			end
