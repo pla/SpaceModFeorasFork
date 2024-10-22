@@ -103,32 +103,12 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
-		name = "SpaceX-no-janky-quality",
-		setting_type = "startup",
-		default_value = false,
-		admin = true,
-		description = "SpaceX-no-janky-quality",
-		order = "93",
-	},
-	{
-		type = "double-setting",
-		name = "SpaceX-janky-quality-req",
-		setting_type = "startup",
-		default_value = 5,
-		allowed_values = { 2, 3, 4, 5 },
-		admin = true,
-		description = "SpaceX-janky-quality-req",
-		order = "94",
-	},
-
-	{
-		type = "bool-setting",
 		name = "SpaceX-split-combinator",
 		setting_type = "startup",
 		default_value = false,
 		admin = true,
 		description = "SpaceX-split-combinator",
-		order = "95",
+		order = "93",
 	},
 	{
 		type = "bool-setting",
@@ -137,7 +117,7 @@ data:extend({
 		default_value = true,
 		admin = true,
 		description = "SpaceX-ftl-ramp-up",
-		order = "96",
+		order = "94",
 	},
 	{
 		type = "bool-setting",
@@ -146,7 +126,7 @@ data:extend({
 		default_value = false,
 		admin = true,
 		description = "SpaceX-classic-mode",
-		order = "97",
+		order = "95",
 	},
 	{
 		type = "bool-setting",

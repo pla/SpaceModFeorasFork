@@ -11,6 +11,6 @@
     "? Krastorio2",
     "? IndustrialRevolution", "? IndustrialRevolution3",
     "? pyalienlife", "? pyalternativeenergy", "? pycoalprocessing", "? pyfusionenergy", "? pyhightech", "? pyindustry", "? pypetroleumhandling", "? pyrawores", "? pypostprocessing",
-    "? janky-quality", "? better-victory-screen >= 0.2.3",
+    "? better-victory-screen >= 0.2.3",
     "! SpaceMod", "! space-exploration"]
 }
