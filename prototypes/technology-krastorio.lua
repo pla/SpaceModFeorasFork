@@ -23,7 +23,7 @@ if data.raw.technology["space-casings"] then
 end
 if data.raw.technology["space-thrusters"] then
 	table.insert(data.raw.technology["space-thrusters"].prerequisites, "kr-steel-fluid-handling")
-	table.insert(data.raw.technology["space-thrusters"].prerequisites, "kr-advanced-additional-engine")
+	table.insert(data.raw.technology["space-thrusters"].prerequisites, "kr-advanced-additional-engine-equipment")
 end
 if data.raw.technology["fuel-cells"] then
 	data.raw.technology["fuel-cells"].prerequisites = { "space-construction", "kr-fusion-energy" }
@@ -48,7 +48,7 @@ if data.raw.technology["space-ai-robots"] then
 		"kr-battery-mk3-equipment",
 		"kr-power-armor-mk3",
 		"fission-reactor-equipment",
-		"advanced-radar",
+		"kr-advanced-radar",
 		"kr-personal-laser-defense-mk3-equipment",
 		"personal-roboport-mk2-equipment",
 	}

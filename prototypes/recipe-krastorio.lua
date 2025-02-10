@@ -14,9 +14,9 @@ local function replace_ingredient(ingredients, old, new, new_amount)
 			end
 		end
 		if new_amount then
-			table.insert(ingredients, { new, new_amount })
+			table.insert(ingredients, { type = "item", name = new, amount = new_amount })
 		elseif amount ~= 0 then
-			table.insert(ingredients, { new, amount })
+			table.insert(ingredients, { type = "item", name = new, amount = amount })
 		end
 	end
 end
@@ -24,7 +24,7 @@ end
 local function replace(recipe_name, old, new, new_amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs({ recipe, recipe.normal, recipe.expensive }) do
+		for _, diff in pairs({ recipe}) do
 			if diff then
 				if diff.ingredients then
 					replace_ingredient(diff.ingredients, old, new, new_amount)
@@ -37,10 +37,10 @@ end
 local function insert_ingredient(recipe_name, ingredient, amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs({ recipe, recipe.normal, recipe.expensive }) do
+		for _, diff in pairs({ recipe }) do
 			if diff then
 				if diff.ingredients then
-					table.insert(diff.ingredients, { ingredient, amount })
+					table.insert(diff.ingredients, { type = "item", name = ingredient, amount = amount })
 				end
 			end
 		end
@@ -56,7 +56,7 @@ replace("protection-field", "energy-shield-mk2-equipment", "energy-shield-mk3-eq
 insert_ingredient("protection-field", "ai-core", 25 * productionCost)
 
 replace("space-thruster", "pipe", "kr-steel-pipe")
-replace("space-thruster", "electric-engine-unit", "advanced-additional-engine")
+replace("space-thruster", "electric-engine-unit", "advanced-additional-engine-equipment")
 
 replace("fuel-cell", "nuclear-reactor", "kr-fusion-reactor")
 
@@ -78,22 +78,22 @@ if not classicMode then
 	replace("space-ai-robot-frame", "power-armor-mk2", "power-armor-mk3")
 	replace("space-ai-robot-frame", "personal-laser-defense-equipment", "personal-laser-defense-mk3-equipment")
 
-	replace("space-ai-robot", "radar", "advanced-radar")
+	replace("space-ai-robot", "radar", "kr-advanced-radar")
 	replace("space-ai-robot", "battery-mk2-equipment", "big-battery-mk3-equipment")
 	replace("space-ai-robot", "exoskeleton-equipment", "advanced-exoskeleton-equipment")
 	insert_ingredient("space-ai-robot", "ai-core", 100 * productionCost)
 
-	replace("space-water-tank", "storage-tank", "kr-fluid-storage-2")
+	replace("space-water-tank", "storage-tank", "kr-big-storage-tank")
 	replace("space-water-tank", "pump", "kr-steel-pump")
 	replace("space-water-tank", "pipe", "kr-steel-pipe")
 
-	replace("space-fuel-tank", "storage-tank", "kr-fluid-storage-2")
+	replace("space-fuel-tank", "storage-tank", "kr-big-storage-tank")
 	replace("space-fuel-tank", "pump", "kr-steel-pump")
 	replace("space-fuel-tank", "pipe", "kr-steel-pipe")
 	replace("space-fuel-tank", "nuclear-fuel", "dt-fuel")
 	replace("space-fuel-tank", "rocket-fuel", "dt-fuel")
 
-	replace("space-oxygen-tank", "storage-tank", "kr-fluid-storage-2")
+	replace("space-oxygen-tank", "storage-tank", "kr-big-storage-tank")
 	replace("space-oxygen-tank", "pump", "kr-steel-pump")
 	replace("space-oxygen-tank", "pipe", "kr-steel-pipe")
 end
