@@ -68,7 +68,7 @@ insert_ingredient("command", "ai-core", 50 * productionCost)
 replace("laser-cannon", "laser-turret", "kr-laser-artillery-turret", 100 * productionCost)
 insert_ingredient("laser-cannon", "ai-core", 25 * productionCost)
 
-replace("astrometrics", "lab", "biusart-lab")
+replace("astrometrics", "lab", "kr-advanced-lab")
 
 if not classicMode then
 	insert_ingredient("exploration-satellite", "ai-core", 5 * productionCost)
