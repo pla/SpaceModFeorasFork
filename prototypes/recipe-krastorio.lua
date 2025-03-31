@@ -48,40 +48,40 @@ local function insert_ingredient(recipe_name, ingredient, amount)
 end
 
 replace("drydock-assembly", "solar-panel", "kr-advanced-solar-panel")
-insert_ingredient("drydock-assembly", "ai-core", 10 * productionCost)
+insert_ingredient("drydock-assembly", "kr-ai-core", 10 * productionCost)
 
-replace("hull-component", "steel-plate", "imersium-plate", 50 * productionCost)
+replace("hull-component", "steel-plate", "kr-imersium-plate", 50 * productionCost)
 
-replace("protection-field", "energy-shield-mk2-equipment", "energy-shield-mk3-equipment")
-insert_ingredient("protection-field", "ai-core", 25 * productionCost)
+replace("protection-field", "energy-shield-mk2-equipment", "kr-energy-shield-mk3-equipment")
+insert_ingredient("protection-field", "kr-ai-core", 25 * productionCost)
 
 replace("space-thruster", "pipe", "kr-steel-pipe")
-replace("space-thruster", "electric-engine-unit", "advanced-additional-engine-equipment")
+replace("space-thruster", "electric-engine-unit", "kr-advanced-additional-engine-equipment")
 
 replace("fuel-cell", "nuclear-reactor", "kr-fusion-reactor")
 
 replace("life-support", "pipe", "kr-steel-pipe")
 insert_ingredient("life-support", "kr-greenhouse", 50 * productionCost)
 
-insert_ingredient("command", "ai-core", 50 * productionCost)
+insert_ingredient("command", "kr-ai-core", 50 * productionCost)
 
 replace("laser-cannon", "laser-turret", "kr-laser-artillery-turret", 100 * productionCost)
-insert_ingredient("laser-cannon", "ai-core", 25 * productionCost)
+insert_ingredient("laser-cannon", "kr-ai-core", 25 * productionCost)
 
 replace("astrometrics", "lab", "kr-advanced-lab")
 
 if not classicMode then
-	insert_ingredient("exploration-satellite", "ai-core", 5 * productionCost)
-	replace("exploration-satellite", "nuclear-fuel", "dt-fuel")
-	replace("exploration-satellite", "rocket-fuel", "dt-fuel")
+	insert_ingredient("exploration-satellite", "kr-ai-core", 5 * productionCost)
+	replace("exploration-satellite", "nuclear-fuel", "kr-dt-fuel-cell")
+	replace("exploration-satellite", "rocket-fuel", "kr-dt-fuel-cell")
 
-	replace("space-ai-robot-frame", "power-armor-mk2", "power-armor-mk3")
-	replace("space-ai-robot-frame", "personal-laser-defense-equipment", "personal-laser-defense-mk3-equipment")
+	replace("space-ai-robot-frame", "power-armor-mk2", "kr-power-armor-mk3")
+	replace("space-ai-robot-frame", "personal-laser-defense-equipment", "kr-personal-laser-defense-mk3-equipment")
 
 	replace("space-ai-robot", "radar", "kr-advanced-radar")
-	replace("space-ai-robot", "battery-mk2-equipment", "big-battery-mk3-equipment")
-	replace("space-ai-robot", "exoskeleton-equipment", "advanced-exoskeleton-equipment")
-	insert_ingredient("space-ai-robot", "ai-core", 100 * productionCost)
+	replace("space-ai-robot", "battery-mk2-equipment", "kr-big-battery-mk3-equipment")
+	replace("space-ai-robot", "exoskeleton-equipment", "kr-advanced-exoskeleton-equipment")
+	insert_ingredient("space-ai-robot", "kr-ai-core", 100 * productionCost)
 
 	replace("space-water-tank", "storage-tank", "kr-big-storage-tank")
 	replace("space-water-tank", "pump", "kr-steel-pump")
@@ -90,8 +90,8 @@ if not classicMode then
 	replace("space-fuel-tank", "storage-tank", "kr-big-storage-tank")
 	replace("space-fuel-tank", "pump", "kr-steel-pump")
 	replace("space-fuel-tank", "pipe", "kr-steel-pipe")
-	replace("space-fuel-tank", "nuclear-fuel", "dt-fuel")
-	replace("space-fuel-tank", "rocket-fuel", "dt-fuel")
+	replace("space-fuel-tank", "nuclear-fuel", "kr-dt-fuel-cell")
+	replace("space-fuel-tank", "rocket-fuel", "kr-dt-fuel-cell")
 
 	replace("space-oxygen-tank", "storage-tank", "kr-big-storage-tank")
 	replace("space-oxygen-tank", "pump", "kr-steel-pump")
