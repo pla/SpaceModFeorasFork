@@ -14,9 +14,9 @@ local function replace_ingredient(ingredients, old, new, new_amount)
 			end
 		end
 		if new_amount then
-			table.insert(ingredients, { new, new_amount })
+			table.insert(ingredients, { type = "item", name = new, amount = new_amount })
 		elseif amount ~= 0 then
-			table.insert(ingredients, { new, amount })
+			table.insert(ingredients, { type = "item", name = new, amount = amount })
 		end
 	end
 end
@@ -24,7 +24,7 @@ end
 local function replace(recipe_name, old, new, new_amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs({ recipe, recipe.normal, recipe.expensive }) do
+		for _, diff in pairs({ recipe }) do
 			if diff then
 				if diff.ingredients then
 					replace_ingredient(diff.ingredients, old, new, new_amount)
@@ -37,10 +37,10 @@ end
 local function insert_ingredient(recipe_name, ingredient, amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs({ recipe, recipe.normal, recipe.expensive }) do
+		for _, diff in pairs({ recipe }) do
 			if diff then
 				if diff.ingredients then
-					table.insert(diff.ingredients, { ingredient, amount })
+					table.insert(diff.ingredients, { type = "item", name = ingredient, amount = amount })
 				end
 			end
 		end
