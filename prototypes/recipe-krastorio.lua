@@ -24,7 +24,7 @@ end
 local function replace(recipe_name, old, new, new_amount)
 	local recipe = data.raw["recipe"][recipe_name]
 	if recipe then
-		for _, diff in pairs({ recipe}) do
+		for _, diff in pairs({ recipe }) do
 			if diff then
 				if diff.ingredients then
 					replace_ingredient(diff.ingredients, old, new, new_amount)
