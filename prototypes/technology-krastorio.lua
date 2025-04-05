@@ -8,9 +8,9 @@ if not noSpace then
 		{ "production-science-pack", 1 },
 		{ "utility-science-pack", 1 },
 		{ "space-science-pack", 1 },
-		{ "matter-tech-card", 1 },
-		{ "advanced-tech-card", 1 },
-		{ "singularity-tech-card", 1 },
+		{ "kr-matter-tech-card", 1 },
+		{ "kr-advanced-tech-card", 1 },
+		{ "kr-singularity-tech-card", 1 },
 	}
 	ftl.unit.count = ftl.unit.count / 2
 end
@@ -104,9 +104,9 @@ if not classicMode then
 			{ "production-science-pack", 1 },
 			{ "utility-science-pack", 1 },
 			{ "space-science-pack", 1 },
-			{ "matter-tech-card", 1 },
-			{ "advanced-tech-card", 1 },
-			{ "singularity-tech-card", 1 },
+			{ "kr-matter-tech-card", 1 },
+			{ "kr-advanced-tech-card", 1 },
+			{ "kr-singularity-tech-card", 1 },
 		}
 		sc.unit.count = sc.unit.count / 2
 	end
