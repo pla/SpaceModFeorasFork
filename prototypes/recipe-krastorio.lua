@@ -15,9 +15,7 @@ local function replace_ingredient(ingredients, old, new, new_amount)
 		end
 		if new_amount then
 			table.insert(ingredients, { type = "item", name = new, amount = new_amount })
-			table.insert(ingredients, { type = "item", name = new, amount = new_amount })
 		elseif amount ~= 0 then
-			table.insert(ingredients, { type = "item", name = new, amount = amount })
 			table.insert(ingredients, { type = "item", name = new, amount = amount })
 		end
 	end
